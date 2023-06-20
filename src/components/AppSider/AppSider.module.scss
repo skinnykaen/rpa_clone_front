@@ -1,0 +1,20 @@
+.sider :global(.ant-menu-item-selected) {
+    background-color: var(--color-primary);
+    color: white !important;
+    
+    a {
+        transition: 0s !important;
+    }
+}
+
+.logo {
+    padding: 10px;
+    background-color: var(--color-primary);
+    border-radius: 100%;
+    margin-top: 12px;
+
+    svg {
+        width: 30px;
+        height: 30px;
+    }
+}
