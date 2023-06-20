@@ -1,13 +1,7 @@
 import { Button, Form, Input, Switch } from 'antd';
 import { useEffect, useState } from 'react';
 
-interface SignUpProps {
-    role: number;
-}
-
-function SignUpForm({
-    role,
-}: SignUpProps) {
+function SignUpForm() {
     const [form] = Form.useForm();
     const [checked, setChecked] = useState(false);
     const onFinish = (input: any) => {
