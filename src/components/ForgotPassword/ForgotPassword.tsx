@@ -14,7 +14,7 @@ function ForgotPassword() {
         >
             <Typography.Text>
                 Введите ваш email, на который мы
-                отправим Вам ссылку для востановления доступа к аккаунту.
+                отправим Вам инструкцию для востановления доступа к аккаунту.
             </Typography.Text>
             <Form.Item
                 name='email'

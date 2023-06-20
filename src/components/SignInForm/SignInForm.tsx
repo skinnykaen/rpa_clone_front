@@ -65,11 +65,11 @@ function SignInForm() {
                         )
                     }
                 </Form.Item>
-                <Typography.Link
-                    style={{ textDecoration: 'none' }}
+                <Typography.Text
+                    style={{ cursor: 'pointer' }}
                     onClick={() => setOpen(!modalOpen)}>
                     Забыли пароль?
-                </Typography.Link>
+                </Typography.Text>
             </Form>
             <Modal
                 title='Восстановление доступа'

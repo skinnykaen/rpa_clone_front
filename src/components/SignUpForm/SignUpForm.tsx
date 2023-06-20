@@ -1,9 +1,8 @@
-import { Button, Form, Input, Switch } from 'antd';
+import { Button, Form, Input, Checkbox } from 'antd';
 import { useEffect, useState } from 'react';
 
 function SignUpForm() {
     const [form] = Form.useForm();
-    const [checked, setChecked] = useState(false);
     const onFinish = (input: any) => {
         console.log(input);
     };
@@ -67,34 +66,80 @@ function SignUpForm() {
                     }),
                 ]}
             >
-                <Input
-                    type='password'
+                <Input.Password
                     placeholder='Пароль'
                     size='middle'
                 />
             </Form.Item>
             <Form.Item
-                label='Принимаю условия пользовательского соглашения'
-                name='terms_of_use'
+                name='lastname'
                 rules={[
                     {
                         required: true,
-                        message: '',
+                        message: 'Пожалуйста, введите вашу Фамилию!',
                     },
-                    () => ({
-                        validator(_, value) {
-                            if (value) {
-                                return Promise.resolve();
-                            }
-                            return Promise.reject(new Error('Ознакомьтесь с пользовательким соглашением!'));
-                        },
-                    }),
                 ]}
             >
-                <Switch
-                    checked={checked}
-                    onChange={(checked) => setChecked(checked)}
+                <Input
+                    placeholder='Фамилия'
+                    size='middle'
                 />
+            </Form.Item>
+            <Form.Item
+                name='firstname'
+                rules={[
+                    {
+                        required: true,
+                        message: 'Пожалуйста, введите ваше Имя!',
+                    },
+                ]}
+            >
+                <Input
+                    placeholder='Имя'
+                    size='large'
+                />
+            </Form.Item>
+            <Form.Item
+                name='middlename'
+                rules={[
+                    {
+                        required: true,
+                        message: 'Пожалуйста, введите ваше Отчество!',
+                    },
+                ]}
+            >
+                <Input
+                    placeholder='Отчество'
+                    size='large'
+                />
+            </Form.Item>
+            <Form.Item
+                name='nickname'
+                rules={[
+                    {
+                        required: true,
+                        message: 'Пожалуйста, введите ваш Nickname!',
+                    },
+                ]}
+            >
+                <Input
+                    placeholder='Никнейм'
+                    size='large'
+                />
+            </Form.Item>
+            <Form.Item
+                name='agreement'
+                valuePropName='checked'
+                rules={[
+                    {
+                        validator: (_, value) =>
+                            value ? Promise.resolve() : Promise.reject(new Error('Ознакомьтесь с пользовательким соглашением!')),
+                    },
+                ]}
+            >
+                <Checkbox>
+                    Я прочитал условия <a href="">пользователького соглашения</a>
+                </Checkbox>
             </Form.Item>
             <Form.Item shouldUpdate>
                 {

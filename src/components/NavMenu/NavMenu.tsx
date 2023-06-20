@@ -7,22 +7,17 @@ import styles from './NavMenu.module.scss';
 
 import {
   MAIN_PAGE_ROUTE,
-  SECOND_PAGE_ROUTE,
+  // PROJECTS_PAGE_ROUTE,
+  // STUDENTS_PAGE_ROUTE,
 } from '@/consts';
 
-interface NavMenuProps {
-}
-
-function NavMenu({ }: NavMenuProps) {
+function NavMenu() {
   // choice selected item of nav menu
   const { pathname } = useLocation();
   let selectedKeys = '';
   switch (pathname) {
     case MAIN_PAGE_ROUTE:
       selectedKeys = '1';
-      break;
-    case SECOND_PAGE_ROUTE:
-      selectedKeys = '2';
       break;
     default:
       selectedKeys = '';

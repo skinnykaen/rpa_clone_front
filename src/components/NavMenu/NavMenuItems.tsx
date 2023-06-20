@@ -1,11 +1,11 @@
 import {
     HomeOutlined,
-    ReadOutlined,
+    ProjectOutlined,
+    TeamOutlined
 } from '@ant-design/icons';
 
 import {
-    MAIN_PAGE_ROUTE,
-    SECOND_PAGE_ROUTE,
+    MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE,
 } from '@/consts';
 
 interface NavMenuItem {
@@ -22,10 +22,28 @@ export const NavMenuItems: NavMenuItem[] = [
         label: 'Главная',
         icon: <HomeOutlined />,
     },
+];
+
+export const NavMenuItemsStudent: NavMenuItem[] = [
     {
         key: '2',
-        path: SECOND_PAGE_ROUTE,
-        label: 'Вторая',
-        icon: <ReadOutlined />,
+        path: PROJECTS_PAGE_ROUTE,
+        label: 'Проекты',
+        icon: <ProjectOutlined />
+    },
+];
+
+export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
+    {
+        key: '2',
+        path: PROJECTS_PAGE_ROUTE,
+        label: 'Проекты',
+        icon: <ProjectOutlined />
+    },
+    {
+        key: '3',
+        path: PROJECTS_PAGE_ROUTE,
+        label: 'Ученики',
+        icon: <TeamOutlined />
     },
 ];

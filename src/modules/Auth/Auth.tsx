@@ -16,7 +16,7 @@ function AuthModule() {
                 {
                     key: '2',
                     label: <Typography.Title level={3}>Регистация</Typography.Title>,
-                    children: <SignUp needSelectRole={false}/>,
+                    children: <SignUp/>,
                 },
             ]}
         />
