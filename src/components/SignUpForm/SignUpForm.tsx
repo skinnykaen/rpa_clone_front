@@ -1,12 +1,53 @@
-import { Button, Form, Input, Checkbox } from 'antd';
+import { Button, Form, Input, Checkbox, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import { Response, SignUp } from '@/__generated__/graphql';
+import { SignUpFormInputs } from './SignUpForm.types';
 
 function SignUpForm() {
     const [form] = Form.useForm();
-    const onFinish = (input: any) => {
-        console.log(input);
+    const SIGN_UP = gql`
+    mutation SignUp($input: SignUp!){
+        SignUp(input: $input) {
+            ... on Response{
+                    ok
+                }
+            }
+        }
+    `;
+    const [signUp, {loading}] = useMutation<{ SignIn: Response }, { input: SignUp }>(
+        SIGN_UP,
+        {
+            onCompleted: () => {
+                notification.success({
+                    message: 'Успешно!',
+                    description: 'На ваш email была отправлена инструкция для активации.',
+                })
+            },
+            onError: error => {
+                notification.error({
+                    message: 'Ошибка',
+                    description: error?.message,
+                })
+            },
+        }
+    );
+    const onFinish = (inputs: SignUpFormInputs) => {
+        signUp({
+            variables: {
+                input: {
+                    email: inputs.email,
+                    password: inputs.password,
+                    lastname: inputs.lastname,
+                    firstname: inputs.firstname,
+                    middlename: inputs.middlename,
+                    nickname: inputs.nickname,
+                }
+            }
+        })
     };
-
+    console.log(signUp);
     const [, forceUpdate] = useState({});
     useEffect(() => {
         forceUpdate({});
@@ -147,6 +188,7 @@ function SignUpForm() {
                         <Button
                             type='primary'
                             htmlType='submit'
+                            loading={loading}
                             disabled={
                                 !form.isFieldsTouched(true) ||
                                 !!form.getFieldsError().filter(({ errors }) => errors.length).length

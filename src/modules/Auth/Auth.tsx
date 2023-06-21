@@ -1,7 +1,8 @@
 import { Tabs, Typography } from 'antd';
 
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import SignInForm from '@/components/SignInForm';
+import SignUpForm from '@/components/SignUpForm';
+
 
 function AuthModule() {
     return (
@@ -10,13 +11,13 @@ function AuthModule() {
             items={[
                 {
                     key: '1',
-                    label:  <Typography.Title level={3}>Вход</Typography.Title>,
-                    children: <SignIn />,
+                    label: <Typography.Title level={3}>Вход</Typography.Title>,
+                    children: <SignInForm />,
                 },
                 {
                     key: '2',
                     label: <Typography.Title level={3}>Регистация</Typography.Title>,
-                    children: <SignUp/>,
+                    children: <SignUpForm />,
                 },
             ]}
         />
