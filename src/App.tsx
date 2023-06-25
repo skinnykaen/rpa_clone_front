@@ -5,8 +5,9 @@ import { ApolloProvider } from '@apollo/client';
 import PageLayout from '@/modules/PageLayout';
 import LoginPage from '@/pages/Login';
 import LogoutPage from '@/pages/Logout';
+import ProfilePage from '@/pages/Profile';
 import {
-    LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE,
+    LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE, PROFILE_PAGE_ROUTE,
 } from '@/consts';
 import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
@@ -28,6 +29,10 @@ function App() {
                             <Route
                                 path={LOGOUT_PAGE_ROUTE}
                                 element={<LogoutPage />}
+                            />
+                             <Route
+                                path={PROFILE_PAGE_ROUTE}
+                                element={<ProfilePage />}
                             />
                         </Routes>
                     </PageLayout>

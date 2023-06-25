@@ -11,10 +11,11 @@ const retryLink = new RetryLink({
     },
     attempts: {
         max: 3,
-        retryIf: async error => {
-            if (error && error.result.ExpiredBy && error.statusCode === 401) {
+        retryIf: async (error) => {
+            console.log(error)
+            if (error && error.statusCode === 401) {
                 localStorage.removeItem(ACCESS_TOKEN)
-                const accessToken = await refreshToken()
+                await refreshToken()
                 return true
             }
             return false
@@ -28,11 +29,11 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem('token')
+    const accessToken = localStorage.getItem(ACCESS_TOKEN)
     return {
         headers: {
             ...headers,
-            authorization: token ? `Bearer ${token}` : "",
+            Authorization: accessToken ? `Bearer ${accessToken}` : '',
         },
     };
 });
@@ -43,7 +44,7 @@ const refreshToken = async (): Promise<string> => {
             {
                 mutation: gql`
                     mutation RefreshToken($refreshToken: String!) {
-                            SignIn(refreshToken: $refreshToken) { 
+                            RefreshToken(refreshToken: $refreshToken) { 
                                 ... on SignInResponse {
                                 accessToken
                             }
