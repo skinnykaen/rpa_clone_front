@@ -13,6 +13,7 @@ export const GET_USER_BY_ID = gql`
                 createdAt
                 role
                 updatedAt
+                isActive
             }
         }
     }
@@ -31,6 +32,7 @@ export const ME = gql`
                 createdAt
                 role
                 updatedAt
+                isActive
             }
         }
     }
@@ -44,6 +46,7 @@ export const GET_ALL_USERS = gql`
                 email
                 lastname
                 firstname 
+                middlename
             }
             countRows
         }

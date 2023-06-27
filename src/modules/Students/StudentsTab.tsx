@@ -3,6 +3,9 @@ import { WithPaginationProps, withPaginationLocal } from "@/hocs";
 import { Role, UsersList } from "@/__generated__/graphql";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "@/graphql/query";
+import ListItem from "@/components/ListItem";
+import { useNavigate } from "react-router-dom";
+import { PROFILE_PAGE_ROUTE } from "@/consts";
 
 type StudentsTabProps = WithPaginationProps & {
     isActive: boolean;
@@ -13,7 +16,7 @@ function StudentsTab({
     isActive,
     page,
     pageSize,
-}:StudentsTabProps) {
+}: StudentsTabProps) {
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
         GET_ALL_USERS,
         {
@@ -28,7 +31,17 @@ function StudentsTab({
                 roles: [Role.Student],
             }
         }
-    )
+    );
+    const navigate = useNavigate();
+    const openProfileStudent = (userId: number): void => {
+        navigate(PROFILE_PAGE_ROUTE, {
+            state: {
+                userId,
+                userRole: Role.Student,
+            },
+        })
+        return
+    };
     return (
         <List
             className='students'
@@ -45,8 +58,12 @@ function StudentsTab({
                 responsive: true,
             }}
             itemLayout='vertical'
-            renderItem={(user) => (
-                <p>{user.email}</p>
+            renderItem={(user, index) => (
+                <ListItem
+                    index={index}
+                    label={`${user.lastname} ${user.firstname} ${user.middlename}`}
+                    handleClick={() => openProfileStudent(Number(user.id))}
+                />
             )}
         />
     );

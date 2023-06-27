@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Form, Input, notification } from 'antd';
+import { Button, Form, Input, Switch, notification } from 'antd';
 
 import { ProfileFormInputs } from './ProfileCard.types';
 
@@ -7,7 +7,7 @@ import { UpdateUser, UserHttp } from '@/__generated__/graphql';
 import { useMutation } from '@apollo/client';
 import { UPDATE_USER } from '@/graphql/mutations';
 import { GET_USER_BY_ID } from '@/graphql/query';
-import { QueryOptions } from 'react-apollo';
+import { QueryOptions } from 'apollo-client';
 
 interface ProfileCardProps {
     isEditMode: boolean;
@@ -23,7 +23,8 @@ function ProfileCard({
     useEffect(() => {
         forceUpdate({});
     }, []);
-   
+    console.log(profileData)
+
     const [updateUser, { loading }] = useMutation<{ UpdateUser: UserHttp }, { input: UpdateUser }>(
         UPDATE_USER,
         {
@@ -42,8 +43,8 @@ function ProfileCard({
             refetchQueries: [
                 {
                     query: GET_USER_BY_ID,
-                    variables: {id: profileData?.id},
-                } as QueryOptions<{id: string}>
+                    variables: { id: profileData?.id },
+                } as QueryOptions<{ id: string }>
             ]
         }
     );
@@ -105,6 +106,19 @@ function ProfileCard({
                     {
                         profileData?.updatedAt
                     }
+                </Form.Item>
+                <Form.Item name='active' label={'Активен'}>
+                    <Switch defaultChecked={profileData?.isActive}
+                        onChange={() =>
+                            // setActiveHandle({
+                            //     variables: {
+                            //         studentId: profile.id,
+                            //         active: !profile.active,
+                            //     },
+                            // })
+                            console.log('s')
+                        }
+                    />
                 </Form.Item>
                 {
                     isEditMode &&
