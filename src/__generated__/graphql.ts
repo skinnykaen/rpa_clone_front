@@ -92,6 +92,7 @@ export type Mutation = {
   DeleteProjectPage: Response;
   DeleteUser: Response;
   RefreshToken: SignInResponse;
+  SetActivationByCode: Response;
   SetUserIsActive: Response;
   SignIn: SignInResponse;
   SignOut: Response;
@@ -135,6 +136,11 @@ export type MutationDeleteUserArgs = {
 
 export type MutationRefreshTokenArgs = {
   refreshToken: Scalars['String']['input'];
+};
+
+
+export type MutationSetActivationByCodeArgs = {
+  activationByCode: Scalars['Boolean']['input'];
 };
 
 
@@ -216,6 +222,7 @@ export type Query = {
   GetProjectPageById: ProjectPageHttp;
   GetUserByAccessToken: UserHttp;
   GetUserById: UserHttp;
+  Me: UserHttp;
 };
 
 

@@ -18,5 +18,4 @@ export interface ProfileFormInputs {
     firstname: string;
     middlename: string;
     nickname: string;
-    isActive: boolean;
 }

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 
 import { ProfileFormInputs } from './ProfileCard.types';
 
-import { UserHttp } from '@/__generated__/graphql';
+import { UpdateUser, UserHttp } from '@/__generated__/graphql';
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER } from '@/graphql/mutations';
+import { GET_USER_BY_ID } from '@/graphql/query';
+import { QueryOptions } from 'react-apollo';
 
 interface ProfileCardProps {
     isEditMode: boolean;
@@ -19,25 +23,51 @@ function ProfileCard({
     useEffect(() => {
         forceUpdate({});
     }, []);
-    // const layout = {
-    //     labelCol: {
-    //         span: 8,
-    //     },
-    //     wrapperCol: {
-    //         span: 16,
-    //     },
-    // }
-
+   
+    const [updateUser, { loading }] = useMutation<{ UpdateUser: UserHttp }, { input: UpdateUser }>(
+        UPDATE_USER,
+        {
+            onCompleted: () => {
+                notification.success({
+                    message: '',
+                    description: 'Успешно обновлено',
+                })
+            },
+            onError: error => {
+                notification.error({
+                    message: 'Ошибка',
+                    description: error?.message,
+                })
+            },
+            refetchQueries: [
+                {
+                    query: GET_USER_BY_ID,
+                    variables: {id: profileData?.id},
+                } as QueryOptions<{id: string}>
+            ]
+        }
+    );
     return (
         <div>
             <Form
                 name='profile'
                 className='profile-form'
                 onFinish={(inputs: ProfileFormInputs) => {
-                    console.log(inputs)
+                    updateUser({
+                        variables: {
+                            input: {
+                                id: profileData?.id || '0',
+                                email: inputs.email,
+                                firstname: inputs.firstname,
+                                lastname: inputs.lastname,
+                                middlename: inputs.middlename,
+                                nickname: inputs.nickname
+                            }
+                        }
+                    })
                 }}
-                // {...layout}
                 form={form}
+                disabled={!isEditMode}
                 initialValues={{
                     email: profileData?.email,
                     nickname: profileData?.nickname,
@@ -45,38 +75,44 @@ function ProfileCard({
                     lastname: profileData?.lastname,
                     middlename: profileData?.middlename,
                 }}
-                disabled={!isEditMode}
             >
                 <Form.Item name='email'>
-                    <Input placeholder={profileData?.email} size='large' />
+                    <Input placeholder={'email'} size='large' />
                 </Form.Item>
                 <Form.Item name='nickname'>
-                    <Input placeholder={profileData?.nickname} size='large' />
+                    <Input placeholder={'никнейм'} size='large' />
                 </Form.Item>
                 <Form.Item name='lastname'>
-                    <Input placeholder={profileData?.lastname} size='large' />
+                    <Input placeholder={'фамилия'} size='large' />
                 </Form.Item>
                 <Form.Item name='firstname'>
-                    <Input placeholder={profileData?.firstname} size='large' />
+                    <Input placeholder={'имя'} size='large' />
                 </Form.Item>
-                <Form.Item name='middlename'             >
-                    <Input placeholder={profileData?.middlename} size='large' />
+                <Form.Item name='middlename'>
+                    <Input placeholder={'отчетсво'} size='large' />
                 </Form.Item>
                 <Form.Item label={'Роль: '}>
-                   {
-                    profileData?.role
-                   }
+                    {
+                        profileData?.role
+                    }
                 </Form.Item>
                 <Form.Item label={'Создан: '}>
                     {
                         profileData?.createdAt
                     }
                 </Form.Item>
+                <Form.Item label={'Последнее обновление: '}>
+                    {
+                        profileData?.updatedAt
+                    }
+                </Form.Item>
                 {
                     isEditMode &&
-                    <Form.Item >
+                    <Form.Item>
                         <Button
-                            type='primary' htmlType='submit'
+                            loading={loading}
+                            type='primary'
+                            htmlType='submit'
                             className='profile-form-button'
                         >
                             Сохранить

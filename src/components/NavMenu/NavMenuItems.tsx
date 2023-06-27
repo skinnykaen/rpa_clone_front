@@ -5,15 +5,9 @@ import {
 } from '@ant-design/icons';
 
 import {
-    MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE,
+    MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE, STUDENTS_PAGE_ROUTE,
 } from '@/consts';
-
-interface NavMenuItem {
-    key: string;
-    path: string;
-    label: string;
-    icon?: JSX.Element;
-}
+import { NavMenuItem } from './NavMenu.types';
 
 export const NavMenuItems: NavMenuItem[] = [
     {
@@ -42,7 +36,7 @@ export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
     },
     {
         key: '3',
-        path: PROJECTS_PAGE_ROUTE,
+        path: STUDENTS_PAGE_ROUTE,
         label: 'Ученики',
         icon: <TeamOutlined />
     },

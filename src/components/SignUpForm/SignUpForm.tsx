@@ -1,21 +1,13 @@
 import { Button, Form, Input, Checkbox, notification } from 'antd';
 import { useEffect, useState } from 'react';
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { Response, SignUp } from '@/__generated__/graphql';
 import { SignUpFormInputs } from './SignUpForm.types';
+import { SIGN_UP } from '@/graphql/mutations';
 
 function SignUpForm() {
     const [form] = Form.useForm();
-    const SIGN_UP = gql`
-    mutation SignUp($input: SignUp!){
-        SignUp(input: $input) {
-            ... on Response{
-                    ok
-                }
-            }
-        }
-    `;
+   
     const [signUp, {loading}] = useMutation<{ SignIn: Response }, { input: SignUp }>(
         SIGN_UP,
         {

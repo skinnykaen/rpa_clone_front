@@ -1,6 +1,5 @@
 import { Button, Col, Form, Input, Modal, Typography, notification } from 'antd';
 import { useEffect, useState } from 'react';
-import gql from 'graphql-tag';
 
 import ForgotPassword from '@/components/ForgotPassword';
 import { SignIn, SignInResponse } from '@/__generated__/graphql';
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ACCESS_TOKEN, PROFILE_PAGE_ROUTE, REFRESH_TOKEN } from '@/consts';
 import { SignInFormInputs } from './SignInForm.types';
+import { SIGN_IN } from '@/graphql/mutations';
 
 function SignInForm() {
     const [form] = Form.useForm();
@@ -18,16 +18,7 @@ function SignInForm() {
     }, []);
 
     const navigate = useNavigate()
-    const SIGN_IN = gql`
-        mutation SignIn($input: SignIn!){
-            SignIn(input: $input) {
-                ... on SignInResponse {
-                    accessToken
-                    refreshToken
-                }
-            }
-        }
-    `;
+   
     const [signIn, { loading }] = useMutation<{ SignIn: SignInResponse }, { input: SignIn }>(
         SIGN_IN,
         {

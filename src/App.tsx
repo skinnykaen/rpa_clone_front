@@ -6,8 +6,14 @@ import PageLayout from '@/modules/PageLayout';
 import LoginPage from '@/pages/Login';
 import LogoutPage from '@/pages/Logout';
 import ProfilePage from '@/pages/Profile';
+import ProjectsPage from '@/pages/Projects';
+import StudentsPage from '@/pages/Students';
 import {
-    LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE, PROFILE_PAGE_ROUTE,
+    LOGIN_PAGE_ROUTE,
+    LOGOUT_PAGE_ROUTE,
+    PROFILE_PAGE_ROUTE,
+    PROJECTS_PAGE_ROUTE,
+    STUDENTS_PAGE_ROUTE,
 } from '@/consts';
 import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
@@ -30,9 +36,17 @@ function App() {
                                 path={LOGOUT_PAGE_ROUTE}
                                 element={<LogoutPage />}
                             />
-                             <Route
+                            <Route
                                 path={PROFILE_PAGE_ROUTE}
                                 element={<ProfilePage />}
+                            />
+                            <Route
+                                path={PROJECTS_PAGE_ROUTE}
+                                element={<ProjectsPage />}
+                            />
+                             <Route
+                                path={STUDENTS_PAGE_ROUTE}
+                                element={<StudentsPage />}
                             />
                         </Routes>
                     </PageLayout>
