@@ -9,6 +9,7 @@ import ProfilePage from '@/pages/Profile';
 import ProjectsPage from '@/pages/Projects';
 import StudentsPage from '@/pages/Students';
 import {
+    APP_SETTINGS,
     LOGIN_PAGE_ROUTE,
     LOGOUT_PAGE_ROUTE,
     PROFILE_PAGE_ROUTE,
@@ -19,6 +20,7 @@ import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
 import { Themes } from '@/models';
 import { graphqlClient } from '@/graphql/client';
+import SettingsPage from './pages/Settings';
 
 function App() {
     const { theme } = useAppSelector(state => state.themeReducer);
@@ -44,9 +46,13 @@ function App() {
                                 path={PROJECTS_PAGE_ROUTE}
                                 element={<ProjectsPage />}
                             />
-                             <Route
+                            <Route
                                 path={STUDENTS_PAGE_ROUTE}
                                 element={<StudentsPage />}
+                            />
+                             <Route
+                                path={APP_SETTINGS}
+                                element={<SettingsPage />}
                             />
                         </Routes>
                     </PageLayout>

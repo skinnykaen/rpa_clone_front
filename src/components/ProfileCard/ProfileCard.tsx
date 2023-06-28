@@ -3,10 +3,10 @@ import { Button, Form, Input, Switch, notification } from 'antd';
 
 import { ProfileFormInputs } from './ProfileCard.types';
 
-import { UpdateUser, UserHttp } from '@/__generated__/graphql';
+import { Role, UpdateUser, UserHttp } from '@/__generated__/graphql';
 import { useMutation } from '@apollo/client';
-import { UPDATE_USER } from '@/graphql/mutations';
-import { GET_USER_BY_ID } from '@/graphql/query';
+import { SET_USER_IS_ACTIVE, UPDATE_USER } from '@/graphql/mutations';
+import { GET_ALL_USERS, GET_USER_BY_ID } from '@/graphql/query';
 import { QueryOptions } from 'apollo-client';
 
 interface ProfileCardProps {
@@ -23,7 +23,6 @@ function ProfileCard({
     useEffect(() => {
         forceUpdate({});
     }, []);
-    console.log(profileData)
 
     const [updateUser, { loading }] = useMutation<{ UpdateUser: UserHttp }, { input: UpdateUser }>(
         UPDATE_USER,
@@ -48,6 +47,36 @@ function ProfileCard({
             ]
         }
     );
+    const [setUserIsActive, setUserIsActiveResult] = useMutation<{ SetUserIsActive: Response }, { id: string, isActive: boolean }>(
+        SET_USER_IS_ACTIVE,
+        {
+            onCompleted: () => {
+                notification.success({
+                    message: 'Успешно!',
+                    description: 'Статус активации изменен.',
+                })
+            },
+            onError: error => {
+                notification.error({
+                    message: 'Ошибка',
+                    description: error?.message,
+                })
+            },
+            refetchQueries: [
+                {
+                    query: GET_USER_BY_ID,
+                    variables: { id: profileData?.id },
+                } as QueryOptions<{ id: string }>,
+                {
+                    query: GET_ALL_USERS,
+                    variables: {
+                        active: true,
+                        roles: [Role.Student],
+                    },
+                } as QueryOptions<{ active: boolean, roles: Role[] }>
+            ]
+        }
+    )
     return (
         <div>
             <Form
@@ -108,15 +137,16 @@ function ProfileCard({
                     }
                 </Form.Item>
                 <Form.Item name='active' label={'Активен'}>
-                    <Switch defaultChecked={profileData?.isActive}
+                    <Switch
+                        defaultChecked={profileData?.isActive}
+                        loading={setUserIsActiveResult.loading}
                         onChange={() =>
-                            // setActiveHandle({
-                            //     variables: {
-                            //         studentId: profile.id,
-                            //         active: !profile.active,
-                            //     },
-                            // })
-                            console.log('s')
+                            setUserIsActive({
+                                variables: {
+                                    id: profileData?.id || '0',
+                                    isActive: !profileData?.isActive,
+                                },
+                            })
                         }
                     />
                 </Form.Item>

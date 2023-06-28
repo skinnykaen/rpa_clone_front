@@ -50,3 +50,11 @@ export const CREATE_USER = gql`
         }
     }
 `;
+
+export const SET_USER_IS_ACTIVE = gql`
+    mutation SetUserIsActive($id: ID!, $isActive: Boolean!){
+        SetUserIsActive(id: $id, isActive: $isActive) {
+            ok
+        }
+    }
+`;
