@@ -35,3 +35,18 @@ export const SIGN_UP = gql`
             }
         }
 `;
+
+export const CREATE_USER = gql`
+    mutation CreateUser($input: NewUser!){
+        CreateUser(input: $input) {
+            ... on UserHttp {
+                id
+                email
+                nickname
+                lastname
+                firstname
+                middlename
+            }
+        }
+    }
+`;

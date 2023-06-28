@@ -176,7 +176,7 @@ export type NewUser = {
   middlename: Scalars['String']['input'];
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  role: Scalars['Int']['input'];
+  role: Role;
 };
 
 export type NewUserResponse = {

@@ -1,23 +1,27 @@
-import { Button, Form, Input, Checkbox, notification } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
+import { useMutation } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { useMutation } from '@apollo/client'
-    ;
-import { SignUpFormInputs } from './SignUpForm.types';
 
-import { Response, SignUp } from '@/__generated__/graphql';
-import { SIGN_UP } from '@/graphql/mutations';
+import { CreateUserFormInputs } from './CreateUser.types';
 
+import { NewUser, Role, UserHttp } from '@/__generated__/graphql';
+import { CREATE_USER } from '@/graphql/mutations';
+import { QueryOptions } from 'apollo-client';
 
-function SignUpForm() {
+interface CreateUserProps {
+    role: Role;
+    refetchQueries: QueryOptions[];
+}
+
+function CreateUser({ role, refetchQueries }: CreateUserProps) {
     const [form] = Form.useForm();
-
-    const [signUp, { loading }] = useMutation<{ SignIn: Response }, { input: SignUp }>(
-        SIGN_UP,
+    const [createUser, { loading }] = useMutation<{ CreateUser: UserHttp }, { input: NewUser }>(
+        CREATE_USER,
         {
             onCompleted: () => {
                 notification.success({
                     message: 'Успешно!',
-                    description: 'На ваш email была отправлена инструкция для активации.',
+                    description: 'Пользователь успешно создан.',
                 })
             },
             onError: error => {
@@ -26,10 +30,11 @@ function SignUpForm() {
                     description: error?.message,
                 })
             },
+            refetchQueries: refetchQueries
         }
     );
-    const onFinish = (inputs: SignUpFormInputs) => {
-        signUp({
+    const onFinish = (inputs: CreateUserFormInputs) => {
+        createUser({
             variables: {
                 input: {
                     email: inputs.email,
@@ -38,6 +43,7 @@ function SignUpForm() {
                     firstname: inputs.firstname,
                     middlename: inputs.middlename,
                     nickname: inputs.nickname,
+                    role: role,
                 }
             }
         })
@@ -46,7 +52,6 @@ function SignUpForm() {
     useEffect(() => {
         forceUpdate({});
     }, []);
-
     return (
         <Form
             onFinish={onFinish}
@@ -162,20 +167,6 @@ function SignUpForm() {
                     size='middle'
                 />
             </Form.Item>
-            <Form.Item
-                name='agreement'
-                valuePropName='checked'
-                rules={[
-                    {
-                        validator: (_, value) =>
-                            value ? Promise.resolve() : Promise.reject(new Error('Ознакомьтесь с пользовательким соглашением!')),
-                    },
-                ]}
-            >
-                <Checkbox>
-                    Я прочитал условия <a href="">пользователького соглашения</a>
-                </Checkbox>
-            </Form.Item>
             <Form.Item shouldUpdate>
                 {
                     () => (
@@ -188,7 +179,7 @@ function SignUpForm() {
                                 !!form.getFieldsError().filter(({ errors }) => errors.length).length
                             }
                         >
-                            Зарегистрироваться
+                            Создать
                         </Button>
                     )
                 }
@@ -198,4 +189,4 @@ function SignUpForm() {
     );
 }
 
-export default SignUpForm;
+export default CreateUser;
