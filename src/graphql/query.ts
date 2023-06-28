@@ -52,3 +52,33 @@ export const GET_ALL_USERS = gql`
         }
     }
 `;
+
+export const GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN = gql`
+    query GetAllProjectPagesByAccessToken($page: Int, $pageSize: Int){
+        GetAllProjectPagesByAccessToken(page: $page, pageSize: $pageSize) {
+            projectPages{
+                id
+                title
+            }
+            countRows
+        }
+    }
+`;
+
+export const GET_PROJECT_PAGE_BY_ID = gql`
+    query GetProjectPageById($id: ID!){
+        GetProjectPageById(id: $id) {
+            id
+            authorId
+            createdAt
+            updatedAt
+            projectId
+            title
+            instruction
+            notes
+            linkToScratch
+            isShared
+            projectUpdatedAt
+        }
+    }
+`;

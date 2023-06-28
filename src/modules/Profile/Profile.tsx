@@ -12,7 +12,7 @@ function ProfileModule() {
     const Profile = peekUserId ? (
         graphql<{ id: string }, { GetUserById: UserHttp }>(GET_USER_BY_ID)(({ data }) => (
             data?.loading ? (
-                <Skeleton avatar paragraph={{ rows: 4 }} />
+                <Skeleton avatar paragraph={{ rows: 8 }} />
             ) : (
                 <Row gutter={{ xs: 8, sm: 16, md: 8, lg: 8 }}>
                     <Col xs={23} sm={23} md={23} lg={8} xl={8}>

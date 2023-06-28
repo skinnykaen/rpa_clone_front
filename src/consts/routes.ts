@@ -5,3 +5,4 @@ export const PROJECTS_PAGE_ROUTE = '/projects';
 export const STUDENTS_PAGE_ROUTE = '/students';
 export const LOGOUT_PAGE_ROUTE = '/logout'
 export const APP_SETTINGS = '/settings'
+export const PROJECT_PAGE_ROUTE = '/project/:id'

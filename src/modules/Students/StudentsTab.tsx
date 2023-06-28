@@ -69,6 +69,6 @@ function StudentsTab({
     );
 }
 
-const withPaginationComponent = withPaginationLocal(StudentsTab, 10);
+const WithPaginationComponent = withPaginationLocal(StudentsTab, 10);
 
-export default withPaginationComponent
+export default WithPaginationComponent;
