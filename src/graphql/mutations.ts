@@ -79,3 +79,14 @@ export const CREATE_PROJECT_PAGE = gql`
 // export const UPDATE_PROJECT_PAGE = gql`
 //     # mutation
 // `;
+
+export const CONFIRM_ACTIVATION = gql`
+    mutation ConfirmActivation($activationLink: String!){
+        ConfirmActivation(activationLink: $activationLink) {
+            ... on SignInResponse {
+                accessToken
+                refreshToken
+            }
+        }
+    }
+`;

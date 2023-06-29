@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 
 import {
-    APP_SETTINGS,
+    APP_SETTINGS_PAGE_ROUTE,
     MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE, STUDENTS_PAGE_ROUTE,
 } from '@/consts';
 import { NavMenuItem } from './NavMenu.types';
@@ -44,7 +44,7 @@ export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
     },
     {
         key: '4',
-        path: APP_SETTINGS,
+        path: APP_SETTINGS_PAGE_ROUTE,
         label: 'Настройки',
         icon: <SettingOutlined />
     },
