@@ -73,6 +73,13 @@ function ProfileCard({
                         active: true,
                         roles: [Role.Student],
                     },
+                } as QueryOptions<{ active: boolean, roles: Role[] }>,
+                {
+                    query: GET_ALL_USERS,
+                    variables: {
+                        active: false,
+                        roles: [Role.Student],
+                    },
                 } as QueryOptions<{ active: boolean, roles: Role[] }>
             ]
         }

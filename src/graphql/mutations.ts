@@ -76,10 +76,6 @@ export const CREATE_PROJECT_PAGE = gql`
     }
 `;
 
-// export const UPDATE_PROJECT_PAGE = gql`
-//     # mutation
-// `;
-
 export const CONFIRM_ACTIVATION = gql`
     mutation ConfirmActivation($activationLink: String!){
         ConfirmActivation(activationLink: $activationLink) {
@@ -87,6 +83,14 @@ export const CONFIRM_ACTIVATION = gql`
                 accessToken
                 refreshToken
             }
+        }
+    }
+`;
+
+export const SET_ACTIVATION_BY_LINK = gql`
+    mutation SetActivationByLink($activationByLink: Boolean!){
+        SetActivationByLink(activationByLink: $activationByLink) {
+            ok
         }
     }
 `;
