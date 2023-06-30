@@ -5,7 +5,7 @@ import styles from './ListItem.module.scss'
 interface ListItemProps {
     index: number;
     label: string;
-    handleDelete?(index: number): void;
+    handleDelete?(index: string): void;
     handleClick?(): void;
 }
 
@@ -23,7 +23,7 @@ function ListItem({
             okType: 'danger',
             cancelText: 'Отмена',
             onOk() {
-                handleDelete ? handleDelete(index) : () => { return };
+                handleDelete ? handleDelete(String(index)) : () => { return };
             },
             onCancel() {
                 console.log('Cancel');

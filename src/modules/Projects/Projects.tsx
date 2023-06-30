@@ -50,6 +50,7 @@ function ProjectsModule() {
             <ProjectPageList
                 data={data?.GetAllProjectPagesByAccessToken}
                 loading={loading}
+                removal
             />
         </>
 
