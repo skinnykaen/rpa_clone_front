@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 
-import { ACCESS_TOKEN, LOGIN_PAGE_ROUTE, PROFILE_PAGE_ROUTE } from '@/consts';
+import { ACCESS_TOKEN, LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE, PROFILE_PAGE_ROUTE } from '@/consts';
 
 function Profile() {
     const { pathname } = useLocation();
@@ -34,7 +34,7 @@ function Profile() {
             },
             {
                 key: '3',
-                label: 'Выйти',
+                label: <Link to={LOGOUT_PAGE_ROUTE}>Выйти</Link>,
                 icon: <LogoutOutlined />,
             },
         ];

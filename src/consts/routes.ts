@@ -3,3 +3,7 @@ export const LOGIN_PAGE_ROUTE = '/login';
 export const PROFILE_PAGE_ROUTE = '/profile';
 export const PROJECTS_PAGE_ROUTE = '/projects';
 export const STUDENTS_PAGE_ROUTE = '/students';
+export const LOGOUT_PAGE_ROUTE = '/logout'
+export const APP_SETTINGS_PAGE_ROUTE = '/settings'
+export const PROJECT_PAGE_ROUTE = '/project/:id'
+export const ACTIVATION_PAGE_ROUTE = 'activation/:link'

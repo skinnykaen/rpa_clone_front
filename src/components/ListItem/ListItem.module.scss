@@ -1,0 +1,37 @@
+.delete_button {
+    font-size: 27px;
+    padding: 1rem;
+    background: none;
+    border: none;
+    border-bottom: 1px lightgrey solid;
+    &:hover {
+        cursor: pointer;
+        color: var(--red-primary);
+        border-bottom: 1px  var(--red-primary) solid;
+    }
+}
+
+.label {
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    cursor: pointer;
+    border-bottom: 1px lightgrey solid;
+    padding: 1rem 0 1rem 1rem;
+    &:hover {
+        color: #44A444;
+        border-bottom: 1px #44A444 solid;
+    }
+}
+
+.list_item {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}

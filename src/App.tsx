@@ -1,32 +1,76 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
+import { ApolloProvider } from '@apollo/client';
 
 import PageLayout from '@/modules/PageLayout';
-import LoginPage from '@/pages/LoginPage';
+import LoginPage from '@/pages/Login';
+import LogoutPage from '@/pages/Logout';
+import ProfilePage from '@/pages/Profile';
+import ProjectsPage from '@/pages/Projects';
+import StudentsPage from '@/pages/Students';
 import {
+    ACTIVATION_PAGE_ROUTE,
+    APP_SETTINGS_PAGE_ROUTE,
     LOGIN_PAGE_ROUTE,
+    LOGOUT_PAGE_ROUTE,
+    PROFILE_PAGE_ROUTE,
+    PROJECTS_PAGE_ROUTE,
+    PROJECT_PAGE_ROUTE,
+    STUDENTS_PAGE_ROUTE,
 } from '@/consts';
 import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
 import { Themes } from '@/models';
+import { graphqlClient } from '@/graphql/client';
+import SettingsPage from './pages/Settings';
+import ProjectPage from './pages/ProjectPage';
+import ActivationPage from './pages/Activation';
 
 function App() {
     const { theme } = useAppSelector(state => state.themeReducer);
     return (
-        <ConfigProvider
-            theme={(theme === Themes.DARK) ? darkThemeConfig : defaultThemeConfig}
-        >
-            <BrowserRouter>
-                <PageLayout>
-                    <Routes>
-                        <Route
-                            path={LOGIN_PAGE_ROUTE}
-                            element={<LoginPage />}
-                        />
-                    </Routes>
-                </PageLayout>
-            </BrowserRouter>
-        </ConfigProvider>
+        <ApolloProvider client={graphqlClient}>
+            <ConfigProvider theme={(theme === Themes.DARK) ? darkThemeConfig : defaultThemeConfig}>
+                <BrowserRouter>
+                    <PageLayout>
+                        <Routes>
+                            <Route
+                                path={LOGIN_PAGE_ROUTE}
+                                element={<LoginPage />}
+                            />
+                            <Route
+                                path={LOGOUT_PAGE_ROUTE}
+                                element={<LogoutPage />}
+                            />
+                            <Route
+                                path={PROFILE_PAGE_ROUTE}
+                                element={<ProfilePage />}
+                            />
+                            <Route
+                                path={PROJECTS_PAGE_ROUTE}
+                                element={<ProjectsPage />}
+                            />
+                            <Route
+                                path={STUDENTS_PAGE_ROUTE}
+                                element={<StudentsPage />}
+                            />
+                            <Route
+                                path={APP_SETTINGS_PAGE_ROUTE}
+                                element={<SettingsPage />}
+                            />
+                            <Route
+                                path={PROJECT_PAGE_ROUTE}
+                                element={<ProjectPage />}
+                            />
+                            <Route
+                                path={ACTIVATION_PAGE_ROUTE}
+                                element={<ActivationPage />}
+                            />
+                        </Routes>
+                    </PageLayout>
+                </BrowserRouter>
+            </ConfigProvider>
+        </ApolloProvider>
     );
 }
 
