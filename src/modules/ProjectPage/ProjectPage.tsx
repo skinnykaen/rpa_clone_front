@@ -1,12 +1,20 @@
-import { ProjectPageHttp, Role, UserHttp } from "@/__generated__/graphql";
+import { ProjectPageHttp, Role, UpdateProjectPage, UserHttp } from "@/__generated__/graphql";
 import { PROFILE_PAGE_ROUTE } from "@/consts";
+import { UPDATE_PROJECT_PAGE } from "@/graphql/mutations";
 import { GET_PROJECT_PAGE_BY_ID, GET_USER_BY_ID } from "@/graphql/query";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Button, Form, Input, Skeleton, Switch, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 
 interface ProjectPageModuleProps {
     id: string;
+}
+
+interface ProjectPageFormInput {
+    title: string;
+    notes: string;
+    isShared: boolean;
+    instruction: string;
 }
 
 function ProjectPageModule({ id }: ProjectPageModuleProps) {
@@ -39,7 +47,32 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                 id: getProjectPage.data?.GetProjectPageById.authorId || '0'
             }
         }
-    )
+    );
+    const [updateProjectPage, updateProjectPageResult] = useMutation<{ UpdateProjectPage: ProjectPageHttp }, { input: UpdateProjectPage }>(
+        UPDATE_PROJECT_PAGE,
+        {
+            onCompleted: () => {
+                notification.success({
+                    message: 'Успешно!',
+                    description: 'Страница проекта обновлена.',
+                })
+            },
+            onError: error => {
+                notification.error({
+                    message: 'Ошибка',
+                    description: error?.message,
+                })
+            },
+            refetchQueries: [
+                {
+                    query: GET_PROJECT_PAGE_BY_ID,
+                    variables: {
+                        id: id
+                    }
+                },
+            ],
+        }
+    );
     const navigate = useNavigate();
     const openProfileUser = (userId: string, role: Role): void => {
         navigate(PROFILE_PAGE_ROUTE, {
@@ -51,7 +84,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
         return
     };
     return (
-        getProjectPage.loading  || getUser.loading ? (
+        getProjectPage.loading || getUser.loading ? (
             <Skeleton avatar paragraph={{ rows: 8 }} />) :
             (
                 <Form
@@ -65,16 +98,19 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         notes: getProjectPage.data?.GetProjectPageById.notes,
                         isShared: getProjectPage.data?.GetProjectPageById.isShared,
                     }}
-                    onFinish={({ title, instruction, notes, isShared }) => {
-                        // updateProjectPage({
-                        //     projectPageId: projectPageId,
-                        //     projectId: projectPage.projectId,
-                        //     title: title,
-                        //     instruction: instruction,
-                        //     notes: notes,
-                        //     isShared: isShared,
-                        // })
-                        console.log('a')
+                    onFinish={({ title, instruction, notes, isShared }: ProjectPageFormInput) => {
+                        console.log(isShared)
+                        updateProjectPage({
+                            variables: {
+                                input: {
+                                    id: id,
+                                    title: title,
+                                    instruction: instruction,
+                                    notes: notes,
+                                    isShared: isShared,
+                                }
+                            }
+                        })
                     }}
                 >
                     <Form.Item name='title'>
@@ -107,7 +143,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                     </Form.Item>
                     <Form.Item>
                         <Button
-                            loading={getProjectPage.loading}
+                            loading={getProjectPage.loading || updateProjectPageResult.loading}
                             type='primary'
                             htmlType='submit'
                             className='project-page-form-button'

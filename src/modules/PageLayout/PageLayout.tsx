@@ -12,7 +12,7 @@ function PageLayout({ children }: PropsWithChildren<unknown>) {
         <Layout style={{ height: '100%' }}>
             <AppSider />
             <Layout>
-                <Content style={{ margin: '24px 16px 0', overflow: 'auto' }}>
+                <Content style={{ margin: '24px 16px 0'}}>
                     {children}
                 </Content>
             </Layout>

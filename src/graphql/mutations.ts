@@ -94,3 +94,11 @@ export const SET_ACTIVATION_BY_LINK = gql`
         }
     }
 `;
+
+export const UPDATE_PROJECT_PAGE = gql`
+    mutation UpdateProjectPage($input: UpdateProjectPage!){
+        UpdateProjectPage(input: $input) {
+            id
+        }
+    }
+`;
