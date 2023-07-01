@@ -1,9 +1,9 @@
 import { Button, Col, Form, Input, Modal, Typography, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ForgotPassword from '@/components/ForgotPassword';
-import { SignIn, SignInResponse } from '@/__generated__/graphql';
-import { useNavigate } from 'react-router-dom';
+import { SignIn, SignInResponse} from '@/__generated__/graphql';
 import { useMutation } from '@apollo/client';
 import { ACCESS_TOKEN, PROFILE_PAGE_ROUTE, REFRESH_TOKEN } from '@/consts';
 import { SignInFormInputs } from './SignInForm.types';
@@ -16,16 +16,14 @@ function SignInForm() {
     useEffect(() => {
         forceUpdate({});
     }, []);
-
     const navigate = useNavigate()
-   
     const [signIn, { loading }] = useMutation<{ SignIn: SignInResponse }, { input: SignIn }>(
         SIGN_IN,
         {
             onCompleted: ({ SignIn }) => {
                 localStorage.setItem(ACCESS_TOKEN, SignIn.accessToken);
                 localStorage.setItem(REFRESH_TOKEN, SignIn.refreshToken);
-                navigate(PROFILE_PAGE_ROUTE)
+                navigate(PROFILE_PAGE_ROUTE);
             },
             onError: error => {
                 notification.error({
@@ -43,7 +41,7 @@ function SignInForm() {
                     password: inputs.password,
                 }
             }
-        })
+        });
     };
 
     return (

@@ -2,9 +2,11 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import themeReducer from './slices/ThemeSlice';
+import authReducer from './slices/AuthSlice';
 
 const rootReducer = combineReducers({
     themeReducer,
+    authReducer,
 });
 
 export const setupStore = () => {
