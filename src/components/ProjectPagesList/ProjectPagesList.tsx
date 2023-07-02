@@ -15,11 +15,11 @@ type ProjectPagesListProps = WithPaginationProps & {
 }
 
 function ProjectPagesList({
-    loading,
-    data,
     onChangePage,
     page,
     pageSize,
+    loading,
+    data,
     removal,
 }: ProjectPagesListProps) {
     const navigate = useNavigate();
