@@ -23,12 +23,6 @@ export type AbsoluteMediaHttp = {
   uri_absolute: Scalars['String']['output'];
 };
 
-export type ConfirmActivation = {
-  activationCode: Scalars['Int']['input'];
-  email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
 export type CourseApiMediaCollectionHttp = {
   __typename?: 'CourseAPIMediaCollectionHttp';
   banner_image?: Maybe<AbsoluteMediaHttp>;
@@ -84,7 +78,7 @@ export type MediaHttp = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  ConfirmActivation: Response;
+  ConfirmActivation: SignInResponse;
   CreateParentRel: Response;
   CreateProjectPage: ProjectPageHttp;
   CreateUser: UserHttp;
@@ -92,10 +86,9 @@ export type Mutation = {
   DeleteProjectPage: Response;
   DeleteUser: Response;
   RefreshToken: SignInResponse;
-  SetActivationByCode: Response;
+  SetActivationByLink: Response;
   SetUserIsActive: Response;
   SignIn: SignInResponse;
-  SignOut: Response;
   SignUp: Response;
   UpdateProjectPage: ProjectPageHttp;
   UpdateUser: UserHttp;
@@ -103,7 +96,7 @@ export type Mutation = {
 
 
 export type MutationConfirmActivationArgs = {
-  input?: InputMaybe<ConfirmActivation>;
+  activationLink: Scalars['String']['input'];
 };
 
 
@@ -139,8 +132,8 @@ export type MutationRefreshTokenArgs = {
 };
 
 
-export type MutationSetActivationByCodeArgs = {
-  activationByCode: Scalars['Boolean']['input'];
+export type MutationSetActivationByLinkArgs = {
+  activationByLink: Scalars['Boolean']['input'];
 };
 
 
@@ -220,6 +213,7 @@ export type Query = {
   GetCoursesByUser: CoursesListHttp;
   GetParentsByChild: UsersList;
   GetProjectPageById: ProjectPageHttp;
+  GetSettings: Settings;
   GetUserByAccessToken: UserHttp;
   GetUserById: UserHttp;
   Me: UserHttp;
@@ -233,7 +227,7 @@ export type QueryGetAllProjectPagesByAccessTokenArgs = {
 
 
 export type QueryGetAllProjectPagesByAuthorIdArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  id: Scalars['ID']['input'];
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -285,6 +279,11 @@ export enum Role {
   UnitAdmin = 'UnitAdmin'
 }
 
+export type Settings = {
+  __typename?: 'Settings';
+  activationByLink: Scalars['Boolean']['output'];
+};
+
 export type SignIn = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -324,7 +323,7 @@ export type UpdateUser = {
 
 export type UserHttp = {
   __typename?: 'UserHttp';
-  activationCode: Scalars['Int']['output'];
+  activationLink: Scalars['String']['output'];
   createdAt: Scalars['Timestamp']['output'];
   email: Scalars['String']['output'];
   firstname: Scalars['String']['output'];

@@ -31,6 +31,7 @@ function ProfileModule() {
     let ProjectPageList: (hocProps: Omit<{
         loading: boolean;
         data?: ProjectPageHttpList;
+        removal: boolean;
     }, keyof WithPaginationProps>) => JSX.Element;
     if (peekUserRole === Role.Student) {
         ProjectPageList = withPaginationLocal(ProjectPagesList, 10);
@@ -53,6 +54,7 @@ function ProfileModule() {
                             <ProjectPageList
                                 data={GetAllProjectPages.data?.GetAllProjectPagesByAuthorId}
                                 loading={GetAllProjectPages.loading}
+                                removal={false}
                             />
                         }
                     </Col>
