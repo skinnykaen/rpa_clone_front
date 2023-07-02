@@ -8,6 +8,9 @@ import LogoutPage from '@/pages/Logout';
 import ProfilePage from '@/pages/Profile';
 import ProjectsPage from '@/pages/Projects';
 import StudentsPage from '@/pages/Students';
+import SettingsPage from '@/pages/Settings';
+import ProjectPage from '@/pages/ProjectPage';
+import ActivationPage from '@/pages/Activation';
 import {
     ACTIVATION_PAGE_ROUTE,
     APP_SETTINGS_PAGE_ROUTE,
@@ -22,10 +25,7 @@ import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
 import { Roles, Themes } from '@/models';
 import { graphqlClient } from '@/graphql/client';
-import SettingsPage from './pages/Settings';
-import ProjectPage from './pages/ProjectPage';
-import ActivationPage from './pages/Activation';
-import ProtectedRoute from './hocs/ProtectedRoute';
+import ProtectedRoute from '@/hocs/ProtectedRoute';
 
 function App() {
     const { theme } = useAppSelector(state => state.themeReducer);
