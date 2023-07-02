@@ -10,15 +10,15 @@ import {
   // PROJECTS_PAGE_ROUTE,
   // STUDENTS_PAGE_ROUTE,
 } from '@/consts';
-import { useQuery } from '@apollo/client';
-import { ME } from '@/graphql/query';
-import { Role, UserHttp } from '@/__generated__/graphql';
+import { Role } from '@/__generated__/graphql';
 import { NavMenuItem } from './NavMenu.types';
+import { useAppSelector } from '@/store';
 
 function NavMenu() {
-  const { loading, data } = useQuery<{ Me: UserHttp }>(ME)
+  const { userRole } = useAppSelector(state => state.authReducer);
+  console.log(userRole)
   let menuItems: NavMenuItem[];
-  switch (data?.Me.role) {
+  switch (userRole) {
     case Role.SuperAdmin:
       menuItems = NavMenuItemsSuperAdmin;
       break;
@@ -28,7 +28,6 @@ function NavMenu() {
     default:
       menuItems = NavMenuItems;
   }
-  console.log(data)
   // choice selected item of nav menu
   const { pathname } = useLocation();
   let selectedKeys = '';

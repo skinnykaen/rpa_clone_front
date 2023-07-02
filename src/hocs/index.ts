@@ -1,1 +1,2 @@
-export * from './WithPagination'
+export * from './WithPagination';
+export * from './ProtectedRoute';

@@ -6,7 +6,7 @@ import { ProjectPageHttpList } from "@/__generated__/graphql";
 import { WithPaginationProps } from "@/hocs";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_PAGE } from "@/graphql/mutations";
-import { GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN, GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID } from "@/graphql/query";
+import { GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN } from "@/graphql/query";
 
 type ProjectPagesListProps = WithPaginationProps & {
     loading: boolean;
