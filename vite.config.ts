@@ -4,6 +4,9 @@ import eslint from 'vite-plugin-eslint'
 import * as path from 'path'
 
 export default defineConfig({
+	define: {
+		'process.env': process.env
+	},
 	plugins: [
 		react(),
 		{
