@@ -28,6 +28,7 @@ import { graphqlClient } from '@/graphql/client';
 import ProtectedRoute from '@/hocs/ProtectedRoute';
 
 function App() {
+    console.log(process.env.MODE)
     const { theme } = useAppSelector(state => state.themeReducer);
     return (
         <ApolloProvider client={graphqlClient}>

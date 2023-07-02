@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/consts';
+import { ACCESS_TOKEN, PRODUCTION, REFRESH_TOKEN } from '@/consts';
 import { ApolloClient, InMemoryCache, from, createHttpLink } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
 import { setContext } from '@apollo/client/link/context'
@@ -25,7 +25,7 @@ const retryLink = new RetryLink({
 });
 
 const httpLink = createHttpLink({
-    uri: 'http://0.0.0.0:5050/query',
+    uri: process.env.MODE  === PRODUCTION ? import.meta.env.VITE_BACKEND_HOSTNAME_PRODUCTION : import.meta.env.VITE_BACKEND_HOSTNAME_DEVELOPMENT,
     credentials: 'include',
 });
 
