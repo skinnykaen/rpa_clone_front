@@ -84,7 +84,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
         return
     };
     const seeInsideHandler = () => {
-        window.location.replace(process.env.MODE === PRODUCTION ? 'http://92.255.79.9/scratch' + + `?#${getProjectPage.data?.GetProjectPageById.id}` : 'http://localhost:8601/' + `?#${getProjectPage.data?.GetProjectPageById.id}`)
+        window.location.replace(process.env.MODE === PRODUCTION ? 'http://92.255.79.9/scratch' + `?#${getProjectPage.data?.GetProjectPageById.id}` : 'http://localhost:8601/' + `?#${getProjectPage.data?.GetProjectPageById.id}`)
     }
     return (
         getProjectPage.loading || getUser.loading ? (
