@@ -1,5 +1,5 @@
 import { ProjectPageHttp, Role, UpdateProjectPage, UserHttp } from "@/__generated__/graphql";
-import { PROFILE_PAGE_ROUTE } from "@/consts";
+import { PRODUCTION, PROFILE_PAGE_ROUTE } from "@/consts";
 import { UPDATE_PROJECT_PAGE } from "@/graphql/mutations";
 import { GET_PROJECT_PAGE_BY_ID, GET_USER_BY_ID } from "@/graphql/query";
 import { useMutation, useQuery } from "@apollo/client";
@@ -83,6 +83,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
         })
         return
     };
+    const seeInsideHandler = () => { window.location.replace(process.env.MODE  === PRODUCTION ? 'http://92.255.79.9/scratch' : 'http://localhost:8601/' + `?#${getProjectPage.data?.GetProjectPageById.id}`) }
     return (
         getProjectPage.loading || getUser.loading ? (
             <Skeleton avatar paragraph={{ rows: 8 }} />) :
@@ -151,6 +152,11 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                             Сохранить
                         </Button>
                     </Form.Item>
+                    <Button
+                        type='primary' onClick={seeInsideHandler}
+                    >
+                        Открыть в Robbo Scratch
+                    </Button>
                 </Form>
             )
     );
