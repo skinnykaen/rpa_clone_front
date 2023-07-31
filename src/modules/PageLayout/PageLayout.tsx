@@ -9,7 +9,7 @@ type PropsWithChildren<P> = P & { children: ReactNode };
 
 function PageLayout({ children }: PropsWithChildren<unknown>) {
     return (
-        <Layout style={{ height: '100%' }}>
+        <Layout style={{ height: '100%', overflow: 'auto' }}>
             <AppSider />
             <Layout>
                 <Content style={{ margin: '24px 16px 0'}}>

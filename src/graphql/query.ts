@@ -94,3 +94,11 @@ export const GET_PROJECT_PAGE_BY_ID = gql`
         }
     }
 `;
+
+export const GET_SETTINGS = gql`
+    query {
+        GetSettings{
+            activationByLink
+        }
+    }
+`;
