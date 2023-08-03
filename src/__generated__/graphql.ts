@@ -87,6 +87,7 @@ export type Mutation = {
   DeleteUser: Response;
   RefreshToken: SignInResponse;
   SetActivationByLink: Response;
+  SetIsBanned: Response;
   SetUserIsActive: Response;
   SignIn: SignInResponse;
   SignUp: Response;
@@ -134,6 +135,12 @@ export type MutationRefreshTokenArgs = {
 
 export type MutationSetActivationByLinkArgs = {
   activationByLink: Scalars['Boolean']['input'];
+};
+
+
+export type MutationSetIsBannedArgs = {
+  isBanned: Scalars['Boolean']['input'];
+  projectPageId: Scalars['ID']['input'];
 };
 
 
@@ -188,6 +195,7 @@ export type ProjectPageHttp = {
   createdAt: Scalars['Timestamp']['output'];
   id: Scalars['ID']['output'];
   instruction: Scalars['String']['output'];
+  isBanned: Scalars['Boolean']['output'];
   isShared: Scalars['Boolean']['output'];
   linkToScratch: Scalars['String']['output'];
   notes: Scalars['String']['output'];

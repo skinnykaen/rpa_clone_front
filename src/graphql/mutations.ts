@@ -118,3 +118,11 @@ export const DELETE_USER = gql`
         }
     }
 `;
+
+export const SET_IS_BANNED = gql`
+    mutation SetIsBanned($projectPageId: ID!, $isBanned: Boolean!){
+        SetIsBanned(projectPageId: $projectPageId, isBanned: $isBanned) {
+            ok
+        }
+    }
+`;
