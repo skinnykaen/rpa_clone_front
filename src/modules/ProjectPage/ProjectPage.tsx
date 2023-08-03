@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { Button, Form, Input, Skeleton, Switch, notification } from "antd";
 
-import styles from './ProjectPage.module.scss'
-
 import { ProjectPageHttp, Role, UpdateProjectPage, UserHttp } from "@/__generated__/graphql";
 import { PRODUCTION, PROFILE_PAGE_ROUTE } from "@/consts";
 import { SET_IS_BANNED, UPDATE_PROJECT_PAGE } from "@/graphql/mutations";
 import { GET_PROJECT_PAGE_BY_ID, GET_USER_BY_ID } from "@/graphql/query";
+import { useAppSelector } from "@/store";
+import { Roles } from "@/models";
 
 interface ProjectPageModuleProps {
     id: string;
@@ -22,6 +22,7 @@ interface ProjectPageFormInput {
 
 function ProjectPageModule({ id }: ProjectPageModuleProps) {
     const [form] = Form.useForm()
+    const { userRole } = useAppSelector(state => state.authReducer);
     const getProjectPage = useQuery<{ GetProjectPageById: ProjectPageHttp }, { id: string }>(
         GET_PROJECT_PAGE_BY_ID,
         {
@@ -173,18 +174,20 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         <Switch />
                     </Form.Item>
                     {
-                        <Form.Item
-                            name='isBanned'
-                            label={'Заблокировать проект'}
-                        >
-                            <Switch
-                                defaultChecked={getProjectPage.data?.GetProjectPageById?.isBanned}
-                                loading={setIsBannedResult.loading}
-                                onChange={
-                                    (value: boolean) => setIsBanned({ variables: { projectPageId: getProjectPage.data?.GetProjectPageById.id || '0', isBanned: value } })
-                                }
-                            />
-                        </Form.Item>
+                        userRole == Roles.SuperAdmin ? (
+                            <Form.Item
+                                name='isBanned'
+                                label={'Заблокировать проект'}
+                            >
+                                <Switch
+                                    defaultChecked={getProjectPage.data?.GetProjectPageById?.isBanned}
+                                    loading={setIsBannedResult.loading}
+                                    onChange={
+                                        (value: boolean) => setIsBanned({ variables: { projectPageId: getProjectPage.data?.GetProjectPageById.id || '0', isBanned: value } })
+                                    }
+                                />
+                            </Form.Item>
+                        ) : <></>
                     }
                     <Form.Item>
                         <Button
