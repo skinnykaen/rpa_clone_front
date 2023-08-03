@@ -1,10 +1,13 @@
-import { ProjectPageHttp, Role, UpdateProjectPage, UserHttp } from "@/__generated__/graphql";
-import { PRODUCTION, PROFILE_PAGE_ROUTE } from "@/consts";
-import { UPDATE_PROJECT_PAGE } from "@/graphql/mutations";
-import { GET_PROJECT_PAGE_BY_ID, GET_USER_BY_ID } from "@/graphql/query";
+import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { Button, Form, Input, Skeleton, Switch, notification } from "antd";
-import { useNavigate } from "react-router-dom";
+
+import styles from './ProjectPage.module.scss'
+
+import { ProjectPageHttp, Role, UpdateProjectPage, UserHttp } from "@/__generated__/graphql";
+import { PRODUCTION, PROFILE_PAGE_ROUTE } from "@/consts";
+import { SET_IS_BANNED, UPDATE_PROJECT_PAGE } from "@/graphql/mutations";
+import { GET_PROJECT_PAGE_BY_ID, GET_USER_BY_ID } from "@/graphql/query";
 
 interface ProjectPageModuleProps {
     id: string;
@@ -73,6 +76,31 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
             ],
         }
     );
+    const [setIsBanned, setIsBannedResult] = useMutation<{ SetIsBanned: Response }, { projectPageId: string, isBanned: boolean }>(
+        SET_IS_BANNED,
+        {
+            onCompleted: () => {
+                notification.success({
+                    message: 'Успешно!',
+                    description: 'Страница проекта обновлена.',
+                })
+            },
+            onError: error => {
+                notification.error({
+                    message: 'Ошибка',
+                    description: error?.message,
+                })
+            },
+            refetchQueries: [
+                {
+                    query: GET_PROJECT_PAGE_BY_ID,
+                    variables: {
+                        id: id
+                    }
+                },
+            ],
+        }
+    );
     const navigate = useNavigate();
     const openProfileUser = (userId: string, role: Role): void => {
         navigate(PROFILE_PAGE_ROUTE, {
@@ -100,9 +128,9 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         instruction: getProjectPage.data?.GetProjectPageById.instruction,
                         notes: getProjectPage.data?.GetProjectPageById.notes,
                         isShared: getProjectPage.data?.GetProjectPageById.isShared,
+                        isBanned: getProjectPage.data?.GetProjectPageById.isBanned,
                     }}
                     onFinish={({ title, instruction, notes, isShared }: ProjectPageFormInput) => {
-                        console.log(isShared)
                         updateProjectPage({
                             variables: {
                                 input: {
@@ -144,6 +172,20 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                     >
                         <Switch />
                     </Form.Item>
+                    {
+                        <Form.Item
+                            name='isBanned'
+                            label={'Заблокировать проект'}
+                        >
+                            <Switch
+                                defaultChecked={getProjectPage.data?.GetProjectPageById?.isBanned}
+                                loading={setIsBannedResult.loading}
+                                onChange={
+                                    (value: boolean) => setIsBanned({ variables: { projectPageId: getProjectPage.data?.GetProjectPageById.id || '0', isBanned: value } })
+                                }
+                            />
+                        </Form.Item>
+                    }
                     <Form.Item>
                         <Button
                             loading={getProjectPage.loading || updateProjectPageResult.loading}

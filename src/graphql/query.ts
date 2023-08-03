@@ -90,6 +90,7 @@ export const GET_PROJECT_PAGE_BY_ID = gql`
             notes
             linkToScratch
             isShared
+            isBanned
             projectUpdatedAt
         }
     }
