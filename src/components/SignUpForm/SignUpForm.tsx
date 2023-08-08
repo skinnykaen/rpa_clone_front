@@ -6,6 +6,7 @@ import { SignUpFormInputs } from './SignUpForm.types';
 
 import { Response, SignUp } from '@/__generated__/graphql';
 import { SIGN_UP } from '@/graphql/mutations';
+import { handlingGraphqlErrors } from '@/utils';
 
 
 function SignUpForm() {
@@ -20,11 +21,8 @@ function SignUpForm() {
                     description: 'На ваш email была отправлена инструкция для активации.',
                 })
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
         }
     );

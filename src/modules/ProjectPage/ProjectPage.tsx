@@ -8,6 +8,7 @@ import { SET_IS_BANNED, UPDATE_PROJECT_PAGE } from "@/graphql/mutations";
 import { GET_PROJECT_PAGE_BY_ID, GET_USER_BY_ID } from "@/graphql/query";
 import { useAppSelector } from "@/store";
 import { Roles } from "@/models";
+import { handlingGraphqlErrors } from "@/utils";
 
 interface ProjectPageModuleProps {
     id: string;
@@ -26,11 +27,8 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
     const getProjectPage = useQuery<{ GetProjectPageById: ProjectPageHttp }, { id: string }>(
         GET_PROJECT_PAGE_BY_ID,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             variables: {
                 id: id
@@ -40,11 +38,8 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
     const getUser = useQuery<{ GetUserById: UserHttp }, { id: string }>(
         GET_USER_BY_ID,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             skip: !getProjectPage.data?.GetProjectPageById.authorId,
             variables: {
@@ -61,11 +56,8 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                     description: 'Страница проекта обновлена.',
                 })
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             refetchQueries: [
                 {
@@ -86,11 +78,8 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                     description: 'Страница проекта обновлена.',
                 })
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             refetchQueries: [
                 {

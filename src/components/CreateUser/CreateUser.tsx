@@ -7,6 +7,7 @@ import { CreateUserFormInputs } from './CreateUser.types';
 import { NewUser, Role, UserHttp } from '@/__generated__/graphql';
 import { CREATE_USER } from '@/graphql/mutations';
 import { QueryOptions } from 'apollo-client';
+import { handlingGraphqlErrors } from '@/utils';
 
 interface CreateUserProps {
     role: Role;
@@ -24,11 +25,8 @@ function CreateUser({ role, refetchQueries }: CreateUserProps) {
                     description: 'Пользователь успешно создан.',
                 })
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             refetchQueries: refetchQueries
         }

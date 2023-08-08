@@ -8,6 +8,7 @@ import { graphql } from '@apollo/client/react/hoc';
 import { useQuery } from '@apollo/client';
 import ProjectPagesList from '@/components/ProjectPagesList';
 import { withPaginationLocal, WithPaginationProps } from '@/hocs';
+import { handlingGraphqlErrors } from '@/utils';
 
 function ProfileModule() {
     const location = useLocation();
@@ -16,11 +17,8 @@ function ProfileModule() {
     const GetAllProjectPages = useQuery<{ GetAllProjectPagesByAuthorId: ProjectPageHttpList }, { id: string, page?: number, pageSize?: number }>(
         GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             variables: {
                 id: peekUserId
