@@ -29,6 +29,10 @@ export function handlingGraphqlErrors(error: ApolloError) {
                 notificationErr.message = 'Ошибка доступа'
                 notificationErr.description = handling403CodeError(Message)
                 break
+            case 500:
+                notificationErr.message = 'Ошибка на нашей стороне'
+                notificationErr.description = handling403CodeError(Message)
+                break
             case 503:
                 notificationErr.message = 'Функция недоступна'
                 notificationErr.description = handling503CodeError(Message)
