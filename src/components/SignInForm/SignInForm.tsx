@@ -1,13 +1,16 @@
 import { Button, Col, Form, Input, Modal, Typography, notification } from 'antd';
 import { useEffect, useState } from 'react';
+import { GraphQLError } from 'graphql';
 import { useNavigate } from 'react-router-dom';
 
+import { SignInFormInputs } from './SignInForm.types';
+
 import ForgotPassword from '@/components/ForgotPassword';
-import { SignIn, SignInResponse} from '@/__generated__/graphql';
+import { SignIn, SignInResponse } from '@/__generated__/graphql';
 import { useMutation } from '@apollo/client';
 import { ACCESS_TOKEN, PROFILE_PAGE_ROUTE, REFRESH_TOKEN } from '@/consts';
-import { SignInFormInputs } from './SignInForm.types';
 import { SIGN_IN } from '@/graphql/mutations';
+import { handlingGraphqlErrors } from '@/utils';
 
 function SignInForm() {
     const [form] = Form.useForm();
@@ -25,11 +28,8 @@ function SignInForm() {
                 localStorage.setItem(REFRESH_TOKEN, SignIn.refreshToken);
                 navigate(PROFILE_PAGE_ROUTE);
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
         }
     );

@@ -7,6 +7,7 @@ import { WithPaginationProps } from "@/hocs";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_PAGE } from "@/graphql/mutations";
 import { GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN } from "@/graphql/query";
+import { handlingGraphqlErrors } from "@/utils";
 
 type ProjectPagesListProps = WithPaginationProps & {
     loading: boolean;
@@ -30,11 +31,8 @@ function ProjectPagesList({
     const [deleteProjectPage, deleteProjectPageResult] = useMutation<{ DeleteProjectPage: Response }, {id: string}>(
         DELETE_PROJECT_PAGE,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             onCompleted: () => {
                 notification.success({

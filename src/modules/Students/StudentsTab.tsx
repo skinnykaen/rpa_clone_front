@@ -7,6 +7,7 @@ import ListItem from "@/components/ListItem";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_PAGE_ROUTE } from "@/consts";
 import { DELETE_USER } from "@/graphql/mutations";
+import { handlingGraphqlErrors } from "@/utils";
 
 type StudentsTabProps = WithPaginationProps & {
     isActive: boolean;
@@ -21,11 +22,8 @@ function StudentsTab({
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
         GET_ALL_USERS,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             variables: {
                 active: isActive,
@@ -36,11 +34,8 @@ function StudentsTab({
     const [deleteUser, deleteUserResult] = useMutation<{ DeleteUser: Response }, { id: string }>(
         DELETE_USER,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             onCompleted: () => {
                 notification.success({

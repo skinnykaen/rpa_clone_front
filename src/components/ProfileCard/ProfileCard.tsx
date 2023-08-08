@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/client';
 import { SET_USER_IS_ACTIVE, UPDATE_USER } from '@/graphql/mutations';
 import { GET_ALL_USERS, GET_USER_BY_ID } from '@/graphql/query';
 import { QueryOptions } from 'apollo-client';
+import { handlingGraphqlErrors } from '@/utils';
 
 interface ProfileCardProps {
     isEditMode: boolean;
@@ -33,11 +34,8 @@ function ProfileCard({
                     description: 'Успешно обновлено',
                 })
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             refetchQueries: [
                 {
@@ -56,11 +54,8 @@ function ProfileCard({
                     description: 'Статус активации изменен.',
                 })
             },
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             refetchQueries: [
                 {

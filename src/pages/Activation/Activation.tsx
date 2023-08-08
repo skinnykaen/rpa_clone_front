@@ -1,6 +1,7 @@
 import { SignInResponse } from "@/__generated__/graphql";
 import { ACCESS_TOKEN, LOGIN_PAGE_ROUTE, PROFILE_PAGE_ROUTE, REFRESH_TOKEN } from "@/consts";
 import { CONFIRM_ACTIVATION } from "@/graphql/mutations";
+import { handlingGraphqlErrors } from "@/utils";
 import { useMutation } from "@apollo/client";
 import { Spin, notification } from "antd";
 import { useEffect } from "react";
@@ -12,12 +13,8 @@ function ActivationPage() {
     const [confirmActivation, { loading }] = useMutation<{ ConfirmActivation: SignInResponse }, { activationLink: string }>(
         CONFIRM_ACTIVATION,
         {
-            onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
-                navigate(LOGIN_PAGE_ROUTE);
+            onError: (error) => {
+                handlingGraphqlErrors(error)
             },
             onCompleted: ({ConfirmActivation}) => {
                 localStorage.setItem(ACCESS_TOKEN, ConfirmActivation.accessToken);
