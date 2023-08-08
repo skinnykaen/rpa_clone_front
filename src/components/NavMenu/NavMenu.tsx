@@ -4,6 +4,7 @@ import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 
 import { NavMenuItems, NavMenuItemsStudent, NavMenuItemsSuperAdmin } from './NavMenuItems';
 import styles from './NavMenu.module.scss';
+import { NavMenuItem } from './NavMenu.types';
 
 import {
   MAIN_PAGE_ROUTE,
@@ -11,18 +12,16 @@ import {
   // STUDENTS_PAGE_ROUTE,
 } from '@/consts';
 import { Role } from '@/__generated__/graphql';
-import { NavMenuItem } from './NavMenu.types';
 import { useAppSelector } from '@/store';
 
 function NavMenu() {
   const { userRole } = useAppSelector(state => state.authReducer);
-  console.log(userRole)
   let menuItems: NavMenuItem[];
   switch (userRole) {
-    case Role.SuperAdmin:
+    case Role.SuperAdmin as string:
       menuItems = NavMenuItemsSuperAdmin;
       break;
-    case Role.Student:
+    case Role.Student as string:
       menuItems = NavMenuItemsStudent;
       break;
     default:
