@@ -21,10 +21,7 @@ function ProjectsModule() {
         CREATE_PROJECT_PAGE,
         {
             onError: error => {
-                notification.error({
-                    message: 'Ошибка',
-                    description: error?.message,
-                })
+                handlingGraphqlErrors(error)
             },
             refetchQueries: [
                 {
