@@ -22,6 +22,12 @@ export const NavMenuItems: NavMenuItem[] = [
 
 export const NavMenuItemsStudent: NavMenuItem[] = [
     {
+        key: '1',
+        path: MAIN_PAGE_ROUTE,
+        label: 'Главная',
+        icon: <HomeOutlined />,
+    },
+    {
         key: '2',
         path: PROJECTS_PAGE_ROUTE,
         label: 'Проекты',
@@ -30,6 +36,12 @@ export const NavMenuItemsStudent: NavMenuItem[] = [
 ];
 
 export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
+    {
+        key: '1',
+        path: MAIN_PAGE_ROUTE,
+        label: 'Главная',
+        icon: <HomeOutlined />,
+    },
     {
         key: '2',
         path: PROJECTS_PAGE_ROUTE,

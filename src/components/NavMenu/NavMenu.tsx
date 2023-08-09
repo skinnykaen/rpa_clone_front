@@ -8,8 +8,9 @@ import { NavMenuItem } from './NavMenu.types';
 
 import {
   MAIN_PAGE_ROUTE,
-  // PROJECTS_PAGE_ROUTE,
-  // STUDENTS_PAGE_ROUTE,
+  PROJECTS_PAGE_ROUTE,
+  STUDENTS_PAGE_ROUTE,
+  APP_SETTINGS_PAGE_ROUTE
 } from '@/consts';
 import { Role } from '@/__generated__/graphql';
 import { useAppSelector } from '@/store';
@@ -33,6 +34,15 @@ function NavMenu() {
   switch (pathname) {
     case MAIN_PAGE_ROUTE:
       selectedKeys = '1';
+      break;
+    case PROJECTS_PAGE_ROUTE:
+      selectedKeys = '2';
+      break;
+    case STUDENTS_PAGE_ROUTE:
+      selectedKeys = '3';
+      break;
+    case APP_SETTINGS_PAGE_ROUTE:
+      selectedKeys = '4';
       break;
     default:
       selectedKeys = '';
