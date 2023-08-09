@@ -87,7 +87,7 @@ function handling403CodeError(message: string): string {
             description = 'Данный проект заблокирован по решению админитратора.'
             break
         case StatusCode403Errors.ErrAccessDenied:
-            description = 'Доступ запрещеню.'
+            description = 'Доступ запрещен.'
             break
     }
     return description;

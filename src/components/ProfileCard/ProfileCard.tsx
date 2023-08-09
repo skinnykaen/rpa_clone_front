@@ -9,6 +9,8 @@ import { SET_USER_IS_ACTIVE, UPDATE_USER } from '@/graphql/mutations';
 import { GET_ALL_USERS, GET_USER_BY_ID } from '@/graphql/query';
 import { QueryOptions } from 'apollo-client';
 import { handlingGraphqlErrors } from '@/utils';
+import { useAppSelector } from '@/store';
+import { Roles } from '@/models';
 
 interface ProfileCardProps {
     isEditMode: boolean;
@@ -24,7 +26,7 @@ function ProfileCard({
     useEffect(() => {
         forceUpdate({});
     }, []);
-
+    const { userRole } = useAppSelector(state => state.authReducer);
     const [updateUser, { loading }] = useMutation<{ UpdateUser: UserHttp }, { input: UpdateUser }>(
         UPDATE_USER,
         {
@@ -138,20 +140,27 @@ function ProfileCard({
                         profileData?.updatedAt
                     }
                 </Form.Item>
-                <Form.Item name='active' label={'Активен'}>
-                    <Switch
-                        defaultChecked={profileData?.isActive}
-                        loading={setUserIsActiveResult.loading}
-                        onChange={() =>
-                            setUserIsActive({
-                                variables: {
-                                    id: profileData?.id || '0',
-                                    isActive: !profileData?.isActive,
-                                },
-                            })
-                        }
-                    />
-                </Form.Item>
+                {
+                    userRole == Roles.SuperAdmin ? (
+                        <Form.Item
+                            name='active'
+                            label={'Активен'}
+                        >
+                            <Switch
+                                defaultChecked={profileData?.isActive}
+                                loading={setUserIsActiveResult.loading}
+                                onChange={() =>
+                                    setUserIsActive({
+                                        variables: {
+                                            id: profileData?.id || '0',
+                                            isActive: !profileData?.isActive,
+                                        },
+                                    })
+                                }
+                            />
+                        </Form.Item>
+                    ) : <></>
+                }
                 {
                     isEditMode &&
                     <Form.Item>
