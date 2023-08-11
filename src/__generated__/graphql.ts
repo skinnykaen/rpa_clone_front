@@ -173,7 +173,7 @@ export type NewUser = {
   email: Scalars['String']['input'];
   firstname: Scalars['String']['input'];
   lastname: Scalars['String']['input'];
-  middlename: Scalars['String']['input'];
+  middlename?: InputMaybe<Scalars['String']['input']>;
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
   role: Role;
@@ -307,7 +307,7 @@ export type SignUp = {
   email: Scalars['String']['input'];
   firstname: Scalars['String']['input'];
   lastname: Scalars['String']['input'];
-  middlename: Scalars['String']['input'];
+  middlename?: InputMaybe<Scalars['String']['input']>;
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
