@@ -1,17 +1,18 @@
-import { Avatar, Upload, message } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Upload, UploadProps, message } from "antd"
+import { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { RcFile, UploadChangeParam, UploadFile } from "antd/es/upload";
 
-import styles from './Avatar.module.scss';
-
-import { useState } from 'react';
-import { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload';
-
-function AvatarComponent() {
+function UploadModule() {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState<string>();
 
-    console.log(imageUrl)
+    const uploadButton = (
+        <div>
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div style={{ marginTop: 8 }}>Upload</div>
+        </div>
+    );
 
     const getBase64 = (img: RcFile, callback: (url: string) => void) => {
         const reader = new FileReader();
@@ -22,11 +23,11 @@ function AvatarComponent() {
     const beforeUpload = (file: RcFile) => {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {
-            message.error('Вы можете загрузить только изображения формата JPG/PNG');
+            message.error('You can only upload JPG/PNG file!');
         }
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isLt2M) {
-            message.error('Изображение должно быть меньше 2МБ!');
+            message.error('Image must smaller than 2MB!');
         }
         return isJpgOrPng && isLt2M;
     };
@@ -44,27 +45,22 @@ function AvatarComponent() {
             });
         }
     };
+
     return (
-        <div className={styles.avatar}>
+        <>
             <Upload
+                name="avatar"
+                listType="picture-circle"
                 className="avatar-uploader"
                 showUploadList={false}
-                action="http://localhost:5050/avatar"
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
             >
-                {imageUrl ? <Avatar
-                        size={{ xs: 64, sm: 62, md: 120, lg: 184, xl: 240, xxl: 300 }}
-                        src={imageUrl}
-                    /> :
-                    <Avatar
-                        size={{ xs: 64, sm: 62, md: 120, lg: 184, xl: 240, xxl: 300 }}
-                        icon={<UserOutlined />}
-                    />}
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
             </Upload>
-        </div>
-
+        </>
     )
 }
 
-export default AvatarComponent;
+export default UploadModule
