@@ -1,13 +1,14 @@
 import { ProjectPageHttpList, Role, UserHttp } from '@/__generated__/graphql';
-import AvatarComponent from '@/components/Avatar/Avatar';
-import ProfileCard from '@/components/ProfileCard';
 import { GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID, GET_USER_BY_ID, ME } from '@/graphql/query';
-import { Col, Row, Skeleton, Space, notification } from 'antd';
+import { Col, Row, Skeleton, Space } from 'antd';
+
 import { useLocation } from 'react-router-dom';
 import { graphql } from '@apollo/client/react/hoc';
 import { useQuery } from '@apollo/client';
 import ProjectPagesList from '@/components/ProjectPagesList';
 import { withPaginationLocal, WithPaginationProps } from '@/hocs';
+import AvatarComponent from '@/components/Avatar/Avatar';
+import ProfileCard from '@/components/ProfileCard';
 import { handlingGraphqlErrors } from '@/utils';
 
 function ProfileModule() {
