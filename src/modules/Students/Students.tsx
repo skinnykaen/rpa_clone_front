@@ -1,10 +1,11 @@
 import { Button, Modal, Tabs } from 'antd';
+import { useState } from 'react';
+import { QueryBaseOptions } from 'apollo-client';
 
 import StudentsTab from "./StudentsTab";
-import { useState } from 'react';
+
 import CreateUser from '@/components/CreateUser';
 import { Role } from '@/__generated__/graphql';
-import { QueryBaseOptions } from 'apollo-client';
 import { GET_ALL_USERS } from '@/graphql/query';
 
 function StudentsList() {

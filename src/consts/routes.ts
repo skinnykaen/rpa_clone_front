@@ -6,4 +6,5 @@ export const STUDENTS_PAGE_ROUTE = '/students';
 export const LOGOUT_PAGE_ROUTE = '/logout'
 export const APP_SETTINGS_PAGE_ROUTE = '/settings'
 export const PROJECT_PAGE_ROUTE = '/project/:id'
-export const ACTIVATION_PAGE_ROUTE = 'activation/:link'
+export const ACTIVATION_PAGE_ROUTE = '/activation/:link'
+export const CLIENTS_PAGE_ROUTE = '/clients';

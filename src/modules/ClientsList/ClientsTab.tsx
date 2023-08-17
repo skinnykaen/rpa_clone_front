@@ -14,7 +14,7 @@ type StudentsTabProps = WithPaginationProps & {
     isActive: boolean;
 }
 
-function StudentsTab({
+function ClientsTab({
     onChangePage,
     isActive,
     page,
@@ -28,7 +28,7 @@ function StudentsTab({
             },
             variables: {
                 active: isActive,
-                roles: [Role.Student],
+                roles: [Role.Parent],
             }
         }
     );
@@ -49,7 +49,7 @@ function StudentsTab({
                     query: GET_ALL_USERS,
                     variables: {
                         active: isActive,
-                        roles: [Role.Student],
+                        roles: [Role.Parent],
                     }
                 },
             ]
@@ -60,14 +60,14 @@ function StudentsTab({
         navigate(PROFILE_PAGE_ROUTE, {
             state: {
                 userId,
-                userRole: Role.Student,
+                userRole: Role.Parent,
             },
         })
         return
     };
     return (
         <List
-            className='students'
+            className='clients'
             loading={loading || deleteUserResult.loading}
             bordered
             size='large'
@@ -93,6 +93,6 @@ function StudentsTab({
     );
 }
 
-const WithPaginationComponent = withPaginationLocal(StudentsTab, 10);
+const WithPaginationComponent = withPaginationLocal(ClientsTab, 10);
 
 export default WithPaginationComponent;

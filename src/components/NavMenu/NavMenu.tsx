@@ -10,10 +10,12 @@ import {
   MAIN_PAGE_ROUTE,
   PROJECTS_PAGE_ROUTE,
   STUDENTS_PAGE_ROUTE,
-  APP_SETTINGS_PAGE_ROUTE
+  APP_SETTINGS_PAGE_ROUTE,
+  CLIENTS_PAGE_ROUTE
 } from '@/consts';
 import { Role } from '@/__generated__/graphql';
 import { useAppSelector } from '@/store';
+import { MenuItemsKeys } from '@/consts/menuItems';
 
 function NavMenu() {
   const { userRole } = useAppSelector(state => state.authReducer);
@@ -33,20 +35,24 @@ function NavMenu() {
   let selectedKeys = '';
   switch (pathname) {
     case MAIN_PAGE_ROUTE:
-      selectedKeys = '1';
+      selectedKeys = MenuItemsKeys.MAIN_PAGE_ROUTE;
       break;
     case PROJECTS_PAGE_ROUTE:
-      selectedKeys = '2';
+      selectedKeys = MenuItemsKeys.PROJECTS_PAGE_ROUTE;
       break;
     case STUDENTS_PAGE_ROUTE:
-      selectedKeys = '3';
+      selectedKeys = MenuItemsKeys.STUDENTS_PAGE_ROUTE;
       break;
     case APP_SETTINGS_PAGE_ROUTE:
-      selectedKeys = '4';
+      selectedKeys = MenuItemsKeys.APP_SETTINGS_PAGE_ROUTE;
+      break;
+    case CLIENTS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.CLIENTS_PAGE_ROUTE;
       break;
     default:
       selectedKeys = '';
   }
+  console.log(selectedKeys)
   //TODO make global loading
   return (
     <Menu

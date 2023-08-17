@@ -11,9 +11,11 @@ import StudentsPage from '@/pages/Students';
 import SettingsPage from '@/pages/Settings';
 import ProjectPage from '@/pages/ProjectPage';
 import ActivationPage from '@/pages/Activation';
+import ClientsPage from '@/pages/Clients/Clients';
 import {
     ACTIVATION_PAGE_ROUTE,
     APP_SETTINGS_PAGE_ROUTE,
+    CLIENTS_PAGE_ROUTE,
     LOGIN_PAGE_ROUTE,
     LOGOUT_PAGE_ROUTE,
     PROFILE_PAGE_ROUTE,
@@ -82,6 +84,14 @@ function App() {
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
                                         <ProjectPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path={CLIENTS_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                        <ClientsPage />
                                     </ProtectedRoute>
                                 }
                             />

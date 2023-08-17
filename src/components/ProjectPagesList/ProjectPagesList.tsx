@@ -28,7 +28,7 @@ function ProjectPagesList({
         navigate(`/project/${id}`)
         return
     };
-    const [deleteProjectPage, deleteProjectPageResult] = useMutation<{ DeleteProjectPage: Response }, {id: string}>(
+    const [deleteProjectPage, deleteProjectPageResult] = useMutation<{ DeleteProjectPage: Response }, { id: string }>(
         DELETE_PROJECT_PAGE,
         {
             onError: (error) => {
@@ -68,7 +68,7 @@ function ProjectPagesList({
                     index={index}
                     label={projectPage.title}
                     handleClick={() => openProjectPage(Number(projectPage.id))}
-                    handleDelete={removal ? () => deleteProjectPage({variables: {id: projectPage.id}}): undefined}
+                    handleDelete={removal ? () => deleteProjectPage({ variables: { id: projectPage.id } }) : undefined}
                 />
             )}
         />

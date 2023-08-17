@@ -7,13 +7,17 @@ import {
 
 import {
     APP_SETTINGS_PAGE_ROUTE,
-    MAIN_PAGE_ROUTE, PROJECTS_PAGE_ROUTE, STUDENTS_PAGE_ROUTE,
+    CLIENTS_PAGE_ROUTE,
+    MAIN_PAGE_ROUTE,
+    PROJECTS_PAGE_ROUTE,
+    STUDENTS_PAGE_ROUTE,
 } from '@/consts';
 import { NavMenuItem } from './NavMenu.types';
+import { MenuItemsKeys } from '@/consts/menuItems';
 
 export const NavMenuItems: NavMenuItem[] = [
     {
-        key: '1',
+        key: MenuItemsKeys.MAIN_PAGE_ROUTE,
         path: MAIN_PAGE_ROUTE,
         label: 'Главная',
         icon: <HomeOutlined />,
@@ -22,13 +26,13 @@ export const NavMenuItems: NavMenuItem[] = [
 
 export const NavMenuItemsStudent: NavMenuItem[] = [
     {
-        key: '1',
+        key:  MenuItemsKeys.MAIN_PAGE_ROUTE,
         path: MAIN_PAGE_ROUTE,
         label: 'Главная',
         icon: <HomeOutlined />,
     },
     {
-        key: '2',
+        key:  MenuItemsKeys.PROJECTS_PAGE_ROUTE,
         path: PROJECTS_PAGE_ROUTE,
         label: 'Проекты',
         icon: <ProjectOutlined />
@@ -37,25 +41,31 @@ export const NavMenuItemsStudent: NavMenuItem[] = [
 
 export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
     {
-        key: '1',
+        key: MenuItemsKeys.MAIN_PAGE_ROUTE,
         path: MAIN_PAGE_ROUTE,
         label: 'Главная',
         icon: <HomeOutlined />,
     },
     {
-        key: '2',
+        key: MenuItemsKeys.PROJECTS_PAGE_ROUTE,
         path: PROJECTS_PAGE_ROUTE,
         label: 'Проекты',
         icon: <ProjectOutlined />
     },
     {
-        key: '3',
+        key: MenuItemsKeys.STUDENTS_PAGE_ROUTE,
         path: STUDENTS_PAGE_ROUTE,
         label: 'Ученики',
         icon: <TeamOutlined />
     },
     {
-        key: '4',
+        key: MenuItemsKeys.CLIENTS_PAGE_ROUTE,
+        path: CLIENTS_PAGE_ROUTE,
+        label: 'Клиенты',
+        icon: <TeamOutlined />
+    },
+    {
+        key: MenuItemsKeys.APP_SETTINGS_PAGE_ROUTE,
         path: APP_SETTINGS_PAGE_ROUTE,
         label: 'Настройки',
         icon: <SettingOutlined />
