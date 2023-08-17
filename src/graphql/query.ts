@@ -59,6 +59,8 @@ export const GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN = gql`
             projectPages{
                 id
                 title
+                isShared
+                isBanned
             }
             countRows
         }
@@ -71,6 +73,8 @@ export const GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID = gql`
             projectPages{
                 id
                 title
+                isShared
+                isBanned
             }
             countRows
         }

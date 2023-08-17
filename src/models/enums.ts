@@ -11,3 +11,9 @@ export enum Roles {
     UnitAdmin = 'UnitAdmin',
     SuperAdmin = 'SuperAdmin',
 }
+
+export enum ProjectPageStatus {
+    Shared = 'Shared',
+    Private = 'Private',
+    Banned = 'Banned'
+}

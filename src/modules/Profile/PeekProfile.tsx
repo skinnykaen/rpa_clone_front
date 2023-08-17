@@ -1,6 +1,6 @@
 
 import { Roles } from "@/models";
-import StudentProfile from "./StudentProfile";
+import StudentProfile from "@/components/StudentProfile/StudentProfile";
 
 interface PeekProfile {
     peekUserId: number;
@@ -14,6 +14,9 @@ function PeekProfile({
     let PeekProfile = () => <></>
     switch (peekUserRole) {
         case Roles.Student: {
+            PeekProfile = () => <StudentProfile id={peekUserId} />
+        }
+        case Roles.Parent: {
             PeekProfile = () => <StudentProfile id={peekUserId} />
         }
     }

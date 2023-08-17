@@ -200,7 +200,19 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         label={'Открыть доступ'}
                         valuePropName='checked'
                     >
-                        <Switch />
+                        <Switch onChange={(value) => {
+                            updateProjectPage({
+                                variables: {
+                                    input: {
+                                        id: id,
+                                        notes:  getProjectPage.data?.GetProjectPageById.notes || "",
+                                        instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
+                                        title: getProjectPage.data?.GetProjectPageById.title || "",
+                                        isShared: value,
+                                    }
+                                }
+                            })
+                        }} />
                     </Form.Item>
                     {
                         userRole == Roles.SuperAdmin ? (

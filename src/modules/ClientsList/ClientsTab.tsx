@@ -84,7 +84,7 @@ function ClientsTab({
             renderItem={(user, index) => (
                 <ListItem
                     index={index}
-                    label={`${user.lastname} ${user.firstname} ${user.middlename}`}
+                    rendreLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
                     handleClick={() => openProfileStudent(Number(user.id))}
                     handleDelete={() => deleteUser({ variables: { id: String(user.id) } })}
                 />
