@@ -123,28 +123,65 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         isShared: getProjectPage.data?.GetProjectPageById.isShared,
                         isBanned: getProjectPage.data?.GetProjectPageById.isBanned,
                     }}
-                    onFinish={({ title, instruction, notes, isShared }: ProjectPageFormInput) => {
-                        updateProjectPage({
-                            variables: {
-                                input: {
-                                    id: id,
-                                    title: title,
-                                    instruction: instruction,
-                                    notes: notes,
-                                    isShared: isShared,
-                                }
-                            }
-                        })
-                    }}
                 >
                     <Form.Item name='title'>
-                        <Input size='large' placeholder={'Название'} />
+                        <Input
+                            size='large'
+                            placeholder={'Название'}
+                            onBlur={(value) => {
+                                updateProjectPage({
+                                    variables: {
+                                        input: {
+                                            id: id,
+                                            title: value.target.value,
+                                            instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
+                                            notes: getProjectPage.data?.GetProjectPageById.notes || "",
+                                            isShared: getProjectPage.data?.GetProjectPageById.isShared || false,
+                                        }
+                                    }
+                                })
+                            }}
+                        />
                     </Form.Item>
                     <Form.Item name='instruction'>
-                        <Input.TextArea size='large' rows={4} placeholder={'Инструкция'} />
+                        <Input.TextArea
+                            size='large'
+                            rows={4}
+                            placeholder={'Инструкция'}
+                            onBlur={(value) => {
+                                updateProjectPage({
+                                    variables: {
+                                        input: {
+                                            id: id,
+                                            instruction: value.target.value,
+                                            title: getProjectPage.data?.GetProjectPageById.title || "",
+                                            notes: getProjectPage.data?.GetProjectPageById.notes || "",
+                                            isShared: getProjectPage.data?.GetProjectPageById.isShared || false
+                                        }
+                                    }
+                                })
+                            }}
+                        />
                     </Form.Item>
                     <Form.Item name='notes'>
-                        <Input.TextArea size='large' rows={4} placeholder='Заметки' />
+                        <Input.TextArea
+                            size='large'
+                            rows={4}
+                            placeholder='Заметки'
+                            onBlur={(value) => {
+                                updateProjectPage({
+                                    variables: {
+                                        input: {
+                                            id: id,
+                                            notes: value.target.value,
+                                            instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
+                                            title: getProjectPage.data?.GetProjectPageById.title || "",
+                                            isShared: getProjectPage.data?.GetProjectPageById.isShared || false,
+                                        }
+                                    }
+                                })
+                            }}
+                        />
                     </Form.Item>
                     <Form.Item label={'Автор'}>
                         <a onClick={() => openProfileUser(getUser.data?.GetUserById.id || '0', getUser.data?.GetUserById.role || Role.Anonymous)}>{`${getUser.data?.GetUserById.lastname} ${getUser.data?.GetUserById.firstname} ${getUser.data?.GetUserById.middlename}`}</a>
@@ -163,7 +200,19 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         label={'Открыть доступ'}
                         valuePropName='checked'
                     >
-                        <Switch />
+                        <Switch onChange={(value) => {
+                            updateProjectPage({
+                                variables: {
+                                    input: {
+                                        id: id,
+                                        title: getProjectPage.data?.GetProjectPageById.title || "",
+                                        instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
+                                        notes: getProjectPage.data?.GetProjectPageById.notes || "",
+                                        isShared: value,
+                                    }
+                                }
+                            })
+                        }}/>
                     </Form.Item>
                     {
                         userRole == Roles.SuperAdmin ? (
@@ -181,16 +230,6 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                             </Form.Item>
                         ) : <></>
                     }
-                    <Form.Item>
-                        <Button
-                            loading={getProjectPage.loading || updateProjectPageResult.loading}
-                            type='primary'
-                            htmlType='submit'
-                            className='project-page-form-button'
-                        >
-                            Сохранить
-                        </Button>
-                    </Form.Item>
                     <Button
                         type='primary' onClick={seeInsideHandler}
                     >
