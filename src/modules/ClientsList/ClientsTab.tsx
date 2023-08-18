@@ -4,23 +4,19 @@ import { useMutation, useQuery } from "@apollo/client";
 
 import { useState } from "react";
 
-import { WithPaginationProps, withPaginationLocal } from "@/hocs";
 import { Role, UsersList } from "@/__generated__/graphql";
 import { GET_ALL_USERS } from "@/graphql/query";
-import ListItem from "@/components/ListItem";
 import { DELETE_USER } from "@/graphql/mutations";
 import { handlingGraphqlErrors } from "@/utils";
 import ParentDrawer from "@/components/ParentDrawer";
+import UsersListComponent from "@/components/UsersList";
 
-type StudentsTabProps = WithPaginationProps & {
+interface StudentsTabProps {
     isActive: boolean;
 }
 
 function ClientsTab({
-    onChangePage,
     isActive,
-    page,
-    pageSize,
 }: StudentsTabProps) {
     const [isOpenDrawer, setOpenDrawer] = useState(false);
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
@@ -68,12 +64,18 @@ function ClientsTab({
     //     })
     //     return
     // };
-    const openParentDrawer = (isOpen: boolean) => {
-        setOpenDrawer(isOpen);
-    };
     return (
         <>
-            <List
+            <UsersListComponent
+                isLoading={loading && deleteUserResult.loading}
+                users={data?.GetAllUsers.users}
+                countRows={data?.GetAllUsers.countRows || 0}
+                isOpenDrawer={isOpenDrawer}
+                openDrawer={setOpenDrawer}
+                drawerRender={(parentId: number) => <ParentDrawer isOpen={isOpenDrawer} setOpen={setOpenDrawer} parentId={parentId} />}
+                handleDelete={(userId: number) => deleteUser({ variables: { id: String(userId) } })}
+            />
+            {/* <List
                 className='clients'
                 loading={loading || deleteUserResult.loading}
                 bordered
@@ -92,19 +94,17 @@ function ClientsTab({
                     <>
                         <ListItem
                             index={index}
-                            rendreLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
+                            renderLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
                             handleClick={() => openParentDrawer(!isOpenDrawer)}
                             // handleClick={() => openProfileStudent(Number(user.id))}
                             handleDelete={() => deleteUser({ variables: { id: String(user.id) } })}
                         />
-                        <ParentDrawer isOpen={isOpenDrawer} setOpen={setOpenDrawer} parentId={Number(user.id)} />
+
                     </>
                 )}
-            />
+            /> */}
         </>
     );
 }
 
-const WithPaginationComponent = withPaginationLocal(ClientsTab, 10);
-
-export default WithPaginationComponent;
+export default ClientsTab;

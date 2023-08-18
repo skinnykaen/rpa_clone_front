@@ -5,14 +5,14 @@ import styles from './ListItem.module.scss';
 
 interface ListItemProps {
     index: number;
-    rendreLabel: () => JSX.Element
+    renderLabel: () => JSX.Element
     handleDelete?(index: string): void;
     handleClick?(): void;
 }
 
 function ListItem({
     index,
-    rendreLabel,
+    renderLabel,
     handleDelete,
     handleClick,
 }: ListItemProps) {
@@ -34,7 +34,9 @@ function ListItem({
     return (
         <li className={styles.list_item}>
             <Typography.Link className={styles.label} onClick={handleClick}>
-                {rendreLabel()}
+                {
+                    renderLabel()
+                }
             </Typography.Link >
             {
                 handleDelete &&

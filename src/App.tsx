@@ -11,7 +11,9 @@ import StudentsPage from '@/pages/Students';
 import SettingsPage from '@/pages/Settings';
 import ProjectPage from '@/pages/ProjectPage';
 import ActivationPage from '@/pages/Activation';
-import ClientsPage from '@/pages/Clients/Clients';
+import ClientsPage from '@/pages/Clients';
+import TeachersPage from '@/pages/Teachers';
+import UnitAdmins from '@/pages/UnitAdmins';
 import {
     ACTIVATION_PAGE_ROUTE,
     APP_SETTINGS_PAGE_ROUTE,
@@ -22,6 +24,8 @@ import {
     PROJECTS_PAGE_ROUTE,
     PROJECT_PAGE_ROUTE,
     STUDENTS_PAGE_ROUTE,
+    TEACHERS_PAGE_ROUTE,
+    UNIT_ADMINS_PAGE_ROUTE,
 } from '@/consts';
 import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
@@ -92,6 +96,22 @@ function App() {
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
                                         <ClientsPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path={TEACHERS_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                        <TeachersPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path={UNIT_ADMINS_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                        <UnitAdmins />
                                     </ProtectedRoute>
                                 }
                             />

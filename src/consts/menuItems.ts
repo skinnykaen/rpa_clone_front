@@ -4,5 +4,7 @@ export enum MenuItemsKeys {
     PROJECTS_PAGE_ROUTE = '2',
     STUDENTS_PAGE_ROUTE = '3',
     APP_SETTINGS_PAGE_ROUTE = '4',
-    CLIENTS_PAGE_ROUTE =' 5'
+    CLIENTS_PAGE_ROUTE = '5',
+    TEACHERS_PAGE_ROUTE = '6',
+    UNIT_ADMINS_PAGE_ROUTE = '7'
 }

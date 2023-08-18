@@ -13,6 +13,8 @@ import {
     MAIN_PAGE_ROUTE,
     PROJECTS_PAGE_ROUTE,
     STUDENTS_PAGE_ROUTE,
+    TEACHERS_PAGE_ROUTE,
+    UNIT_ADMINS_PAGE_ROUTE,
 } from '@/consts';
 import { MenuItemsKeys } from '@/consts/menuItems';
 
@@ -66,14 +68,14 @@ export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
         icon: <TeamOutlined />,
     },
     {
-        key: '',
-        path: '',
+        key: MenuItemsKeys.TEACHERS_PAGE_ROUTE,
+        path: TEACHERS_PAGE_ROUTE,
         label: 'Педагоги',
         icon: <TeamOutlined />,
     },
     {
-        key: '',
-        path: '',
+        key: MenuItemsKeys.UNIT_ADMINS_PAGE_ROUTE,
+        path: UNIT_ADMINS_PAGE_ROUTE,
         label: 'Юнит админы',
         icon: <TeamOutlined />,
     },

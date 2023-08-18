@@ -83,7 +83,7 @@ function ProjectPagesList({
             renderItem={(projectPage, index) => (
                 <ListItem
                     index={index}
-                    rendreLabel={() => projectPageLabel(projectPage)}
+                    renderLabel={() => projectPageLabel(projectPage)}
                     handleClick={() => openProjectPage(Number(projectPage.id))}
                     handleDelete={removal ? () => deleteProjectPage({ variables: { id: projectPage.id } }) : undefined}
                 />

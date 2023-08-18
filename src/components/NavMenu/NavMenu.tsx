@@ -12,12 +12,15 @@ import {
   MAIN_PAGE_ROUTE,
   PROJECTS_PAGE_ROUTE,
   STUDENTS_PAGE_ROUTE,
+  TEACHERS_PAGE_ROUTE,
+  UNIT_ADMINS_PAGE_ROUTE,
 } from '@/consts';
 import { Role } from '@/__generated__/graphql';
 import { useAppSelector } from '@/store';
 import { MenuItemsKeys } from '@/consts/menuItems';
 
 function NavMenu() {
+  const { pathname } = useLocation();
   const { userRole } = useAppSelector(state => state.authReducer);
   let menuItems: NavMenuItem[];
   switch (userRole) {
@@ -31,28 +34,7 @@ function NavMenu() {
       menuItems = NavMenuItems;
   }
   // choice selected item of nav menu
-  const { pathname } = useLocation();
-  let selectedKeys = '';
-  switch (pathname) {
-    case MAIN_PAGE_ROUTE:
-      selectedKeys = MenuItemsKeys.MAIN_PAGE_ROUTE;
-      break;
-    case PROJECTS_PAGE_ROUTE:
-      selectedKeys = MenuItemsKeys.PROJECTS_PAGE_ROUTE;
-      break;
-    case STUDENTS_PAGE_ROUTE:
-      selectedKeys = MenuItemsKeys.STUDENTS_PAGE_ROUTE;
-      break;
-    case APP_SETTINGS_PAGE_ROUTE:
-      selectedKeys = MenuItemsKeys.APP_SETTINGS_PAGE_ROUTE;
-      break;
-    case CLIENTS_PAGE_ROUTE:
-      selectedKeys = MenuItemsKeys.CLIENTS_PAGE_ROUTE;
-      break;
-    default:
-      selectedKeys = '';
-  }
-  console.log(selectedKeys);
+  const selectedKeys = selectActiveKeys(pathname);
   //TODO make global loading
   return (
     <Menu
@@ -71,6 +53,36 @@ function NavMenu() {
       )))}
     />
   );
+}
+
+function selectActiveKeys(pathname: string): string {
+  let selectedKeys = '';
+  switch (pathname) {
+    case MAIN_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.MAIN_PAGE_ROUTE;
+      break;
+    case PROJECTS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.PROJECTS_PAGE_ROUTE;
+      break;
+    case STUDENTS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.STUDENTS_PAGE_ROUTE;
+      break;
+    case APP_SETTINGS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.APP_SETTINGS_PAGE_ROUTE;
+      break;
+    case CLIENTS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.CLIENTS_PAGE_ROUTE;
+      break;
+    case TEACHERS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.TEACHERS_PAGE_ROUTE;
+      break;
+    case UNIT_ADMINS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.UNIT_ADMINS_PAGE_ROUTE;
+      break;
+    default:
+      selectedKeys = '';
+  }
+  return selectedKeys;
 }
 
 export default NavMenu;

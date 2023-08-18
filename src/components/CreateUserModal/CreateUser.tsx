@@ -11,7 +11,7 @@ import { CREATE_USER } from '@/graphql/mutations';
 import { handlingGraphqlErrors } from '@/utils';
 
 interface CreateUserProps {
-    role: Role;
+    role: string;
     refetchQueries: QueryOptions[];
 }
 
@@ -42,7 +42,7 @@ function CreateUser({ role, refetchQueries }: CreateUserProps) {
                     firstname: inputs.firstname,
                     middlename: inputs.middlename,
                     nickname: inputs.nickname,
-                    role: role,
+                    role: role as Role,
                 },
             },
         });
@@ -182,7 +182,6 @@ function CreateUser({ role, refetchQueries }: CreateUserProps) {
                         </Button>
                     )
                 }
-
             </Form.Item>
         </Form>
     );

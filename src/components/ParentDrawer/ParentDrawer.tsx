@@ -14,13 +14,11 @@ function ParentDrawer({
     parentId,
 }: ParentDrawerProps) {
     return (
-        <>
-            <Drawer width={640} placement='right' closable={false} onClose={() => setOpen(false)} open={isOpen}>
-                <Row gutter={{ xs: 8, sm: 16, md: 8, lg: 8 }}>
-                    <ProfileData userId={parentId} />
-                </Row>
-            </Drawer>
-        </>
+        <Drawer width={640} placement='right' closable={false} onClose={() => setOpen(false)} open={isOpen}>
+            <Row gutter={{ xs: 8, sm: 16, md: 8, lg: 8 }}>
+                <ProfileData userId={parentId} />
+            </Row>
+        </Drawer>
     );
 }
 
