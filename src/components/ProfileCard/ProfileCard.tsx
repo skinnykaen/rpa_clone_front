@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Button, Form, Input, Switch, notification } from 'antd';
 
+import { useMutation } from '@apollo/client';
+
+import { QueryOptions } from 'apollo-client';
+
 import { ProfileFormInputs } from './ProfileCard.types';
 
 import { Role, UpdateUser, UserHttp } from '@/__generated__/graphql';
-import { useMutation } from '@apollo/client';
 import { SET_USER_IS_ACTIVE, UPDATE_USER } from '@/graphql/mutations';
 import { GET_ALL_USERS, GET_USER_BY_ID } from '@/graphql/query';
-import { QueryOptions } from 'apollo-client';
+
+
 import { handlingGraphqlErrors } from '@/utils';
 import { useAppSelector } from '@/store';
 import { Roles } from '@/models';
@@ -34,18 +38,18 @@ function ProfileCard({
                 notification.success({
                     message: '',
                     description: 'Успешно обновлено',
-                })
+                });
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             refetchQueries: [
                 {
                     query: GET_USER_BY_ID,
                     variables: { id: profileData?.id },
-                } as QueryOptions<{ id: string }>
-            ]
-        }
+                } as QueryOptions<{ id: string }>,
+            ],
+        },
     );
     const [setUserIsActive, setUserIsActiveResult] = useMutation<{ SetUserIsActive: Response }, { id: string, isActive: boolean }>(
         SET_USER_IS_ACTIVE,
@@ -54,10 +58,10 @@ function ProfileCard({
                 notification.success({
                     message: 'Успешно!',
                     description: 'Статус активации изменен.',
-                })
+                });
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             refetchQueries: [
                 {
@@ -77,10 +81,10 @@ function ProfileCard({
                         active: false,
                         roles: [Role.Student],
                     },
-                } as QueryOptions<{ active: boolean, roles: Role[] }>
-            ]
-        }
-    )
+                } as QueryOptions<{ active: boolean, roles: Role[] }>,
+            ],
+        },
+    );
     return (
         <div>
             <Form
@@ -95,10 +99,10 @@ function ProfileCard({
                                 firstname: inputs.firstname,
                                 lastname: inputs.lastname,
                                 middlename: inputs.middlename,
-                                nickname: inputs.nickname
-                            }
-                        }
-                    })
+                                nickname: inputs.nickname,
+                            },
+                        },
+                    });
                 }}
                 form={form}
                 disabled={!isEditMode}

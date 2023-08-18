@@ -14,38 +14,31 @@ interface ProjectPageModuleProps {
     id: string;
 }
 
-interface ProjectPageFormInput {
-    title: string;
-    notes: string;
-    isShared: boolean;
-    instruction: string;
-}
-
 function ProjectPageModule({ id }: ProjectPageModuleProps) {
-    const [form] = Form.useForm()
+    const [form] = Form.useForm();
     const { userRole } = useAppSelector(state => state.authReducer);
     const getProjectPage = useQuery<{ GetProjectPageById: ProjectPageHttp }, { id: string }>(
         GET_PROJECT_PAGE_BY_ID,
         {
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             variables: {
-                id: id
-            }
-        }
+                id: id,
+            },
+        },
     );
     const getUser = useQuery<{ GetUserById: UserHttp }, { id: string }>(
         GET_USER_BY_ID,
         {
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             skip: !getProjectPage.data?.GetProjectPageById.authorId,
             variables: {
-                id: getProjectPage.data?.GetProjectPageById.authorId || '0'
-            }
-        }
+                id: getProjectPage.data?.GetProjectPageById.authorId || '0',
+            },
+        },
     );
     const [updateProjectPage, updateProjectPageResult] = useMutation<{ UpdateProjectPage: ProjectPageHttp }, { input: UpdateProjectPage }>(
         UPDATE_PROJECT_PAGE,
@@ -54,20 +47,20 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                 notification.success({
                     message: 'Успешно!',
                     description: 'Страница проекта обновлена.',
-                })
+                });
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             refetchQueries: [
                 {
                     query: GET_PROJECT_PAGE_BY_ID,
                     variables: {
-                        id: id
-                    }
+                        id: id,
+                    },
                 },
             ],
-        }
+        },
     );
     const [setIsBanned, setIsBannedResult] = useMutation<{ SetIsBanned: Response }, { projectPageId: string, isBanned: boolean }>(
         SET_IS_BANNED,
@@ -76,23 +69,23 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                 notification.success({
                     message: 'Успешно!',
                     description: 'Страница проекта обновлена.',
-                })
+                });
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             refetchQueries: [
                 {
                     query: GET_PROJECT_PAGE_BY_ID,
                     variables: {
-                        id: id
-                    }
+                        id: id,
+                    },
                 },
                 {
                     query: GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN,
                 },
             ],
-        }
+        },
     );
     const navigate = useNavigate();
     const openProfileUser = (userId: string, role: Role): void => {
@@ -101,16 +94,16 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                 userId,
                 userRole: role,
             },
-        })
-        return
+        });
+        return;
     };
     const seeInsideHandler = () => {
-        window.location.replace(process.env.MODE === PRODUCTION ? 'http://92.255.79.9/scratch' + `?#${getProjectPage.data?.GetProjectPageById.id}` : 'http://localhost:8601/' + `?#${getProjectPage.data?.GetProjectPageById.id}`)
-    }
+        window.location.replace(process.env.MODE === PRODUCTION ? 'http://92.255.79.9/scratch' + `?#${getProjectPage.data?.GetProjectPageById.id}` : 'http://localhost:8601/' + `?#${getProjectPage.data?.GetProjectPageById.id}`);
+    };
     return (
         getProjectPage.loading || getUser.loading ? (
-            <Skeleton avatar paragraph={{ rows: 8 }} />) :
-            (
+            <Skeleton avatar paragraph={{ rows: 8 }} />)
+            : (
                 <Form
                     name='project-page'
                     className='project-page-form'
@@ -128,7 +121,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         <Input
                             size='large'
                             placeholder={'Название'}
-                            onBlur={(value) => {
+                            onBlur={value => {
                                 updateProjectPage({
                                     variables: {
                                         input: {
@@ -137,9 +130,9 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                                             instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
                                             notes: getProjectPage.data?.GetProjectPageById.notes || "",
                                             isShared: getProjectPage.data?.GetProjectPageById.isShared || false,
-                                        }
-                                    }
-                                })
+                                        },
+                                    },
+                                });
                             }}
                         />
                     </Form.Item>
@@ -148,7 +141,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                             size='large'
                             rows={4}
                             placeholder={'Инструкция'}
-                            onBlur={(value) => {
+                            onBlur={value => {
                                 updateProjectPage({
                                     variables: {
                                         input: {
@@ -156,10 +149,10 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                                             instruction: value.target.value,
                                             title: getProjectPage.data?.GetProjectPageById.title || "",
                                             notes: getProjectPage.data?.GetProjectPageById.notes || "",
-                                            isShared: getProjectPage.data?.GetProjectPageById.isShared || false
-                                        }
-                                    }
-                                })
+                                            isShared: getProjectPage.data?.GetProjectPageById.isShared || false,
+                                        },
+                                    },
+                                });
                             }}
                         />
                     </Form.Item>
@@ -168,7 +161,7 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                             size='large'
                             rows={4}
                             placeholder='Заметки'
-                            onBlur={(value) => {
+                            onBlur={value => {
                                 updateProjectPage({
                                     variables: {
                                         input: {
@@ -177,14 +170,16 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                                             instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
                                             title: getProjectPage.data?.GetProjectPageById.title || "",
                                             isShared: getProjectPage.data?.GetProjectPageById.isShared || false,
-                                        }
-                                    }
-                                })
+                                        },
+                                    },
+                                });
                             }}
                         />
                     </Form.Item>
                     <Form.Item label={'Автор'}>
-                        <a onClick={() => openProfileUser(getUser.data?.GetUserById.id || '0', getUser.data?.GetUserById.role || Role.Anonymous)}>{`${getUser.data?.GetUserById.lastname} ${getUser.data?.GetUserById.firstname} ${getUser.data?.GetUserById.middlename}`}</a>
+                        <a onClick={() => openProfileUser(getUser.data?.GetUserById.id || '0', getUser.data?.GetUserById.role || Role.Anonymous)}>
+                            {`${getUser.data?.GetUserById.lastname} ${getUser.data?.GetUserById.firstname} ${getUser.data?.GetUserById.middlename}`}
+                        </a>
                     </Form.Item>
                     <Form.Item label={'Создан'}>
                         {getProjectPage.data?.GetProjectPageById.createdAt}
@@ -200,18 +195,18 @@ function ProjectPageModule({ id }: ProjectPageModuleProps) {
                         label={'Открыть доступ'}
                         valuePropName='checked'
                     >
-                        <Switch onChange={(value) => {
+                        <Switch onChange={value => {
                             updateProjectPage({
                                 variables: {
                                     input: {
                                         id: id,
-                                        notes:  getProjectPage.data?.GetProjectPageById.notes || "",
+                                        notes: getProjectPage.data?.GetProjectPageById.notes || "",
                                         instruction: getProjectPage.data?.GetProjectPageById.instruction || "",
                                         title: getProjectPage.data?.GetProjectPageById.title || "",
                                         isShared: value,
-                                    }
-                                }
-                            })
+                                    },
+                                },
+                            });
                         }} />
                     </Form.Item>
                     {

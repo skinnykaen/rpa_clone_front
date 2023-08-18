@@ -1,17 +1,17 @@
 import { Avatar, Upload, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
-import styles from './Avatar.module.scss';
 
 import { useState } from 'react';
 import { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload';
+
+import styles from './Avatar.module.scss';
 
 function AvatarComponent() {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState<string>();
 
-    console.log(imageUrl)
+    console.log(imageUrl);
 
     const getBase64 = (img: RcFile, callback: (url: string) => void) => {
         const reader = new FileReader();
@@ -38,7 +38,7 @@ function AvatarComponent() {
         }
         if (info.file.status === 'done') {
             // Get this url from response in real world.
-            getBase64(info.file.originFileObj as RcFile, (url) => {
+            getBase64(info.file.originFileObj as RcFile, url => {
                 setLoading(false);
                 setImageUrl(url);
             });
@@ -47,24 +47,24 @@ function AvatarComponent() {
     return (
         <div className={styles.avatar}>
             <Upload
-                className="avatar-uploader"
+                className='avatar-uploader'
                 showUploadList={false}
-                action="http://localhost:5050/avatar"
+                action='http://localhost:5050/avatar'
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
             >
                 {imageUrl ? <Avatar
                         size={{ xs: 64, sm: 62, md: 120, lg: 184, xl: 240, xxl: 300 }}
                         src={imageUrl}
-                    /> :
-                    <Avatar
+                    />
+                    : <Avatar
                         size={{ xs: 64, sm: 62, md: 120, lg: 184, xl: 240, xxl: 300 }}
                         icon={<UserOutlined />}
                     />}
             </Upload>
         </div>
 
-    )
+    );
 }
 
 export default AvatarComponent;

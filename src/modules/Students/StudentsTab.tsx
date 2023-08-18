@@ -23,20 +23,20 @@ function StudentsTab({
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
         GET_ALL_USERS,
         {
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             variables: {
                 active: isActive,
                 roles: [Role.Student],
-            }
-        }
+            },
+        },
     );
     const [deleteUser, deleteUserResult] = useMutation<{ DeleteUser: Response }, { id: string }>(
         DELETE_USER,
         {
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             onCompleted: () => {
                 notification.success({
@@ -50,10 +50,10 @@ function StudentsTab({
                     variables: {
                         active: isActive,
                         roles: [Role.Student],
-                    }
+                    },
                 },
-            ]
-        }
+            ],
+        },
     );
     const navigate = useNavigate();
     const openProfileStudent = (userId: number): void => {
@@ -62,8 +62,8 @@ function StudentsTab({
                 userId,
                 userRole: Role.Student,
             },
-        })
-        return
+        });
+        return;
     };
     return (
         <List

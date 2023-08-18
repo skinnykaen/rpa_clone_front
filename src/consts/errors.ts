@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum StatusCode400Errors {
     ErrEmailAlreadyInUse = "email already in use",
     ErrAtoi = "string to int error",

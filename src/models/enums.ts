@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum Themes {
     DEFAULT = 'DEFAULT',
     DARK = 'DARK',

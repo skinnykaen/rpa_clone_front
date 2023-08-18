@@ -9,19 +9,18 @@ export default defineConfig({
 	},
 	plugins: [
 		react(),
-		// {
-        //     ...eslint(),
-        //     apply: 'build',
-        // },
-        // {
-        //     ...eslint({
-        //         failOnWarning: false,
-        //         failOnError: false,
-        //     }),
-        //     apply: 'serve',
-        //     enforce: 'post'
-        // },
-		// svgr(),
+		{
+            ...eslint(),
+            apply: 'build',
+        },
+        {
+            ...eslint({
+                failOnWarning: false,
+                failOnError: false,
+            }),
+            apply: 'serve',
+            enforce: 'post'
+        },
 	],
 	server: {
 		watch: {

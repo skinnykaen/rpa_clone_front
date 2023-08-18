@@ -5,7 +5,7 @@ function ClientsPage() {
         <>
             <ClientsList />
         </>
-    )
+    );
 }
 
 export default ClientsPage;

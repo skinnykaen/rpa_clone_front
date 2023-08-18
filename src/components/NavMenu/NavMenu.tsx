@@ -7,11 +7,11 @@ import styles from './NavMenu.module.scss';
 import { NavMenuItem } from './NavMenu.types';
 
 import {
+  APP_SETTINGS_PAGE_ROUTE,
+  CLIENTS_PAGE_ROUTE,
   MAIN_PAGE_ROUTE,
   PROJECTS_PAGE_ROUTE,
   STUDENTS_PAGE_ROUTE,
-  APP_SETTINGS_PAGE_ROUTE,
-  CLIENTS_PAGE_ROUTE
 } from '@/consts';
 import { Role } from '@/__generated__/graphql';
 import { useAppSelector } from '@/store';
@@ -52,7 +52,7 @@ function NavMenu() {
     default:
       selectedKeys = '';
   }
-  console.log(selectedKeys)
+  console.log(selectedKeys);
   //TODO make global loading
   return (
     <Menu

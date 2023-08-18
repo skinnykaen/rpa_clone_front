@@ -1,5 +1,5 @@
 import { graphql } from "@apollo/client/react/hoc";
-import { Col, Row, Skeleton, Space } from "antd";
+import { Col, Skeleton, Space } from "antd";
 
 import { UserHttp } from "@/__generated__/graphql";
 import { GET_USER_BY_ID } from "@/graphql/query";
@@ -11,7 +11,7 @@ interface ProfileDataProps {
 }
 
 function ProfileData({ userId }: ProfileDataProps) {
-    let ProfileData = graphql<{ id: string }, { GetUserById: UserHttp }>(GET_USER_BY_ID)(({ data }) => (
+    const ProfileData = graphql<{ id: string }, { GetUserById: UserHttp }>(GET_USER_BY_ID)(({ data }) => (
         data?.loading ? (
             <Skeleton avatar paragraph={{ rows: 8 }} />
         ) : (
@@ -22,8 +22,8 @@ function ProfileData({ userId }: ProfileDataProps) {
                 </Space>
             </Col>
         )
-    ))
-    return <ProfileData id={String(userId)} />
+    ));
+    return <ProfileData id={String(userId)} />;
 }
 
 export default ProfileData;

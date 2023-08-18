@@ -2,11 +2,12 @@ import { Button, Form, Input, notification } from 'antd';
 import { useMutation } from '@apollo/client';
 import { useEffect, useState } from 'react';
 
+import { QueryOptions } from 'apollo-client';
+
 import { CreateUserFormInputs } from './CreateUser.types';
 
 import { NewUser, Role, UserHttp } from '@/__generated__/graphql';
 import { CREATE_USER } from '@/graphql/mutations';
-import { QueryOptions } from 'apollo-client';
 import { handlingGraphqlErrors } from '@/utils';
 
 interface CreateUserProps {
@@ -23,13 +24,13 @@ function CreateUser({ role, refetchQueries }: CreateUserProps) {
                 notification.success({
                     message: 'Успешно!',
                     description: 'Пользователь успешно создан.',
-                })
+                });
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
-            refetchQueries: refetchQueries
-        }
+            refetchQueries: refetchQueries,
+        },
     );
     const onFinish = (inputs: CreateUserFormInputs) => {
         createUser({
@@ -42,9 +43,9 @@ function CreateUser({ role, refetchQueries }: CreateUserProps) {
                     middlename: inputs.middlename,
                     nickname: inputs.nickname,
                     role: role,
-                }
-            }
-        })
+                },
+            },
+        });
     };
     const [, forceUpdate] = useState({});
     useEffect(() => {

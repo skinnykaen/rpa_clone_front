@@ -9,7 +9,7 @@ import { GET_ALL_USERS } from "@/graphql/query";
 import CreateUser from "@/components/CreateUser";
 
 function ClientsList() {
-    const [openAddClient, setOpenAddClient] = useState(false)
+    const [openAddClient, setOpenAddClient] = useState(false);
 
     return (
         <>
@@ -30,7 +30,7 @@ function ClientsList() {
                         variables: {
                             active: true,
                             roles: [Role.Parent],
-                        }
+                        },
                     } as QueryBaseOptions]} />
             </Modal>
             <Tabs
@@ -39,17 +39,17 @@ function ClientsList() {
                     {
                         label: 'Активные',
                         key: '1',
-                        children: <ClientsTab isActive={true} />
+                        children: <ClientsTab isActive={true} />,
                     },
                     {
                         label: 'Не активные',
                         key: '2',
-                        children: <ClientsTab isActive={false}/>
+                        children: <ClientsTab isActive={false}/>,
                     },
                 ]}
             />
         </>
-    )
+    );
 }
 
 export default ClientsList;

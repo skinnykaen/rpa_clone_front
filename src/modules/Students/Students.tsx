@@ -9,7 +9,7 @@ import { Role } from '@/__generated__/graphql';
 import { GET_ALL_USERS } from '@/graphql/query';
 
 function StudentsList() {
-    const [openAddStudent, setOpenAddStudent] = useState(false)
+    const [openAddStudent, setOpenAddStudent] = useState(false);
     return (
         <>
             <Button type='primary' onClick={() => setOpenAddStudent(true)}>
@@ -27,7 +27,7 @@ function StudentsList() {
                     variables: {
                         active: true,
                         roles: [Role.Student],
-                    }
+                    },
                 } as QueryBaseOptions]}/>
             </Modal>
             <Tabs

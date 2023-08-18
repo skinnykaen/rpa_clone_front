@@ -1,13 +1,13 @@
-import { Button, Col, Form, Input, Modal, Typography, notification } from 'antd';
+import { Button, Col, Form, Input, Modal, Typography } from 'antd';
 import { useEffect, useState } from 'react';
-import { GraphQLError } from 'graphql';
 import { useNavigate } from 'react-router-dom';
+
+import { useMutation } from '@apollo/client';
 
 import { SignInFormInputs } from './SignInForm.types';
 
 import ForgotPassword from '@/components/ForgotPassword';
 import { SignIn, SignInResponse } from '@/__generated__/graphql';
-import { useMutation } from '@apollo/client';
 import { ACCESS_TOKEN, PROFILE_PAGE_ROUTE, REFRESH_TOKEN } from '@/consts';
 import { SIGN_IN } from '@/graphql/mutations';
 import { handlingGraphqlErrors } from '@/utils';
@@ -19,7 +19,7 @@ function SignInForm() {
     useEffect(() => {
         forceUpdate({});
     }, []);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [signIn, { loading }] = useMutation<{ SignIn: SignInResponse }, { input: SignIn }>(
         SIGN_IN,
         {
@@ -28,10 +28,10 @@ function SignInForm() {
                 localStorage.setItem(REFRESH_TOKEN, SignIn.refreshToken);
                 navigate(PROFILE_PAGE_ROUTE);
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
-        }
+        },
     );
     const onFinish = (inputs: SignInFormInputs) => {
         signIn({
@@ -39,8 +39,8 @@ function SignInForm() {
                 input: {
                     email: inputs.email,
                     password: inputs.password,
-                }
-            }
+                },
+            },
         });
     };
 

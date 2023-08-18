@@ -1,5 +1,6 @@
-import { Upload, UploadProps, message } from "antd"
+import { Upload, UploadProps, message } from "antd";
 import { useState } from "react";
+
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { RcFile, UploadChangeParam, UploadFile } from "antd/es/upload";
 
@@ -39,7 +40,7 @@ function UploadModule() {
         }
         if (info.file.status === 'done') {
             // Get this url from response in real world.
-            getBase64(info.file.originFileObj as RcFile, (url) => {
+            getBase64(info.file.originFileObj as RcFile, url => {
                 setLoading(false);
                 setImageUrl(url);
             });
@@ -49,18 +50,18 @@ function UploadModule() {
     return (
         <>
             <Upload
-                name="avatar"
-                listType="picture-circle"
-                className="avatar-uploader"
+                name='avatar'
+                listType='picture-circle'
+                className='avatar-uploader'
                 showUploadList={false}
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
                 beforeUpload={beforeUpload}
                 onChange={handleChange}
             >
-                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                {imageUrl ? <img src={imageUrl} alt='avatar' style={{ width: '100%' }} /> : uploadButton}
             </Upload>
         </>
-    )
+    );
 }
 
-export default UploadModule
+export default UploadModule;

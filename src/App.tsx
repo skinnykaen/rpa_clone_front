@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { ApolloProvider } from '@apollo/client';
 
@@ -30,7 +30,7 @@ import { graphqlClient } from '@/graphql/client';
 import ProtectedRoute from '@/hocs/ProtectedRoute';
 
 function App() {
-    console.log(process.env.MODE)
+    console.log(process.env.MODE);
     const { theme } = useAppSelector(state => state.themeReducer);
     return (
         <ApolloProvider client={graphqlClient}>

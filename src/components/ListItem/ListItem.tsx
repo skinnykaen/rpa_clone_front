@@ -1,6 +1,7 @@
-import { Modal, Typography } from 'antd'
-import { ExclamationCircleOutlined } from '@ant-design/icons'
-import styles from './ListItem.module.scss'
+import { Modal, Typography } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+
+import styles from './ListItem.module.scss';
 
 interface ListItemProps {
     index: number;
@@ -23,13 +24,13 @@ function ListItem({
             okType: 'danger',
             cancelText: 'Отмена',
             onOk() {
-                handleDelete ? handleDelete(String(index)) : () => { return };
+                handleDelete ? handleDelete(String(index)) : () => { return; };
             },
             onCancel() {
                 console.log('Cancel');
             },
-        })
-    }
+        });
+    };
     return (
         <li className={styles.list_item}>
             <Typography.Link className={styles.label} onClick={handleClick}>

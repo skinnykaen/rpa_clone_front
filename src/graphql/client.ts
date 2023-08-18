@@ -1,8 +1,9 @@
-import { ACCESS_TOKEN, PRODUCTION, REFRESH_TOKEN } from '@/consts';
-import { ApolloClient, InMemoryCache, from, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink, from } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
-import { setContext } from '@apollo/client/link/context'
+import { setContext } from '@apollo/client/link/context';
 import gql from 'graphql-tag';
+
+import { ACCESS_TOKEN, PRODUCTION, REFRESH_TOKEN } from '@/consts';
 
 const retryLink = new RetryLink({
     delay: {
@@ -11,15 +12,15 @@ const retryLink = new RetryLink({
     },
     attempts: {
         max: 3,
-        retryIf: async (error) => {
-            console.log(error)
+        retryIf: async error => {
+            console.log(error);
             if (error && error.statusCode === 401) {
-                localStorage.removeItem(ACCESS_TOKEN)
-                const accessToken = await refreshToken()
-                localStorage.setItem(ACCESS_TOKEN, accessToken || '')
-                return true
+                localStorage.removeItem(ACCESS_TOKEN);
+                const accessToken = await refreshToken();
+                localStorage.setItem(ACCESS_TOKEN, accessToken || '');
+                return true;
             }
-            return false
+            return false;
         },
     },
 });
@@ -30,7 +31,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN)
+    const accessToken = localStorage.getItem(ACCESS_TOKEN);
     return {
         headers: {
             ...headers,
@@ -54,19 +55,19 @@ const refreshToken = async (): Promise<string> => {
                 `,
                 variables: {
                     refreshToken: localStorage.getItem(REFRESH_TOKEN),
-                }
+                },
             },
-        )
-        const accessToken = refreshResolverResponse.data?.RefreshToken.accessToken
-        localStorage.setItem(ACCESS_TOKEN, accessToken || '')
-        return accessToken
+        );
+        const accessToken = refreshResolverResponse.data?.RefreshToken.accessToken;
+        localStorage.setItem(ACCESS_TOKEN, accessToken || '');
+        return accessToken;
     } catch (err) {
-        localStorage.removeItem(ACCESS_TOKEN)
-        localStorage.removeItem(REFRESH_TOKEN)
-        console.error(err)
-        throw err
+        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
+        console.error(err);
+        throw err;
     }
-}
+};
 
 export const graphqlClient = new ApolloClient({
     link: from([retryLink, authLink, httpLink]),

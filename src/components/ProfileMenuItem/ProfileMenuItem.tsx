@@ -1,7 +1,7 @@
 import { Menu } from 'antd';
 import {
-    UserOutlined,
     LogoutOutlined,
+    UserOutlined,
 } from '@ant-design/icons';
 import {
     Link,

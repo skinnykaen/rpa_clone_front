@@ -1,10 +1,11 @@
 import { Col, Row, Typography } from "antd";
 
+import { useQuery } from "@apollo/client";
+
 import ProfileData from "@/components/ProfileData";
 import ProjectPagesList from "@/components/ProjectPagesList";
 import { WithPaginationProps, withPaginationLocal } from "@/hocs";
 import { ProjectPageHttpList } from "@/__generated__/graphql";
-import { useQuery } from "@apollo/client";
 import { GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
 
@@ -13,7 +14,7 @@ interface StudentProfileProps {
 }
 
 function StudentProfile({ id }: StudentProfileProps) {
-    let ProjectPageList: (hocProps: Omit<{
+    const ProjectPageList: (hocProps: Omit<{
         loading: boolean;
         data?: ProjectPageHttpList;
         removal: boolean;
@@ -22,14 +23,14 @@ function StudentProfile({ id }: StudentProfileProps) {
     const GetAllProjectPages = useQuery<{ GetAllProjectPagesByAuthorId: ProjectPageHttpList }, { id: string, page?: number, pageSize?: number }>(
         GET_ALL_PROJECT_PAGES_BY_AUTHOR_ID,
         {
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             variables: {
-                id: String(id)
+                id: String(id),
             },
-            skip: !id
-        }
+            skip: !id,
+        },
     );
     return (
         <Row gutter={{ xs: 8, sm: 16, md: 8, lg: 8 }}>
@@ -43,7 +44,7 @@ function StudentProfile({ id }: StudentProfileProps) {
                 />
             </Col>
         </Row>
-    )
+    );
 }
 
 export default StudentProfile;

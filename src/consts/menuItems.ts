@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum MenuItemsKeys {
     MAIN_PAGE_ROUTE = '1',
     PROJECTS_PAGE_ROUTE = '2',

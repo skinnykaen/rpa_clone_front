@@ -1,2 +1,2 @@
 import ProfileData from "./ProfileData";
-export default ProfileData
+export default ProfileData;

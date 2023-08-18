@@ -1,7 +1,8 @@
-import { Button, Form, Input, Checkbox, notification } from 'antd';
+import { Button, Checkbox, Form, Input, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client'
     ;
+
 import { SignUpFormInputs } from './SignUpForm.types';
 
 import { Response, SignUp } from '@/__generated__/graphql';
@@ -19,12 +20,12 @@ function SignUpForm() {
                 notification.success({
                     message: 'Успешно!',
                     description: 'На ваш email была отправлена инструкция для активации.',
-                })
+                });
             },
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
-        }
+        },
     );
     const onFinish = (inputs: SignUpFormInputs) => {
         signUp({
@@ -36,9 +37,9 @@ function SignUpForm() {
                     firstname: inputs.firstname,
                     middlename: inputs.middlename,
                     nickname: inputs.nickname,
-                }
-            }
-        })
+                },
+            },
+        });
     };
     const [, forceUpdate] = useState({});
     useEffect(() => {
@@ -171,7 +172,7 @@ function SignUpForm() {
                 ]}
             >
                 <Checkbox>
-                    Я прочитал условия <a href="">пользователького соглашения</a>
+                    Я прочитал условия <a href=''>пользователького соглашения</a>
                 </Checkbox>
             </Form.Item>
             <Form.Item shouldUpdate>

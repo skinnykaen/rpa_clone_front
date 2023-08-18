@@ -1,10 +1,11 @@
 import { List, Typography, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 
+import { useMutation } from "@apollo/client";
+
 import ListItem from "@/components/ListItem";
 import { ProjectPageHttp, ProjectPageHttpList } from "@/__generated__/graphql";
 import { WithPaginationProps } from "@/hocs";
-import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_PAGE } from "@/graphql/mutations";
 import { GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
@@ -26,29 +27,29 @@ function ProjectPagesList({
 }: ProjectPagesListProps) {
     const navigate = useNavigate();
     const openProjectPage = (id: number): void => {
-        navigate(`/project/${id}`)
-        return
+        navigate(`/project/${id}`);
+        return;
     };
     const projectPageLabel = (projectPage: ProjectPageHttp) => {
-        let projectPageStatus: ProjectPageStatus = ProjectPageStatus.Private
+        let projectPageStatus: ProjectPageStatus = ProjectPageStatus.Private;
         if (projectPage.isBanned) {
-            projectPageStatus = ProjectPageStatus.Banned
+            projectPageStatus = ProjectPageStatus.Banned;
         }else if (projectPage.isShared){
-            projectPageStatus = ProjectPageStatus.Shared
+            projectPageStatus = ProjectPageStatus.Shared;
         }else {
-            projectPageStatus = ProjectPageStatus.Private
+            projectPageStatus = ProjectPageStatus.Private;
         }
         return (
             <>
-                {projectPage.title + "  "}<Typography.Text code color="red">{projectPageStatus}</Typography.Text>
+                {projectPage.title + "  "}<Typography.Text code color='red'>{projectPageStatus}</Typography.Text>
             </>
-        )
-    }
+        );
+    };
     const [deleteProjectPage, deleteProjectPageResult] = useMutation<{ DeleteProjectPage: Response }, { id: string }>(
         DELETE_PROJECT_PAGE,
         {
-            onError: (error) => {
-                handlingGraphqlErrors(error)
+            onError: error => {
+                handlingGraphqlErrors(error);
             },
             onCompleted: () => {
                 notification.success({
@@ -60,8 +61,8 @@ function ProjectPagesList({
                 {
                     query: GET_ALL_PROJECT_PAGES_BY_ACCESS_TOKEN,
                 },
-            ]
-        }
+            ],
+        },
     );
     return (
         <List
