@@ -1,7 +1,10 @@
 import { Modal, Typography } from 'antd';
+import { useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import styles from './ListItem.module.scss';
+
+import StudentDrawer from '@/components/StudentDrawer';
 
 interface ListItemProps {
     index: number;
@@ -16,6 +19,11 @@ function ListItem({
     handleDelete,
     handleClick,
 }: ListItemProps) {
+    const [isOpenDrawer, setOpenDrawer] = useState(false);
+    const hanldeOnClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        e.preventDefault();
+        setOpenDrawer(!isOpenDrawer);
+    };
     const showDeleteConfirm = () => {
         Modal.confirm({
             title: 'Вы точно хотите удалить?',
@@ -33,7 +41,7 @@ function ListItem({
     };
     return (
         <li className={styles.list_item}>
-            <Typography.Link className={styles.label} onClick={handleClick}>
+            <Typography.Link className={styles.label} onClick={e => hanldeOnClick(e)}>
                 {
                     renderLabel()
                 }
@@ -44,6 +52,7 @@ function ListItem({
                     ×
                 </button>
             }
+            <StudentDrawer isOpen={isOpenDrawer} setOpen={setOpenDrawer} studentId={index} />
         </li>
     );
 }

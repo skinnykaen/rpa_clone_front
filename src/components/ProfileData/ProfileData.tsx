@@ -15,7 +15,7 @@ function ProfileData({ userId }: ProfileDataProps) {
         data?.loading ? (
             <Skeleton avatar paragraph={{ rows: 8 }} />
         ) : (
-            <Col xs={23} sm={23} md={23} lg={8} xl={8}>
+            <Col xs={24} sm={23} md={23} lg={23} xl={23}>
                 <Space direction='vertical' size={'middle'}>
                     <AvatarComponent />
                     <ProfileCard isEditMode={true} profileData={data?.GetUserById} />

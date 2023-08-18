@@ -1,20 +1,19 @@
+import { useState } from "react";
 import { notification } from "antd";
 import { useMutation, useQuery } from "@apollo/client";
-
-import { useState } from "react";
 
 import { Role, UsersList } from "@/__generated__/graphql";
 import { GET_ALL_USERS } from "@/graphql/query";
 import { DELETE_USER } from "@/graphql/mutations";
 import { handlingGraphqlErrors } from "@/utils";
-import ParentDrawer from "@/components/ParentDrawer";
 import UsersListComponent from "@/components/UsersList";
+import StudentDrawer from "@/components/StudentDrawer";
 
 interface StudentsTabProps {
     isActive: boolean;
 }
 
-function ClientsTab({
+function StudentsTab({
     isActive,
 }: StudentsTabProps) {
     const [isOpenDrawer, setOpenDrawer] = useState(false);
@@ -26,7 +25,7 @@ function ClientsTab({
             },
             variables: {
                 active: isActive,
-                roles: [Role.Parent],
+                roles: [Role.Student],
             },
         },
     );
@@ -47,7 +46,7 @@ function ClientsTab({
                     query: GET_ALL_USERS,
                     variables: {
                         active: isActive,
-                        roles: [Role.Parent],
+                        roles: [Role.Student],
                     },
                 },
             ],
@@ -55,18 +54,18 @@ function ClientsTab({
     );
 
     return (
-        <>
-            <UsersListComponent
-                isLoading={loading && deleteUserResult.loading}
-                users={data?.GetAllUsers.users}
-                countRows={data?.GetAllUsers.countRows || 0}
-                isOpenDrawer={isOpenDrawer}
-                openDrawer={setOpenDrawer}
-                drawerRender={(parentId: number) => <ParentDrawer isOpen={isOpenDrawer} setOpen={setOpenDrawer} parentId={parentId} />}
-                handleDelete={(userId: number) => deleteUser({ variables: { id: String(userId) } })}
-            />
-        </>
+        <UsersListComponent
+            isLoading={loading && deleteUserResult.loading}
+            users={data?.GetAllUsers.users}
+            countRows={data?.GetAllUsers.countRows || 0}
+            // isOpenDrawer={isOpenDrawer}
+            // openDrawer={setOpenDrawer}
+            drawerRender={(studentId: number, isOpenDrawer: boolean, setOpen:(isOpen: boolean)=> void) =>
+                <StudentDrawer isOpen={isOpenDrawer} setOpen={setOpen} studentId={studentId} />
+            }
+            handleDelete={(userId: number) => deleteUser({ variables: { id: String(userId) } })}
+        />
     );
 }
 
-export default ClientsTab;
+export default StudentsTab;

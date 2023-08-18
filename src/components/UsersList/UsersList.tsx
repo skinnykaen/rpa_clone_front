@@ -3,29 +3,31 @@ import { List } from "antd";
 import { UserHttp } from "@/__generated__/graphql";
 import ListItem from "@/components/ListItem";
 import { WithPaginationProps, withPaginationLocal } from "@/hocs";
+import { useState } from "react";
 
 type UsersListProps = WithPaginationProps & {
     isLoading: boolean;
     users: UserHttp[] | undefined;
     countRows: number;
-    openDrawer(isOpen: boolean): void;
+    // openDrawer(isOpen: boolean): void;
     handleDelete?(userId: number): void;
-    isOpenDrawer?: boolean;
-    drawerRender?: (userId: number) => JSX.Element
+    // isOpenDrawer?: boolean;
+    drawerRender?: (userId: number, isOpen: boolean, setOpen:(isOpen: boolean)=> void) => JSX.Element
 }
 
 function UsersListComponent({
     isLoading,
     users,
     countRows,
-    isOpenDrawer,
+    // isOpenDrawer,
     page,
     pageSize,
-    openDrawer,
+    // openDrawer,
     handleDelete,
     drawerRender,
     onChangePage,
 }: UsersListProps) {
+    const [isOpenDrawer, setOpenDrawer] = useState(false);
     return (
         <List
             className='user-list'
@@ -45,14 +47,14 @@ function UsersListComponent({
             renderItem={(user, index) => (
                 <>
                     <ListItem
-                        index={index}
+                        index={Number(user.id)}
                         renderLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
-                        handleClick={() => openDrawer(!isOpenDrawer)}
+                        // handleClick={() => setOpenDrawer(!isOpenDrawer)}
                         handleDelete={() => handleDelete ? handleDelete(Number(user.id)) : undefined}
                     />
-                    {
-                        drawerRender ? drawerRender(Number(user.id)) : <></>
-                    }
+                    {/* {
+                        drawerRender ? drawerRender(Number(user.id), isOpenDrawer, setOpenDrawer) : <></>
+                    } */}
                 </>
             )}
         />

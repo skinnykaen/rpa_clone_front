@@ -115,19 +115,19 @@ function ProfileCard({
                 }}
             >
                 <Form.Item name='email'>
-                    <Input placeholder={'email'} size='large' />
+                    <Input placeholder={'email'} size='middle' />
                 </Form.Item>
                 <Form.Item name='nickname'>
-                    <Input placeholder={'никнейм'} size='large' />
+                    <Input placeholder={'никнейм'} size='middle' />
                 </Form.Item>
                 <Form.Item name='lastname'>
-                    <Input placeholder={'фамилия'} size='large' />
+                    <Input placeholder={'фамилия'} size='middle' />
                 </Form.Item>
                 <Form.Item name='firstname'>
-                    <Input placeholder={'имя'} size='large' />
+                    <Input placeholder={'имя'} size='middle' />
                 </Form.Item>
                 <Form.Item name='middlename'>
-                    <Input placeholder={'отчетсво'} size='large' />
+                    <Input placeholder={'отчетсво'} size='middle' />
                 </Form.Item>
                 <Form.Item label={'Роль: '}>
                     {

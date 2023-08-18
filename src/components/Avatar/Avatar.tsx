@@ -11,8 +11,6 @@ function AvatarComponent() {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState<string>();
 
-    console.log(imageUrl);
-
     const getBase64 = (img: RcFile, callback: (url: string) => void) => {
         const reader = new FileReader();
         reader.addEventListener('load', () => callback(reader.result as string));
