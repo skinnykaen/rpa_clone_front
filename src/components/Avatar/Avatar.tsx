@@ -1,8 +1,6 @@
+import { useState } from 'react';
 import { Avatar, Upload, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
-
-import { useState } from 'react';
 import { RcFile, UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload';
 
 import styles from './Avatar.module.scss';
@@ -52,11 +50,11 @@ function AvatarComponent() {
                 onChange={handleChange}
             >
                 {imageUrl ? <Avatar
-                        size={{ xs: 64, sm: 62, md: 120, lg: 184, xl: 240, xxl: 300 }}
-                        src={imageUrl}
-                    />
+                    size={128}
+                    src={imageUrl}
+                />
                     : <Avatar
-                        size={{ xs: 64, sm: 62, md: 120, lg: 184, xl: 240, xxl: 300 }}
+                        size={128}
                         icon={<UserOutlined />}
                     />}
             </Upload>

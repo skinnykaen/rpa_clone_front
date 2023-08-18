@@ -7,6 +7,7 @@ import UsersListComponent from "@/components/UsersList";
 import { DELETE_USER } from "@/graphql/mutations";
 import { GET_ALL_USERS } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
+import UnitAdminDrawer from "@/components/UnitAdminDrawer";
 
 interface TeachersTab {
     isActive: boolean;
@@ -15,7 +16,6 @@ interface TeachersTab {
 function UnitAdminsTab({
     isActive,
 }: TeachersTab) {
-    const [isOpenDrawer, setOpenDrawer] = useState(false);
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
         GET_ALL_USERS,
         {
@@ -56,9 +56,9 @@ function UnitAdminsTab({
             isLoading={loading && deleteUserResult.loading}
             users={data?.GetAllUsers.users}
             countRows={data?.GetAllUsers.countRows || 0}
-            isOpenDrawer={isOpenDrawer}
-            openDrawer={setOpenDrawer}
-            drawerRender={() =>  <></>}
+            renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) =>
+                <UnitAdminDrawer isOpen={isOpen} setOpen={setOpen} unitAdminId={userId} />
+            }
             handleDelete={(userId: number) => deleteUser({ variables: { id: String(userId) } })}
         />
     );

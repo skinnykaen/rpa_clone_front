@@ -16,7 +16,6 @@ interface StudentsTabProps {
 function StudentsTab({
     isActive,
 }: StudentsTabProps) {
-    const [isOpenDrawer, setOpenDrawer] = useState(false);
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
         GET_ALL_USERS,
         {
@@ -58,10 +57,8 @@ function StudentsTab({
             isLoading={loading && deleteUserResult.loading}
             users={data?.GetAllUsers.users}
             countRows={data?.GetAllUsers.countRows || 0}
-            // isOpenDrawer={isOpenDrawer}
-            // openDrawer={setOpenDrawer}
-            drawerRender={(studentId: number, isOpenDrawer: boolean, setOpen:(isOpen: boolean)=> void) =>
-                <StudentDrawer isOpen={isOpenDrawer} setOpen={setOpen} studentId={studentId} />
+            renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) =>
+                <StudentDrawer isOpen={isOpen} setOpen={setOpen} studentId={userId} />
             }
             handleDelete={(userId: number) => deleteUser({ variables: { id: String(userId) } })}
         />

@@ -3,31 +3,26 @@ import { List } from "antd";
 import { UserHttp } from "@/__generated__/graphql";
 import ListItem from "@/components/ListItem";
 import { WithPaginationProps, withPaginationLocal } from "@/hocs";
-import { useState } from "react";
+import StudentDrawer from "@/components/StudentDrawer";
 
 type UsersListProps = WithPaginationProps & {
     isLoading: boolean;
     users: UserHttp[] | undefined;
     countRows: number;
-    // openDrawer(isOpen: boolean): void;
     handleDelete?(userId: number): void;
-    // isOpenDrawer?: boolean;
-    drawerRender?: (userId: number, isOpen: boolean, setOpen:(isOpen: boolean)=> void) => JSX.Element
+    renderDrawer?: (isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number,) => JSX.Element
 }
 
 function UsersListComponent({
     isLoading,
     users,
     countRows,
-    // isOpenDrawer,
     page,
     pageSize,
-    // openDrawer,
     handleDelete,
-    drawerRender,
+    renderDrawer,
     onChangePage,
 }: UsersListProps) {
-    const [isOpenDrawer, setOpenDrawer] = useState(false);
     return (
         <List
             className='user-list'
@@ -47,14 +42,13 @@ function UsersListComponent({
             renderItem={(user, index) => (
                 <>
                     <ListItem
-                        index={Number(user.id)}
+                        index={index}
+                        itemId={Number(user.id)}
                         renderLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
-                        // handleClick={() => setOpenDrawer(!isOpenDrawer)}
+                        // renderDrawer={(isOpen, setOpen, itemId) => <StudentDrawer  isOpen={isOpen} setOpen={setOpen} studentId={itemId}/>}
+                        renderDrawer={(isOpen, setOpen, itemId) => renderDrawer ? renderDrawer(isOpen, setOpen, Number(user.id)) : <></>}
                         handleDelete={() => handleDelete ? handleDelete(Number(user.id)) : undefined}
                     />
-                    {/* {
-                        drawerRender ? drawerRender(Number(user.id), isOpenDrawer, setOpenDrawer) : <></>
-                    } */}
                 </>
             )}
         />

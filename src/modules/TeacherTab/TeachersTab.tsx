@@ -1,5 +1,4 @@
 import { notification } from "antd";
-import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 
 import { Role, UsersList } from "@/__generated__/graphql";
@@ -7,6 +6,7 @@ import UsersListComponent from "@/components/UsersList";
 import { DELETE_USER } from "@/graphql/mutations";
 import { GET_ALL_USERS } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
+import TeachersDrawer from "@/components/TeacherDrawer";
 
 interface TeachersTab {
     isActive: boolean;
@@ -15,7 +15,6 @@ interface TeachersTab {
 function TeachersTab({
     isActive,
 }: TeachersTab) {
-    const [isOpenDrawer, setOpenDrawer] = useState(false);
     const { loading, data } = useQuery<{ GetAllUsers: UsersList }, { page?: number, pageSize?: number, active: boolean, roles: Role[] }>(
         GET_ALL_USERS,
         {
@@ -56,9 +55,9 @@ function TeachersTab({
             isLoading={loading && deleteUserResult.loading}
             users={data?.GetAllUsers.users}
             countRows={data?.GetAllUsers.countRows || 0}
-            isOpenDrawer={isOpenDrawer}
-            openDrawer={setOpenDrawer}
-            drawerRender={() =>  <></>}
+            renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) =>
+                <TeachersDrawer isOpen={isOpen} setOpen={setOpen} teacherId={userId} />
+            }
             handleDelete={(userId: number) => deleteUser({ variables: { id: String(userId) } })}
         />
     );

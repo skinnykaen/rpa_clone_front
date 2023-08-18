@@ -4,26 +4,33 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import styles from './ListItem.module.scss';
 
-import StudentDrawer from '@/components/StudentDrawer';
-
 interface ListItemProps {
     index: number;
-    renderLabel: () => JSX.Element
-    handleDelete?(index: string): void;
+    itemId: number;
     handleClick?(): void;
+    handleDelete?(index: string): void;
+    renderLabel: () => JSX.Element;
+    renderDrawer?: (isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) => JSX.Element;
 }
 
 function ListItem({
     index,
+    itemId,
     renderLabel,
     handleDelete,
     handleClick,
+    renderDrawer,
 }: ListItemProps) {
     const [isOpenDrawer, setOpenDrawer] = useState(false);
-    const hanldeOnClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        e.preventDefault();
-        setOpenDrawer(!isOpenDrawer);
-    };
+    const handleOnClick = () => {
+        if (handleClick) {
+            handleClick();
+        }
+        if (renderDrawer){
+            console.log(isOpenDrawer);
+            setOpenDrawer(!isOpenDrawer);
+        }
+    }; 
     const showDeleteConfirm = () => {
         Modal.confirm({
             title: 'Вы точно хотите удалить?',
@@ -41,7 +48,7 @@ function ListItem({
     };
     return (
         <li className={styles.list_item}>
-            <Typography.Link className={styles.label} onClick={e => hanldeOnClick(e)}>
+            <Typography.Link className={styles.label} onClick={handleOnClick}>
                 {
                     renderLabel()
                 }
@@ -52,7 +59,9 @@ function ListItem({
                     ×
                 </button>
             }
-            <StudentDrawer isOpen={isOpenDrawer} setOpen={setOpenDrawer} studentId={index} />
+            {
+                renderDrawer ? renderDrawer(isOpenDrawer, setOpenDrawer, itemId) : <></>
+            }
         </li>
     );
 }
