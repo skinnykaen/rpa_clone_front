@@ -1,20 +1,20 @@
 import { Drawer, Row } from "antd";
-import ProfileData from "../ProfileData";
+import ProfileData from "@/components/ProfileData";
 
-interface UnitAdminDrawerProps {
-    unitAdminId: number;
+interface TeachersDrawerProps {
+    teacherId: number;
     isOpen: boolean;
     setOpen(isOpen: boolean): void;
 }
 
-function UnitAdminDrawer({unitAdminId, isOpen, setOpen}: UnitAdminDrawerProps) {
+function TeachersDrawer({teacherId, isOpen, setOpen}: TeachersDrawerProps) {
     return (
         <Drawer width={640} placement='right' closable={true} onClose={() => setOpen(false)} open={isOpen}>
             <Row gutter={{ xs: 16, sm: 16, md: 16, lg: 16 }}>
-                <ProfileData userId={unitAdminId} />
+                <ProfileData userId={teacherId} />
             </Row>
         </Drawer>
     );
 }
 
-export default UnitAdminDrawer;
+export default TeachersDrawer;

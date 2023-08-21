@@ -102,7 +102,7 @@ export type MutationConfirmActivationArgs = {
 
 
 export type MutationCreateParentRelArgs = {
-  childID: Scalars['ID']['input'];
+  childId: Scalars['ID']['input'];
   parentId: Scalars['ID']['input'];
 };
 
@@ -113,7 +113,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationDeleteParentRelArgs = {
-  childID: Scalars['ID']['input'];
+  childId: Scalars['ID']['input'];
   parentId: Scalars['ID']['input'];
 };
 

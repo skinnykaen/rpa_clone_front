@@ -6,7 +6,7 @@ import UsersListComponent from "@/components/UsersList";
 import { DELETE_USER } from "@/graphql/mutations";
 import { GET_ALL_USERS } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
-import TeachersDrawer from "@/components/TeacherDrawer";
+import TeachersDrawer from "@/modules/TeacherDrawer";
 
 interface TeachersTab {
     isActive: boolean;

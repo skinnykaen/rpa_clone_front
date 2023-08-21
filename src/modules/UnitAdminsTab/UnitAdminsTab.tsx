@@ -7,7 +7,7 @@ import UsersListComponent from "@/components/UsersList";
 import { DELETE_USER } from "@/graphql/mutations";
 import { GET_ALL_USERS } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
-import UnitAdminDrawer from "@/components/UnitAdminDrawer";
+import UnitAdminDrawer from "@/modules/UnitAdminDrawer";
 
 interface TeachersTab {
     isActive: boolean;

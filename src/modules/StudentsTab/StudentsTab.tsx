@@ -7,7 +7,7 @@ import { GET_ALL_USERS } from "@/graphql/query";
 import { DELETE_USER } from "@/graphql/mutations";
 import { handlingGraphqlErrors } from "@/utils";
 import UsersListComponent from "@/components/UsersList";
-import StudentDrawer from "@/components/StudentDrawer";
+import StudentDrawer from "@/modules/StudentDrawer";
 
 interface StudentsTabProps {
     isActive: boolean;

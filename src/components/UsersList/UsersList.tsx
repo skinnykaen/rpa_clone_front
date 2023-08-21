@@ -3,7 +3,7 @@ import { List } from "antd";
 import { UserHttp } from "@/__generated__/graphql";
 import ListItem from "@/components/ListItem";
 import { WithPaginationProps, withPaginationLocal } from "@/hocs";
-import StudentDrawer from "@/components/StudentDrawer";
+import StudentDrawer from "@/modules/StudentDrawer";
 
 type UsersListProps = WithPaginationProps & {
     isLoading: boolean;

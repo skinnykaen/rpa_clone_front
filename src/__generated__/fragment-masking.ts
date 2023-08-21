@@ -1,6 +1,5 @@
-import { DocumentTypeDecoration, ResultOf, TypedDocumentNode } from '@graphql-typed-document-node/core';
+import { ResultOf, DocumentTypeDecoration, TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { FragmentDefinitionNode } from 'graphql';
-
 import { Incremental } from './graphql';
 
 
@@ -37,7 +36,7 @@ export function useFragment<TType>(
 ): ReadonlyArray<TType> | null | undefined;
 export function useFragment<TType>(
   _documentNode: DocumentTypeDecoration<TType, any>,
-  fragmentType: FragmentType<DocumentTypeDecoration<TType, any>> | ReadonlyArray<FragmentType<DocumentTypeDecoration<TType, any>>> | null | undefined,
+  fragmentType: FragmentType<DocumentTypeDecoration<TType, any>> | ReadonlyArray<FragmentType<DocumentTypeDecoration<TType, any>>> | null | undefined
 ): TType | ReadonlyArray<TType> | null | undefined {
   return fragmentType as any;
 }
@@ -52,7 +51,7 @@ export function makeFragmentData<
 export function isFragmentReady<TQuery, TFrag>(
   queryNode: DocumentTypeDecoration<TQuery, any>,
   fragmentNode: TypedDocumentNode<TFrag>,
-  data: FragmentType<TypedDocumentNode<Incremental<TFrag>, any>> | null | undefined,
+  data: FragmentType<TypedDocumentNode<Incremental<TFrag>, any>> | null | undefined
 ): data is FragmentType<typeof fragmentNode> {
   const deferredFields = (queryNode as { __meta__?: { deferredFields: Record<string, (keyof TFrag)[]> } }).__meta__
     ?.deferredFields;

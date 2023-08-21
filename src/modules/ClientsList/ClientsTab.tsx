@@ -5,7 +5,7 @@ import { Role, UsersList } from "@/__generated__/graphql";
 import { GET_ALL_USERS } from "@/graphql/query";
 import { DELETE_USER } from "@/graphql/mutations";
 import { handlingGraphqlErrors } from "@/utils";
-import ParentDrawer from "@/components/ParentDrawer";
+import ParentDrawer from "@/modules/ParentDrawer";
 import UsersListComponent from "@/components/UsersList";
 
 interface StudentsTabProps {

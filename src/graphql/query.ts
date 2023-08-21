@@ -107,3 +107,17 @@ export const GET_SETTINGS = gql`
         }
     }
 `;
+
+export const GET_CHILDREN_BY_PARENT = gql`
+    query GetChildrenByParent($parentId: ID!){
+        GetChildrenByParent(parentId: $parentId) {
+            countRows
+            users {
+                id
+                lastname
+                firstname 
+                middlename
+            }
+        }
+    }
+`;
