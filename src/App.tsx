@@ -14,6 +14,8 @@ import ActivationPage from '@/pages/Activation';
 import ClientsPage from '@/pages/Clients';
 import TeachersPage from '@/pages/Teachers';
 import UnitAdmins from '@/pages/UnitAdmins';
+import RobboUnitsPage from '@/pages/RobboUnits';
+import RobboGroupsPage from '@/pages/RobboGroups';
 import {
     ACTIVATION_PAGE_ROUTE,
     APP_SETTINGS_PAGE_ROUTE,
@@ -23,6 +25,7 @@ import {
     PROFILE_PAGE_ROUTE,
     PROJECTS_PAGE_ROUTE,
     PROJECT_PAGE_ROUTE,
+    ROBBO_UNITS_PAGE_ROUTE,
     STUDENTS_PAGE_ROUTE,
     TEACHERS_PAGE_ROUTE,
     UNIT_ADMINS_PAGE_ROUTE,
@@ -32,6 +35,7 @@ import { useAppSelector } from '@/store';
 import { Roles, Themes } from '@/models';
 import { graphqlClient } from '@/graphql/client';
 import ProtectedRoute from '@/hocs/ProtectedRoute';
+
 
 function App() {
     console.log(process.env.MODE);
@@ -112,6 +116,22 @@ function App() {
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
                                         <UnitAdmins />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path={ROBBO_UNITS_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                        <RobboUnitsPage />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path={UNIT_ADMINS_PAGE_ROUTE}
+                                element={
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                        <RobboGroupsPage />
                                     </ProtectedRoute>
                                 }
                             />

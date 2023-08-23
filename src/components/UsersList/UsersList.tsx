@@ -3,25 +3,26 @@ import { List } from "antd";
 import { UserHttp } from "@/__generated__/graphql";
 import ListItem from "@/components/ListItem";
 import { WithPaginationProps, withPaginationLocal } from "@/hocs";
-import StudentDrawer from "@/modules/StudentDrawer";
 
 type UsersListProps = WithPaginationProps & {
     isLoading: boolean;
     users: UserHttp[] | undefined;
-    countRows: number;
+    countRows?: number;
+    handleOnClick?(userId: number): void;
     handleDelete?(userId: number): void;
-    renderDrawer?: (isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number,) => JSX.Element
+    renderDrawer?: (isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number,) => JSX.Element;
 }
 
 function UsersListComponent({
     isLoading,
     users,
-    countRows,
+    countRows = 0,
     page,
     pageSize,
     handleDelete,
     renderDrawer,
     onChangePage,
+    handleOnClick,
 }: UsersListProps) {
     return (
         <List
@@ -40,16 +41,14 @@ function UsersListComponent({
             }}
             itemLayout='vertical'
             renderItem={(user, index) => (
-                <>
-                    <ListItem
-                        index={index}
-                        itemId={Number(user.id)}
-                        renderLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
-                        // renderDrawer={(isOpen, setOpen, itemId) => <StudentDrawer  isOpen={isOpen} setOpen={setOpen} studentId={itemId}/>}
-                        renderDrawer={(isOpen, setOpen, itemId) => renderDrawer ? renderDrawer(isOpen, setOpen, Number(user.id)) : <></>}
-                        handleDelete={() => handleDelete ? handleDelete(Number(user.id)) : undefined}
-                    />
-                </>
+                <ListItem
+                    index={index}
+                    itemId={Number(user.id)}
+                    renderLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
+                    renderDrawer={(isOpen, setOpen, itemId) => renderDrawer ? renderDrawer(isOpen, setOpen, Number(user.id)) : <></>}
+                    handleDelete={handleDelete ? () => handleDelete(Number(user.id)) : undefined}
+                    handleClick={handleOnClick ? () => handleOnClick(Number(user.id)): undefined}
+                />
             )}
         />
     );

@@ -1,13 +1,13 @@
 import { Tabs } from "antd";
 
 import CreateUserButton from "@/modules/CreateUserButton";
-import { Roles } from "@/models";
 import ClientsTab from "@/modules/ClientsList";
+import { Role } from "@/__generated__/graphql";
 
 function ClientsPage() {
     return (
         <>
-            <CreateUserButton userRole={Roles.Parent} />
+            <CreateUserButton userRole={Role.Parent} />
             <Tabs
                 defaultActiveKey='1'
                 items={[

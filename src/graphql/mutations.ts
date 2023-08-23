@@ -126,3 +126,50 @@ export const SET_IS_BANNED = gql`
         }
     }
 `;
+
+export const CREATE_PARENT_REL = gql`
+    mutation CreateParentRel($parentId: ID!, $childId: ID!){
+        CreateParentRel(parentId: $parentId, childId: $childId) {
+            ok
+        }
+    }
+`;
+
+export const DELETE_PARENT_REL = gql`
+    mutation DeleteParentRel($parentId: ID!, $childId: ID!){
+        DeleteParentRel(parentId: $parentId, childId: $childId) {
+            ok
+        }
+    }
+`;
+
+export const SEARCH_USER_BY_EMAIL = gql`
+    mutation SearchUsers($email: String!, $roles: [Role!]!, $page: Int, $pageSize: Int) {
+        SearchUsersByEmail(email: $email, roles: $roles, page: $page, pageSize: $pageSize){
+            countRows
+            users {
+                id
+                lastname
+                firstname
+                middlename
+                email
+            }
+        }
+    }
+`;
+
+export const CREATE_ROBBO_UNIT = gql`
+    mutation CreateRobboUnit($input: NewRobboUnit!) {
+        CreateRobboUnit(input: $input) {
+            id
+        }
+    }
+`;
+
+export const DELETE_ROBBO_UNIT = gql`
+mutation DeleteRobboUnit($id: ID!) {
+    DeleteRobboUnit(id: $id) {
+        ok
+    }
+}
+`;

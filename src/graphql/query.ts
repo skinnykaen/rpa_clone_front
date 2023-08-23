@@ -121,3 +121,16 @@ export const GET_CHILDREN_BY_PARENT = gql`
         }
     }
 `;
+
+export const GET_ALL_ROBBO_UNITS = gql`
+    query GetAllRobboUnitByAccessToken($page: Int, $pageSize: Int) {
+        GetAllRobboUnitByAccessToken(page: $page, pageSize: $pageSize) {
+            countRows 
+            robboUnits {
+                id 
+                name
+                city
+            }
+        }   
+    }
+`;

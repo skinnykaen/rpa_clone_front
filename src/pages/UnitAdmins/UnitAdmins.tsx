@@ -1,12 +1,12 @@
-import { Roles } from "@/models";
+import { Tabs } from "antd";
+import { Role } from "@/__generated__/graphql";
 import CreateUserButton from "@/modules/CreateUserButton";
 import UnitAdminsTab from "@/modules/UnitAdminsTab";
-import { Tabs } from "antd";
 
 function UnitAdmins() {
     return (
         <>
-            <CreateUserButton userRole={Roles.UnitAdmin} />
+            <CreateUserButton userRole={Role.UnitAdmin} />
             <Tabs
                 defaultActiveKey='1'
                 items={[

@@ -3,6 +3,7 @@ import {
     ProjectOutlined,
     SettingOutlined,
     TeamOutlined,
+    RobotOutlined,
 } from '@ant-design/icons';
 
 import { NavMenuItem } from './NavMenu.types';
@@ -12,6 +13,8 @@ import {
     CLIENTS_PAGE_ROUTE,
     MAIN_PAGE_ROUTE,
     PROJECTS_PAGE_ROUTE,
+    ROBBO_GROUPS_PAGE_ROUTE,
+    ROBBO_UNITS_PAGE_ROUTE,
     STUDENTS_PAGE_ROUTE,
     TEACHERS_PAGE_ROUTE,
     UNIT_ADMINS_PAGE_ROUTE,
@@ -39,6 +42,27 @@ export const NavMenuItemsStudent: NavMenuItem[] = [
         path: PROJECTS_PAGE_ROUTE,
         label: 'Проекты',
         icon: <ProjectOutlined />,
+    },
+];
+
+export const NavMenuItemsUnitAdmin: NavMenuItem[] = [
+    {
+        key:  MenuItemsKeys.MAIN_PAGE_ROUTE,
+        path: MAIN_PAGE_ROUTE,
+        label: 'Главная',
+        icon: <HomeOutlined />,
+    },
+    {
+        key: MenuItemsKeys.ROBBO_UNITS_PAGE_ROUTE,
+        path: UNIT_ADMINS_PAGE_ROUTE,
+        label: 'Роббо юниты',
+        icon: <RobotOutlined />,
+    },
+    {
+        key: MenuItemsKeys.ROBBO_GROUPS_PAGE_ROUTE,
+        path: UNIT_ADMINS_PAGE_ROUTE,
+        label: 'Роббо группы',
+        icon: <RobotOutlined />,
     },
 ];
 
@@ -78,6 +102,18 @@ export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
         path: UNIT_ADMINS_PAGE_ROUTE,
         label: 'Юнит админы',
         icon: <TeamOutlined />,
+    },
+    {
+        key: MenuItemsKeys.ROBBO_UNITS_PAGE_ROUTE,
+        path: ROBBO_UNITS_PAGE_ROUTE,
+        label: 'Роббо юниты',
+        icon: <RobotOutlined />,
+    },
+    {
+        key: MenuItemsKeys.ROBBO_GROUPS_PAGE_ROUTE,
+        path: ROBBO_GROUPS_PAGE_ROUTE,
+        label: 'Роббо группы',
+        icon: <RobotOutlined />,
     },
     {
         key: MenuItemsKeys.APP_SETTINGS_PAGE_ROUTE,

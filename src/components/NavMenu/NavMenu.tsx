@@ -11,6 +11,8 @@ import {
   CLIENTS_PAGE_ROUTE,
   MAIN_PAGE_ROUTE,
   PROJECTS_PAGE_ROUTE,
+  ROBBO_GROUPS_PAGE_ROUTE,
+  ROBBO_UNITS_PAGE_ROUTE,
   STUDENTS_PAGE_ROUTE,
   TEACHERS_PAGE_ROUTE,
   UNIT_ADMINS_PAGE_ROUTE,
@@ -78,6 +80,12 @@ function selectActiveKeys(pathname: string): string {
       break;
     case UNIT_ADMINS_PAGE_ROUTE:
       selectedKeys = MenuItemsKeys.UNIT_ADMINS_PAGE_ROUTE;
+      break;
+    case ROBBO_UNITS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.ROBBO_UNITS_PAGE_ROUTE;
+      break;
+    case ROBBO_GROUPS_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.ROBBO_GROUPS_PAGE_ROUTE;
       break;
     default:
       selectedKeys = '';

@@ -46,6 +46,7 @@ function ListItem({
             },
         });
     };
+    console.log(handleDelete);
     return (
         <li className={styles.list_item}>
             <Typography.Link className={styles.label} onClick={handleOnClick}>

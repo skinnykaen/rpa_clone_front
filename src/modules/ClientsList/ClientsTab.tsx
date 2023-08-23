@@ -53,7 +53,7 @@ function ClientsTab({
 
     return (
         <UsersListComponent
-            isLoading={loading && deleteUserResult.loading}
+            isLoading={loading || deleteUserResult.loading}
             users={data?.GetAllUsers.users}
             countRows={data?.GetAllUsers.countRows || 0}
             renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) =>

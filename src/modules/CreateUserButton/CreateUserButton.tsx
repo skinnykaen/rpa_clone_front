@@ -5,25 +5,26 @@ import { QueryBaseOptions } from "apollo-client";
 import CreateUser from "@/components/CreateUserModal";
 import { Roles } from "@/models";
 import { GET_ALL_USERS } from "@/graphql/query";
+import { QueryGetAllUsersArgs, Role } from "@/__generated__/graphql";
 
 interface CreateUserButtonProps {
-    userRole: Roles;
+    userRole: Role;
 }
 
 function CreateUserButton({
     userRole,
 }: CreateUserButtonProps) {
-    const [openAddClient, setOpenAddClient] = useState(false);
+    const [openCreateUser, setCreateAddUser] = useState(false);
     return (
         <>
-            <Button type='primary' onClick={() => setOpenAddClient(true)}>
+            <Button type='primary' onClick={() => setCreateAddUser(true)}>
                 Создать
             </Button>
             <Modal
                 title={getModalTitle(userRole)}
                 centered
-                open={openAddClient}
-                onCancel={() => setOpenAddClient(false)}
+                open={openCreateUser}
+                onCancel={() => setCreateAddUser(false)}
                 footer={[]}
             >
                 <CreateUser
@@ -32,9 +33,9 @@ function CreateUserButton({
                         query: GET_ALL_USERS,
                         variables: {
                             active: true,
-                            roles: [userRole],
+                            roles: [userRole] as Role[],
                         },
-                    } as QueryBaseOptions]} />
+                    } as QueryBaseOptions<QueryGetAllUsersArgs>]} />
             </Modal>
         </>
     );
