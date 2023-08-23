@@ -134,3 +134,15 @@ export const GET_ALL_ROBBO_UNITS = gql`
         }   
     }
 `;
+
+export const GET_ROBBO_UNIT_BY_ID = gql`
+    query GetRobboUnitById($id: ID!){
+        GetRobboUnitById(id: $id) {
+            id
+            name
+            city
+            createdAt
+            updatedAt
+        }
+    }
+`;

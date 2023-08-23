@@ -7,6 +7,7 @@ import { GET_ALL_ROBBO_UNITS } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
 import { Space, notification } from "antd";
 import { DELETE_ROBBO_UNIT } from "@/graphql/mutations";
+import RobboUnitDrawer from "@/modules/RobboUnitDrawer";
 
 function RobboUnitsPage() {
     const { loading, data } = useQuery<{ GetAllRobboUnitByAccessToken: RobboUnitHttpList }, QueryGetAllRobboUnitByAccessTokenArgs>(
@@ -43,6 +44,9 @@ function RobboUnitsPage() {
                 isLoading={loading || deleteRobboUnitResult.loading}
                 robboUnits={data?.GetAllRobboUnitByAccessToken.robboUnits}
                 countRows={data?.GetAllRobboUnitByAccessToken.countRows}
+                renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, robboUnitId: number) =>
+                    <RobboUnitDrawer isEditMode={true} isOpen={isOpen} setOpen={setOpen} robboUnitId={robboUnitId} />
+                }
                 handleDelete={(robboUnitId: number) => deleteRobboUnit({ variables: { id: String(robboUnitId) } })}
             />
         </Space>

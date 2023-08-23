@@ -167,9 +167,17 @@ export const CREATE_ROBBO_UNIT = gql`
 `;
 
 export const DELETE_ROBBO_UNIT = gql`
-mutation DeleteRobboUnit($id: ID!) {
-    DeleteRobboUnit(id: $id) {
-        ok
-    }
+    mutation DeleteRobboUnit($id: ID!) {
+        DeleteRobboUnit(id: $id) {
+            ok
+        }
 }
 `;
+
+export const UPDATE_ROBBO_UNIT = gql`
+    mutation UpdateRobboUnit($input: UpdateRobboUnit!) {
+        UpdateRobboUnit(input: $input) {
+            id
+        }
+    }
+`; 

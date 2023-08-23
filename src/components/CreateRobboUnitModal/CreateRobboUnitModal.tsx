@@ -43,7 +43,7 @@ function CreateRobboUnit() {
             onFinish={onFinish}
         >
             <Form.Item
-                name='name'
+                name='create-robbo-unit'
                 rules={[
                     {
                         required: true,
