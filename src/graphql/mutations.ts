@@ -128,8 +128,8 @@ export const SET_IS_BANNED = gql`
 `;
 
 export const CREATE_PARENT_REL = gql`
-    mutation CreateParentRel($parentId: ID!, $childId: ID!){
-        CreateParentRel(parentId: $parentId, childId: $childId) {
+    mutation CreateParentRel($coreRelId: ID!, $targetRelId: ID!){
+        CreateParentRel(coreRelId: $coreRelId, targetRelId: $targetRelId) {
             ok
         }
     }
@@ -174,10 +174,66 @@ export const DELETE_ROBBO_UNIT = gql`
 }
 `;
 
-export const UPDATE_ROBBO_UNIT = gql`
+export const UPDATE_ROBBO_UNIT  = gql`
     mutation UpdateRobboUnit($input: UpdateRobboUnit!) {
         UpdateRobboUnit(input: $input) {
             id
         }
     }
 `; 
+
+export const DELETE_ROBBO_GROUP = gql`
+    mutation DeleteRobboGroup($id: ID!) {
+        DeleteRobboGroup(id: $id) {
+            ok
+        }
+}
+`;
+
+export const UPDATE_ROBBO_GROUP = gql`
+    mutation UpdateRobboGroup($input: UpdateRobboGroup!) {
+        UpdateRobboGroup(input: $input) {
+            id
+        }
+    }
+`; 
+
+export const CREATE_ROBBO_GROUP = gql`
+    mutation CreateRobboGroup($input: NewRobboGroup!) {
+        CreateRobboGroup(input: $input) {
+            id
+        }
+    }
+`;
+
+export const CREATE_ROBBO_UNIT_REL = gql`
+    mutation CreateRobboUnitRel($coreRelId: ID!, $targetRelId: ID!){
+        CreateRobboUnitRel(coreRelId: $coreRelId, targetRelId: $targetRelId) {
+            ok
+        }
+    }
+`;
+
+export const DELETE_ROBBO_UNIT_REL = gql`
+    mutation DeleteRobboUnitRel($unitAdminId: ID!, $robboUnitId: ID!){
+        DeleteRobboUnitRel(unitAdminId: $unitAdminId, robboUnitId: $robboUnitId) {
+            ok
+        }
+    }
+`;
+
+export const CREATE_ROBBO_GROUP_REL = gql`
+    mutation CreateRobboGroupRel($coreRelId: ID!, $targetRelId: ID!){
+        CreateRobboGroupRel(coreRelId: $coreRelId, targetRelId: $targetRelId) {
+            ok
+        }
+    }
+`;
+
+export const DELETE_ROBBO_GROUP_REL = gql`
+    mutation DeleteRobboGroupRel($userId: ID!, $robboGroupId: ID!){
+        DeleteRobboGroupRel(userId: $userId, robboGroupId: $robboGroupId) {
+            ok
+        }
+    }
+`;

@@ -25,6 +25,7 @@ import {
     PROFILE_PAGE_ROUTE,
     PROJECTS_PAGE_ROUTE,
     PROJECT_PAGE_ROUTE,
+    ROBBO_GROUPS_PAGE_ROUTE,
     ROBBO_UNITS_PAGE_ROUTE,
     STUDENTS_PAGE_ROUTE,
     TEACHERS_PAGE_ROUTE,
@@ -128,7 +129,7 @@ function App() {
                                 }
                             />
                             <Route
-                                path={UNIT_ADMINS_PAGE_ROUTE}
+                                path={ROBBO_GROUPS_PAGE_ROUTE}
                                 element={
                                     <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
                                         <RobboGroupsPage />

@@ -14,12 +14,20 @@ import { GET_CHILDREN_BY_PARENT } from "@/graphql/query";
 interface SearchModalProps {
     buttonText?: string;
     searchTarget?: string;
+    coreRelId?: number;
+    targetRelId?: number;
     onSearch?(): void;
+    onClickHandle?: any;
+    roles: Role[];
 }
 
 function SearchModal({
     buttonText = 'Найти',
     searchTarget = '',
+    onClickHandle,
+    coreRelId,
+    targetRelId,
+    roles,
 }: SearchModalProps) {
     const [openSearchModal, setOpenSearchModal] = useState(false);
     const [searchInput, setSearchInput] = useState('');
@@ -32,30 +40,6 @@ function SearchModal({
                 },
             },
         );
-
-    // const [createParentRel, createParentRelResult] = useMutation<{ CreateParentRel: UsersList }, { parentId: string, childId: string }>(
-    //     CREATE_PARENT_REL,
-    //     {
-    //         onError: error => {
-    //             handlingGraphqlErrors(error);
-    //         },
-    //         onCompleted: () => {
-    //             notification.success({
-    //                 message: 'Успешно!',
-    //                 description: 'Ребенок добавлен.',
-    //             });
-    //         },
-    //         refetchQueries: [
-    //             {
-    //                 query: GET_CHILDREN_BY_PARENT,
-    //                 variables: {
-    //                     parentId: String(parentId),
-    //                 },
-    //             } as QueryOptions<{ parentId: string }>,
-    //         ],
-    //     },
-    // );
-
     return (
         <>
             <Button type='primary' onClick={() => setOpenSearchModal(true)}>
@@ -71,14 +55,14 @@ function SearchModal({
                 <Space direction={'vertical'} size={'middle'} style={{ display: 'flex' }}>
                     <Input.Search
                         onChange={e => setSearchInput(e.target.value)}
-                        onSearch={() => { searchUsers({ variables: { email: searchInput, roles: [Role.Student] } }); }}
+                        onSearch={() => { searchUsers({ variables: { email: searchInput, roles: roles } }); }}
                         value={searchInput}
                     />
                     <UsersListComponent
                         isLoading={searchUsersResult.loading}
                         users={searchUsersResult.data?.SearchUsersByEmail.users}
                         countRows={searchUsersResult.data?.SearchUsersByEmail.countRows}
-                    // handleOnClick={(userId: number) => createParentRel({variables: {parentId: parentId, childId: String(userId)}})}
+                        handleOnClick={(userId: number) => onClickHandle({ variables: { coreRelId: coreRelId ? String(coreRelId) : userId, targetRelId: targetRelId ? targetRelId : String(userId) } })}
                     />
                 </Space>
             </Modal>

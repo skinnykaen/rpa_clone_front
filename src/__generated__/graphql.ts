@@ -81,11 +81,17 @@ export type Mutation = {
   ConfirmActivation: SignInResponse;
   CreateParentRel: Response;
   CreateProjectPage: ProjectPageHttp;
+  CreateRobboGroup: RobboGroupHttp;
+  CreateRobboGroupRel: Response;
   CreateRobboUnit: RobboUnitHttp;
+  CreateRobboUnitRel: Response;
   CreateUser: UserHttp;
   DeleteParentRel: Response;
   DeleteProjectPage: Response;
+  DeleteRobboGroup: Response;
+  DeleteRobboGroupRel: Response;
   DeleteRobboUnit: Response;
+  DeleteRobboUnitRel: Response;
   DeleteUser: Response;
   RefreshToken: SignInResponse;
   SearchUsersByEmail: UsersList;
@@ -95,6 +101,7 @@ export type Mutation = {
   SignIn: SignInResponse;
   SignUp: Response;
   UpdateProjectPage: ProjectPageHttp;
+  UpdateRobboGroup: RobboGroupHttp;
   UpdateRobboUnit: RobboUnitHttp;
   UpdateUser: UserHttp;
 };
@@ -106,13 +113,30 @@ export type MutationConfirmActivationArgs = {
 
 
 export type MutationCreateParentRelArgs = {
-  childId: Scalars['ID']['input'];
-  parentId: Scalars['ID']['input'];
+  coreRelId: Scalars['ID']['input'];
+  targetRelId: Scalars['ID']['input'];
+};
+
+
+export type MutationCreateRobboGroupArgs = {
+  input: NewRobboGroup;
+};
+
+
+export type MutationCreateRobboGroupRelArgs = {
+  coreRelId: Scalars['ID']['input'];
+  targetRelId: Scalars['ID']['input'];
 };
 
 
 export type MutationCreateRobboUnitArgs = {
   input: NewRobboUnit;
+};
+
+
+export type MutationCreateRobboUnitRelArgs = {
+  coreRelId: Scalars['ID']['input'];
+  targetRelId: Scalars['ID']['input'];
 };
 
 
@@ -132,8 +156,25 @@ export type MutationDeleteProjectPageArgs = {
 };
 
 
+export type MutationDeleteRobboGroupArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteRobboGroupRelArgs = {
+  robboGroupId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
 export type MutationDeleteRobboUnitArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteRobboUnitRelArgs = {
+  robboUnitId: Scalars['ID']['input'];
+  unitAdminId: Scalars['ID']['input'];
 };
 
 
@@ -187,6 +228,11 @@ export type MutationUpdateProjectPageArgs = {
 };
 
 
+export type MutationUpdateRobboGroupArgs = {
+  input: UpdateRobboGroup;
+};
+
+
 export type MutationUpdateRobboUnitArgs = {
   input: UpdateRobboUnit;
 };
@@ -194,6 +240,11 @@ export type MutationUpdateRobboUnitArgs = {
 
 export type MutationUpdateUserArgs = {
   input: UpdateUser;
+};
+
+export type NewRobboGroup = {
+  name: Scalars['String']['input'];
+  robboUnitId: Scalars['ID']['input'];
 };
 
 export type NewRobboUnit = {
@@ -247,6 +298,7 @@ export type Query = {
   __typename?: 'Query';
   GetAllProjectPagesByAccessToken: ProjectPageHttpList;
   GetAllProjectPagesByAuthorId: ProjectPageHttpList;
+  GetAllRobboGroupByAccessToken: RobboGroupHttpList;
   GetAllRobboUnitByAccessToken: RobboUnitHttpList;
   GetAllUsers: UsersList;
   GetChildrenByParent: UsersList;
@@ -254,8 +306,16 @@ export type Query = {
   GetCoursesByUser: CoursesListHttp;
   GetParentsByChild: UsersList;
   GetProjectPageById: ProjectPageHttp;
+  GetRobboGroupById?: Maybe<RobboGroupHttp>;
+  GetRobboGroupsByRobboUnitId: RobboGroupHttpList;
+  GetRobboGroupsByUserId: RobboGroupHttpList;
   GetRobboUnitById?: Maybe<RobboUnitHttp>;
+  GetRobboUnitsByUnitAdmin: RobboUnitHttpList;
   GetSettings: Settings;
+  GetStudentsByRobboGroupId: UsersList;
+  GetStudentsByRobboUnitId: UsersList;
+  GetTeachersByRobboGroupId: UsersList;
+  GetUnitAdminByRobboUnitId: UsersList;
   GetUserByAccessToken: UserHttp;
   GetUserById: UserHttp;
   Me: UserHttp;
@@ -270,6 +330,12 @@ export type QueryGetAllProjectPagesByAccessTokenArgs = {
 
 export type QueryGetAllProjectPagesByAuthorIdArgs = {
   id: Scalars['ID']['input'];
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryGetAllRobboGroupByAccessTokenArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -309,8 +375,54 @@ export type QueryGetProjectPageByIdArgs = {
 };
 
 
+export type QueryGetRobboGroupByIdArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetRobboGroupsByRobboUnitIdArgs = {
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  robboUnitId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetRobboGroupsByUserIdArgs = {
+  userId: Scalars['ID']['input'];
+};
+
+
 export type QueryGetRobboUnitByIdArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetRobboUnitsByUnitAdminArgs = {
+  unitAdminId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetStudentsByRobboGroupIdArgs = {
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  robboGroupId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetStudentsByRobboUnitIdArgs = {
+  robboUnitId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetTeachersByRobboGroupIdArgs = {
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
+  robboGroupId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetUnitAdminByRobboUnitIdArgs = {
+  robboUnitId: Scalars['ID']['input'];
 };
 
 
@@ -323,6 +435,21 @@ export type Response = {
   ok: Scalars['Boolean']['output'];
 };
 
+export type RobboGroupHttp = {
+  __typename?: 'RobboGroupHttp';
+  createdAt: Scalars['Timestamp']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  robboUnit: RobboUnitHttp;
+  updatedAt: Scalars['Timestamp']['output'];
+};
+
+export type RobboGroupHttpList = {
+  __typename?: 'RobboGroupHttpList';
+  countRows: Scalars['Int']['output'];
+  robboGroups: Array<RobboGroupHttp>;
+};
+
 export type RobboUnitHttp = {
   __typename?: 'RobboUnitHttp';
   city: Scalars['String']['output'];
@@ -330,6 +457,12 @@ export type RobboUnitHttp = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['Timestamp']['output'];
+};
+
+export type RobboUnitHttpList = {
+  __typename?: 'RobboUnitHttpList';
+  countRows: Scalars['Int']['output'];
+  robboUnits: Array<RobboUnitHttp>;
 };
 
 export enum Role {
@@ -374,6 +507,11 @@ export type UpdateProjectPage = {
   title: Scalars['String']['input'];
 };
 
+export type UpdateRobboGroup = {
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
+};
+
 export type UpdateRobboUnit = {
   city: Scalars['String']['input'];
   id: Scalars['ID']['input'];
@@ -409,10 +547,4 @@ export type UsersList = {
   __typename?: 'UsersList';
   countRows: Scalars['Int']['output'];
   users: Array<UserHttp>;
-};
-
-export type RobboUnitHttpList = {
-  __typename?: 'robboUnitHttpList';
-  countRows: Scalars['Int']['output'];
-  robboUnits: Array<RobboUnitHttp>;
 };

@@ -2,7 +2,7 @@ import { Col, Drawer, Row, Typography, notification } from "antd";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import { Role, UsersList } from "@/__generated__/graphql";
+import { QueryGetChildrenByParentArgs, Role, UsersList } from "@/__generated__/graphql";
 import SearchModal from "@/modules/SearchModal";
 import CreateUserButton from "@/modules/CreateUserButton";
 import StudentDrawer from "@/modules/StudentDrawer";
@@ -12,6 +12,7 @@ import { GET_CHILDREN_BY_PARENT } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
 import { CREATE_PARENT_REL, DELETE_PARENT_REL } from "@/graphql/mutations";
 import { QueryOptions } from "apollo-client";
+import { graphql } from "@apollo/client/react/hoc";
 
 interface ParentDrawerProps {
     parentId: number;
@@ -53,6 +54,38 @@ function ParentDrawer({ parentId, isOpen, setOpen }: ParentDrawerProps) {
             ],
         },
     );
+    const SearchStudentModal = graphql<{ coreRelId: number }, { CreateParentRel: Response }>(CREATE_PARENT_REL, {
+        options: {
+            onError: error => {
+                handlingGraphqlErrors(error);
+            },
+            onCompleted: () => {
+                notification.success({
+                    message: 'Успешно!',
+                    description: 'Ученик успешно добавлен.',
+                });
+            },
+            refetchQueries: [
+                {
+                    query: GET_CHILDREN_BY_PARENT,
+                    variables: {
+                        parentId: String(parentId),
+                    },
+                } as QueryOptions<QueryGetChildrenByParentArgs>,
+            ],
+        },
+    })(({ mutate, coreRelId }) => {
+        return (
+            <SearchModal
+                buttonText='Добавить'
+                searchTarget={'ребенка'}
+                onClickHandle={mutate}
+                coreRelId={coreRelId}
+                roles={[Role.Student]}
+            />
+        );
+    });
+
     return (
         <Drawer width={640} placement='right' closable={true} onClose={() => setOpen(false)} open={isOpen}>
             <Row gutter={{ xs: 16, sm: 16, md: 16, lg: 16 }}>
@@ -73,7 +106,7 @@ function ParentDrawer({ parentId, isOpen, setOpen }: ParentDrawerProps) {
                     <CreateUserButton userRole={Role.Student} />
                 </Col>
                 <Col xs={23} sm={23} md={4} lg={4} xl={4} style={{ marginTop: '1rem' }}>
-                    <SearchModal buttonText='Добавить' searchTarget={'ребенка'}/>
+                    <SearchStudentModal coreRelId={parentId} />
                 </Col>
             </Row>
         </Drawer>

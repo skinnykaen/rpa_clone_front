@@ -146,3 +146,121 @@ export const GET_ROBBO_UNIT_BY_ID = gql`
         }
     }
 `;
+
+export const GET_ALL_ROBBO_GROUPS_BY_ACCESS_TOKEN = gql`
+    query GetAllRobboGroupByAccessToken($page: Int, $pageSize: Int) {
+        GetAllRobboGroupByAccessToken(page: $page, pageSize: $pageSize) {
+            countRows
+            robboGroups {
+                id
+                name
+                robboUnit{
+                    id
+                    name
+                    city
+                }
+            }
+        }
+    }
+`;
+
+export const GET_ROBBO_GROUP_BY_ID = gql`
+    query GetRobboGroupById($id: ID!) {
+        GetRobboGroupById(id: $id) {
+            id
+            createdAt
+            updatedAt
+            name
+            robboUnit{
+                id
+                name
+                city
+            }
+        }
+    }
+`;
+
+export const GET_ROBBO_GROUPS_BY_ROBBO_UNIT_ID = gql`
+    query GetRobboGroupsByRobboUnitId($page: Int, $pageSize: Int, $robboUnitId: ID!) {
+        GetRobboGroupsByRobboUnitId(page: $page, pageSize: $pageSize, robboUnitId: $robboUnitId) {
+            countRows
+            robboGroups {
+                id
+                name
+                robboUnit{
+                    id 
+                    name
+                }
+            }
+        }
+    }
+`;
+
+export const GET_ROBBO_UNITS_BY_UNIT_ADMIN_ID = gql`
+    query GetRobboUnitsByUnitAdmin($unitAdminId: ID!){
+        GetRobboUnitsByUnitAdmin(unitAdminId: $unitAdminId) {
+            countRows
+            robboUnits {
+                id
+                name
+                city
+            }
+        }
+    }
+`;
+
+export const GET_UNIT_ADMINS_BY_ROBBO_UNIT_ID = gql`
+    query GetUnitAdminByRobboUnitId($robboUnitId: ID!){
+        GetUnitAdminByRobboUnitId(robboUnitId: $robboUnitId) {
+            countRows
+            users {
+                id
+                firstname
+                lastname
+                middlename
+            }
+        }
+    }
+`;
+
+export const GET_STUDENTS_BY_ROBBO_GROUP_ID = gql`
+    query GetStudentsByRobboGroupId($page: Int, $pageSize: Int, $robboGroupId: ID!) {
+        GetStudentsByRobboGroupId(page: $page, pageSize: $pageSize, robboGroupId: $robboGroupId) {
+            countRows
+            users {
+                id
+                firstname
+                lastname
+                middlename
+            }
+        }
+    }
+`;
+
+export const GET_TEACHERS_BY_ROBBO_GROUP_ID = gql`
+    query GetTeachersByRobboGroupId($page: Int, $pageSize: Int, $robboGroupId: ID!) {
+        GetTeachersByRobboGroupId(page: $page, pageSize: $pageSize, robboGroupId: $robboGroupId) {
+            countRows
+            users {
+                id
+                firstname
+                lastname
+                middlename
+            }
+        }
+    }
+`;
+
+export const GET_STUDENTS_BY_ROBBO_UNIT_ID = gql`
+    query GetStudentsByRobboUnitId($robboUnitId: ID!) {
+        GetStudentsByRobboUnitId(robboUnitId: $robboUnitId) {
+            countRows
+            users {
+                id
+                firstname
+                lastname
+                middlename
+            }
+        }
+    }
+`;

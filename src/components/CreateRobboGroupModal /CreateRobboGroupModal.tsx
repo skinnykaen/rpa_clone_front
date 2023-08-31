@@ -1,20 +1,25 @@
 import { Button, Form, Input, notification } from "antd";
 import { useMutation } from "@apollo/client";
 
-import { MutationCreateRobboUnitArgs, NewRobboUnit } from "@/__generated__/graphql";
-import { CREATE_ROBBO_UNIT } from "@/graphql/mutations";
+import { MutationCreateRobboGroupArgs, NewRobboGroup, QueryGetAllProjectPagesByAccessTokenArgs, QueryGetRobboGroupsByRobboUnitIdArgs } from "@/__generated__/graphql";
+import { CREATE_ROBBO_GROUP } from "@/graphql/mutations";
 import { handlingGraphqlErrors } from "@/utils";
-import { GET_ALL_ROBBO_UNITS } from "@/graphql/query";
+import { GET_ALL_ROBBO_GROUPS_BY_ACCESS_TOKEN, GET_ROBBO_GROUPS_BY_ROBBO_UNIT_ID } from "@/graphql/query";
+import { QueryOptions } from "apollo-client";
 
-function CreateRobboUnit() {
+interface CreateRobboGroupModalProps {
+    robboUnitId: number;
+}
+
+function CreateRobboGroupModal({ robboUnitId }: CreateRobboGroupModalProps) {
     const [form] = Form.useForm();
-    const [createRobboUnit, { loading }] = useMutation<{ CreateRobboUnit: NewRobboUnit }, MutationCreateRobboUnitArgs>(
-        CREATE_ROBBO_UNIT,
+    const [createRobboGroup, { loading }] = useMutation<{ createRobboGroup: NewRobboGroup }, MutationCreateRobboGroupArgs>(
+        CREATE_ROBBO_GROUP,
         {
             onCompleted: () => {
                 notification.success({
                     message: 'Успешно!',
-                    description: 'Роббо юнит успешно создан.',
+                    description: 'Роббо группа успешно создана.',
                 });
             },
             onError: error => {
@@ -22,17 +27,23 @@ function CreateRobboUnit() {
             },
             refetchQueries: [
                 {
-                    query: GET_ALL_ROBBO_UNITS,
-                },
+                    query: GET_ALL_ROBBO_GROUPS_BY_ACCESS_TOKEN,
+                }as QueryOptions<QueryGetAllProjectPagesByAccessTokenArgs>,
+                {
+                    query: GET_ROBBO_GROUPS_BY_ROBBO_UNIT_ID,
+                    variables: {
+                        robboUnitId: String(robboUnitId),
+                    },
+                } as QueryOptions<QueryGetRobboGroupsByRobboUnitIdArgs>,
             ],
         },
     );
-    const onFinish = (inputs: { name: string, city: string }) => {
-        createRobboUnit({
+    const onFinish = (inputs: { name: string}) => {
+        createRobboGroup({
             variables: {
                 input: {
                     name: inputs.name,
-                    city: inputs.city,
+                    robboUnitId: String(robboUnitId),
                 },
             },
         });
@@ -41,33 +52,19 @@ function CreateRobboUnit() {
         <Form
             form={form}
             onFinish={onFinish}
-            name='create-robbo-unit'
+            name='create-robbo-group'
         >
             <Form.Item
-                name='name'
+                name={'name'}
                 rules={[
                     {
                         required: true,
-                        message: 'Пожалуйста, введите название роббо юнита!',
+                        message: 'Пожалуйста, введите название роббо группы!',
                     },
                 ]}
             >
                 <Input
                     placeholder='Название'
-                    size='middle'
-                />
-            </Form.Item>
-            <Form.Item
-                name='city'
-                rules={[
-                    {
-                        required: true,
-                        message: 'Пожалуйста, введите город роббо юнита!',
-                    },
-                ]}
-            >
-                <Input
-                    placeholder='Город'
                     size='middle'
                 />
             </Form.Item>
@@ -92,4 +89,4 @@ function CreateRobboUnit() {
     );
 }
 
-export default CreateRobboUnit;
+export default CreateRobboGroupModal;

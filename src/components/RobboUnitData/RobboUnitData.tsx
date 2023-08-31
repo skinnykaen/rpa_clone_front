@@ -12,7 +12,6 @@ interface RobboUnitDataProps {
     isEditMode: boolean;
 }
 
-
 function RobboUnitData({
     robboUnitId,
     isEditMode,
@@ -108,9 +107,14 @@ function RobboUnitData({
                         }}
                     />
                 </Form.Item>
+                <Form.Item name={'createdAt'} label={'Создан'}>
+                        {data?.GetRobboUnitById.createdAt}
+                </Form.Item>
+                <Form.Item name={'updatedAt'} label={'Обновлен'}>
+                {data?.GetRobboUnitById.updatedAt}
+                </Form.Item>
             </Form >
     );
-
 }
 
 export default RobboUnitData;
