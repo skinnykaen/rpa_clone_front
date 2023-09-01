@@ -314,6 +314,7 @@ export type Query = {
   GetSettings: Settings;
   GetStudentsByRobboGroupId: UsersList;
   GetStudentsByRobboUnitId: UsersList;
+  GetStudentsByTeacherId: UsersList;
   GetTeachersByRobboGroupId: UsersList;
   GetUnitAdminByRobboUnitId: UsersList;
   GetUserByAccessToken: UserHttp;
@@ -411,6 +412,11 @@ export type QueryGetStudentsByRobboGroupIdArgs = {
 
 export type QueryGetStudentsByRobboUnitIdArgs = {
   robboUnitId: Scalars['ID']['input'];
+};
+
+
+export type QueryGetStudentsByTeacherIdArgs = {
+  teacherId: Scalars['ID']['input'];
 };
 
 

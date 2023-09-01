@@ -102,7 +102,7 @@ function RobboGroupDrawer({
     })(({ mutate, coreRelId }) => {
         return (
             <SearchModal
-                buttonText='Добавить'
+                buttonText='Назначить'
                 searchTarget={'педагога'}
                 onClickHandle={mutate}
                 coreRelId={coreRelId}

@@ -1,16 +1,17 @@
 import { graphql } from "@apollo/client/react/hoc";
-import { Col, Skeleton, Space } from "antd";
+import { Col, Row, Skeleton, Space, Typography } from "antd";
 
-import { UserHttp } from "@/__generated__/graphql";
+import { RobboGroupHttp, UserHttp } from "@/__generated__/graphql";
 import { GET_USER_BY_ID } from "@/graphql/query";
 import AvatarComponent from "@/components/Avatar";
 import ProfileCard from "@/components/ProfileCard";
 
 interface ProfileDataProps {
     userId: number;
+    robboGroup?: RobboGroupHttp;
 }
 
-function ProfileData({ userId }: ProfileDataProps) {
+function ProfileData({ userId, robboGroup }: ProfileDataProps) {
     const ProfileData = graphql<{ id: string }, { GetUserById: UserHttp }>(GET_USER_BY_ID)(({ data }) => (
         data?.loading ? (
             <Skeleton avatar paragraph={{ rows: 8 }} />

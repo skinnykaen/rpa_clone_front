@@ -86,100 +86,149 @@ function ProfileCard({
         },
     );
     return (
-        <div>
-            <Form
-                name='profile'
-                className='profile-form'
-                onFinish={(inputs: ProfileFormInputs) => {
+        <Form
+            name='profile'
+            className='profile-form'
+            onFinish={(inputs: ProfileFormInputs) => {
+                updateUser({
+                    variables: {
+                        input: {
+                            id: profileData?.id || '0',
+                            email: inputs.email,
+                            firstname: inputs.firstname,
+                            lastname: inputs.lastname,
+                            middlename: inputs.middlename,
+                            nickname: inputs.nickname,
+                        },
+                    },
+                });
+            }}
+            form={form}
+            disabled={!isEditMode}
+            initialValues={{
+                email: profileData?.email,
+                nickname: profileData?.nickname,
+                firstname: profileData?.firstname,
+                lastname: profileData?.lastname,
+                middlename: profileData?.middlename,
+            }}
+        >
+            <Form.Item name='email'>
+                <Input placeholder={'email'} size='middle' onBlur={e => (
                     updateUser({
                         variables: {
                             input: {
                                 id: profileData?.id || '0',
-                                email: inputs.email,
-                                firstname: inputs.firstname,
-                                lastname: inputs.lastname,
-                                middlename: inputs.middlename,
-                                nickname: inputs.nickname,
+                                email: e.target.value,
+                                firstname: profileData?.firstname || '',
+                                lastname: profileData?.lastname || '',
+                                middlename: profileData?.middlename || '',
+                                nickname: profileData?.nickname || '',
+                            },
+                        },
+                    })
+                )} />
+            </Form.Item>
+            <Form.Item name='nickname'>
+                <Input placeholder={'никнейм'} size='middle' onBlur={e => (
+                    updateUser({
+                        variables: {
+                            input: {
+                                id: profileData?.id || '0',
+                                email: profileData?.email || '',
+                                firstname: profileData?.firstname || '',
+                                lastname: profileData?.lastname || '',
+                                middlename: profileData?.middlename || '',
+                                nickname: e.target.value || '',
+                            },
+                        },
+                    })
+                )} />
+            </Form.Item>
+            <Form.Item name='lastname'>
+                <Input placeholder={'фамилия'} size='middle' onBlur={e => {
+                    updateUser({
+                        variables: {
+                            input: {
+                                id: profileData?.id || '0',
+                                email: profileData?.email || '',
+                                firstname: profileData?.firstname || '',
+                                lastname: e.target.value,
+                                middlename: profileData?.middlename || '',
+                                nickname: profileData?.nickname || '',
                             },
                         },
                     });
-                }}
-                form={form}
-                disabled={!isEditMode}
-                initialValues={{
-                    email: profileData?.email,
-                    nickname: profileData?.nickname,
-                    firstname: profileData?.firstname,
-                    lastname: profileData?.lastname,
-                    middlename: profileData?.middlename,
-                }}
-            >
-                <Form.Item name='email'>
-                    <Input placeholder={'email'} size='middle' />
-                </Form.Item>
-                <Form.Item name='nickname'>
-                    <Input placeholder={'никнейм'} size='middle' />
-                </Form.Item>
-                <Form.Item name='lastname'>
-                    <Input placeholder={'фамилия'} size='middle' />
-                </Form.Item>
-                <Form.Item name='firstname'>
-                    <Input placeholder={'имя'} size='middle' />
-                </Form.Item>
-                <Form.Item name='middlename'>
-                    <Input placeholder={'отчетсво'} size='middle' />
-                </Form.Item>
-                <Form.Item label={'Роль: '}>
-                    {
-                        profileData?.role
-                    }
-                </Form.Item>
-                <Form.Item label={'Создан: '}>
-                    {
-                        profileData?.createdAt
-                    }
-                </Form.Item>
-                <Form.Item label={'Последнее обновление: '}>
-                    {
-                        profileData?.updatedAt
-                    }
-                </Form.Item>
+                }} />
+            </Form.Item>
+            <Form.Item name='firstname'>
+                <Input placeholder={'имя'} size='middle' onBlur={e =>
+                    updateUser({
+                        variables: {
+                            input: {
+                                id: profileData?.id || '0',
+                                email: profileData?.email || '',
+                                firstname: e.target.value,
+                                lastname: profileData?.lastname || '',
+                                middlename: profileData?.middlename || '',
+                                nickname: profileData?.nickname || '',
+                            },
+                        },
+                    })
+                } />
+            </Form.Item>
+            <Form.Item name='middlename'>
+                <Input placeholder={'отчетсво'} size='middle' onBlur={e =>
+                    updateUser({
+                        variables: {
+                            input: {
+                                id: profileData?.id || '0',
+                                email: profileData?.email || '',
+                                firstname: profileData?.firstname || '',
+                                lastname: profileData?.lastname || '',
+                                middlename: e.target.value || '',
+                                nickname: profileData?.nickname || '',
+                            },
+                        },
+                    })} />
+            </Form.Item>
+            <Form.Item label={'Роль: '}>
                 {
-                    userRole == Roles.SuperAdmin ? (
-                        <Form.Item
-                            name='active'
-                            label={'Активен'}
-                        >
-                            <Switch
-                                defaultChecked={profileData?.isActive}
-                                loading={setUserIsActiveResult.loading}
-                                onChange={() =>
-                                    setUserIsActive({
-                                        variables: {
-                                            id: profileData?.id || '0',
-                                            isActive: !profileData?.isActive,
-                                        },
-                                    })
-                                }
-                            />
-                        </Form.Item>
-                    ) : <></>
+                    profileData?.role
                 }
+            </Form.Item>
+            <Form.Item label={'Создан: '}>
                 {
-                    isEditMode &&
-                    <Form.Item>
-                        <Button
-                            loading={loading}
-                            type='primary'
-                            htmlType='submit'
-                            className='profile-form-button'
-                        >
-                            Сохранить
-                        </Button>
+                    profileData?.createdAt
+                }
+            </Form.Item>
+            <Form.Item label={'Последнее обновление: '}>
+                {
+                    profileData?.updatedAt
+                }
+            </Form.Item>
+            {
+                userRole == Roles.SuperAdmin ? (
+                    <Form.Item
+                        name='active'
+                        label={'Активен'}
+                    >
+                        <Switch
+                            defaultChecked={profileData?.isActive}
+                            loading={setUserIsActiveResult.loading}
+                            onChange={() =>
+                                setUserIsActive({
+                                    variables: {
+                                        id: profileData?.id || '0',
+                                        isActive: !profileData?.isActive,
+                                    },
+                                })
+                            }
+                        />
                     </Form.Item>
-                }
-            </Form>
-        </div>
+                ) : <></>
+            }
+        </Form>
     );
 }
 

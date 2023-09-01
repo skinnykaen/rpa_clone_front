@@ -39,7 +39,6 @@ import ProtectedRoute from '@/hocs/ProtectedRoute';
 
 
 function App() {
-    console.log(process.env.MODE);
     const { theme } = useAppSelector(state => state.themeReducer);
     return (
         <ApolloProvider client={graphqlClient}>
@@ -59,7 +58,7 @@ function App() {
                             <Route
                                 path={PROFILE_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student, Roles.UnitAdmin]}>
                                         <ProfilePage />
                                     </ProtectedRoute>
                                 }
@@ -75,7 +74,7 @@ function App() {
                             <Route
                                 path={STUDENTS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
                                         <StudentsPage />
                                     </ProtectedRoute>
                                 }
@@ -99,7 +98,7 @@ function App() {
                             <Route
                                 path={CLIENTS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
                                         <ClientsPage />
                                     </ProtectedRoute>
                                 }
@@ -107,7 +106,7 @@ function App() {
                             <Route
                                 path={TEACHERS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
                                         <TeachersPage />
                                     </ProtectedRoute>
                                 }

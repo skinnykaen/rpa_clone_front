@@ -264,3 +264,33 @@ export const GET_STUDENTS_BY_ROBBO_UNIT_ID = gql`
         }
     }
 `;
+
+export const GET_ROBBO_GROUP_BY_USER_ID = gql`
+    query GetRobboGroupsByUserId($userId: ID!) {
+        GetRobboGroupsByUserId(userId: $userId) {
+            countRows
+            robboGroups {
+                id 
+                name
+                robboUnit{
+                    id 
+                    name
+                }
+            }
+        }
+    }
+`;
+
+export const GET_STUDENTS_BY_TEACHERS_ID = gql`
+    query GetStudentsByTeacherId($teacherId: ID!) {
+        GetStudentsByTeacherId(teacherId: $teacherId) {
+            countRows
+            users {
+                id
+                firstname
+                lastname
+                middlename
+            } 
+        }
+    }
+`

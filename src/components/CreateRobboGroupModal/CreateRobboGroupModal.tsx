@@ -28,7 +28,7 @@ function CreateRobboGroupModal({ robboUnitId }: CreateRobboGroupModalProps) {
             refetchQueries: [
                 {
                     query: GET_ALL_ROBBO_GROUPS_BY_ACCESS_TOKEN,
-                }as QueryOptions<QueryGetAllProjectPagesByAccessTokenArgs>,
+                } as QueryOptions<QueryGetAllProjectPagesByAccessTokenArgs>,
                 {
                     query: GET_ROBBO_GROUPS_BY_ROBBO_UNIT_ID,
                     variables: {
