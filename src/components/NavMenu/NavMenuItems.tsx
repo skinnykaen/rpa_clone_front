@@ -45,6 +45,27 @@ export const NavMenuItemsStudent: NavMenuItem[] = [
     },
 ];
 
+export const NavMenuItemsTeacher: NavMenuItem[] = [
+    {
+        key:  MenuItemsKeys.MAIN_PAGE_ROUTE,
+        path: MAIN_PAGE_ROUTE,
+        label: 'Главная',
+        icon: <HomeOutlined />,
+    },
+    {
+        key: MenuItemsKeys.STUDENTS_PAGE_ROUTE,
+        path: STUDENTS_PAGE_ROUTE,
+        label: 'Ученики',
+        icon: <TeamOutlined />,
+    },
+    {
+        key: MenuItemsKeys.ROBBO_GROUPS_PAGE_ROUTE,
+        path: ROBBO_GROUPS_PAGE_ROUTE,
+        label: 'Роббо группы',
+        icon: <RobotOutlined />,
+    },
+];
+
 export const NavMenuItemsUnitAdmin: NavMenuItem[] = [
     {
         key:  MenuItemsKeys.MAIN_PAGE_ROUTE,

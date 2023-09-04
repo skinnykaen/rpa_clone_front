@@ -11,6 +11,7 @@ import { useAppSelector } from "@/store";
 import RobboGroupsTab from "./RobboGroupsTab";
 import UnitAdminsTab from "./UnitAdminsTab";
 import { Roles } from "@/models";
+import StudentsTab from "./StudentsTab";
 
 interface RobboUnitDrawerProps {
     isEditMode: boolean;
@@ -26,19 +27,6 @@ function RobboUnitDrawer({
     isEditMode,
 }: RobboUnitDrawerProps) {
     const { userRole } = useAppSelector(state => state.authReducer);
-
-    const getStudentsByRobboUnitId = useQuery<{ GetStudentsByRobboUnitId: UsersList }, QueryGetStudentsByRobboUnitIdArgs>(
-        GET_STUDENTS_BY_ROBBO_UNIT_ID,
-        {
-            onError: error => {
-                handlingGraphqlErrors(error);
-            },
-            variables: {
-                robboUnitId: String(robboUnitId),
-            },
-        },
-    );
-
     let items;
     switch (userRole) {
         case Roles.SuperAdmin:
@@ -56,14 +44,7 @@ function RobboUnitDrawer({
                 {
                     label: 'Ученики',
                     key: '3',
-                    children: <UsersListComponent
-                        isLoading={getStudentsByRobboUnitId.loading}
-                        users={getStudentsByRobboUnitId.data?.GetStudentsByRobboUnitId.users}
-                        countRows={getStudentsByRobboUnitId.data?.GetStudentsByRobboUnitId.countRows || 0}
-                        renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) =>
-                            <UnitAdminDrawer isOpen={isOpen} setOpen={setOpen} unitAdminId={userId} />
-                        }
-                    />,
+                    children: <StudentsTab robboUnitId={robboUnitId}/>
                 },
                 {
                     label: 'Курсы',
@@ -82,14 +63,7 @@ function RobboUnitDrawer({
                 {
                     label: 'Ученики',
                     key: '3',
-                    children: <UsersListComponent
-                        isLoading={getStudentsByRobboUnitId.loading}
-                        users={getStudentsByRobboUnitId.data?.GetStudentsByRobboUnitId.users}
-                        countRows={getStudentsByRobboUnitId.data?.GetStudentsByRobboUnitId.countRows || 0}
-                        renderDrawer={(isOpen: boolean, setOpen: (isOpen: boolean) => void, userId: number) =>
-                            <UnitAdminDrawer isOpen={isOpen} setOpen={setOpen} unitAdminId={userId} />
-                        }
-                    />,
+                    children: <StudentsTab robboUnitId={robboUnitId}/>,
                 },
                 {
                     label: 'Курсы',

@@ -58,7 +58,7 @@ function App() {
                             <Route
                                 path={PROFILE_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student, Roles.UnitAdmin]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student, Roles.UnitAdmin, Roles.Teacher, Roles.Parent]}>
                                         <ProfilePage />
                                     </ProtectedRoute>
                                 }
@@ -74,7 +74,7 @@ function App() {
                             <Route
                                 path={STUDENTS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
                                         <StudentsPage />
                                     </ProtectedRoute>
                                 }
@@ -130,7 +130,7 @@ function App() {
                             <Route
                                 path={ROBBO_GROUPS_PAGE_ROUTE}
                                 element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
                                         <RobboGroupsPage />
                                     </ProtectedRoute>
                                 }

@@ -8,6 +8,8 @@ import { handlingGraphqlErrors } from "@/utils";
 import { QueryGetRobboGroupsByUserIdArgs, QueryGetStudentsByTeacherIdArgs, RobboGroupHttpList, UsersList } from "@/__generated__/graphql";
 import RobboGroupsList from "@/components/RobboGroupsList";
 import RobboGroupDrawer from "../RobboGroupDrawer";
+import { useAppSelector } from "@/store";
+import { Roles } from "@/models";
 
 interface TeachersDrawerProps {
     teacherId: number;
@@ -16,6 +18,8 @@ interface TeachersDrawerProps {
 }
 
 function TeachersDrawer({ teacherId, isOpen, setOpen }: TeachersDrawerProps) {
+    const { userRole } = useAppSelector(state => state.authReducer);
+    const canEdit = userRole == Roles.SuperAdmin || userRole == Roles.UnitAdmin;
     const getStudentsResult = useQuery<{ GetStudentsByTeacherId: UsersList }, QueryGetStudentsByTeacherIdArgs>(
         GET_STUDENTS_BY_TEACHERS_ID,
         {
@@ -42,7 +46,7 @@ function TeachersDrawer({ teacherId, isOpen, setOpen }: TeachersDrawerProps) {
     return (
         <Drawer width={640} placement='right' closable={true} onClose={() => setOpen(false)} open={isOpen}>
             <Row gutter={{ xs: 16, sm: 16, md: 16, lg: 16 }}>
-                <ProfileData userId={teacherId} />
+                <ProfileData userId={teacherId} isEditMode={canEdit}/>
             </Row>
             <Tabs
                 defaultActiveKey='1'

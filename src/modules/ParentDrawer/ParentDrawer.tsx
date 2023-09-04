@@ -13,6 +13,8 @@ import { handlingGraphqlErrors } from "@/utils";
 import { CREATE_PARENT_REL, DELETE_PARENT_REL } from "@/graphql/mutations";
 import { QueryOptions } from "apollo-client";
 import { graphql } from "@apollo/client/react/hoc";
+import { useAppSelector } from "@/store";
+import { Roles } from "@/models";
 
 interface ParentDrawerProps {
     parentId: number;
@@ -21,6 +23,8 @@ interface ParentDrawerProps {
 }
 
 function ParentDrawer({ parentId, isOpen, setOpen }: ParentDrawerProps) {
+    const { userRole } = useAppSelector(state => state.authReducer);
+    const canEdit = userRole == Roles.SuperAdmin || userRole == Roles.UnitAdmin;
     const { loading, data } = useQuery<{ GetChildrenByParent: UsersList }, { parentId: string }>(
         GET_CHILDREN_BY_PARENT,
         {
@@ -89,7 +93,7 @@ function ParentDrawer({ parentId, isOpen, setOpen }: ParentDrawerProps) {
     return (
         <Drawer width={640} placement='right' closable={true} onClose={() => setOpen(false)} open={isOpen}>
             <Row gutter={{ xs: 16, sm: 16, md: 16, lg: 16 }}>
-                <ProfileData userId={parentId} />
+                <ProfileData userId={parentId} isEditMode={canEdit}/>
                 <Col xs={23} sm={23} md={23} lg={23} xl={23}>
                     <Typography.Title level={3}>Дети</Typography.Title>
                     <UsersListComponent

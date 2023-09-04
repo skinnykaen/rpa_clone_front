@@ -2,7 +2,7 @@ import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 
-import { NavMenuItems, NavMenuItemsStudent, NavMenuItemsSuperAdmin, NavMenuItemsUnitAdmin } from './NavMenuItems';
+import { NavMenuItems, NavMenuItemsStudent, NavMenuItemsSuperAdmin, NavMenuItemsTeacher, NavMenuItemsUnitAdmin } from './NavMenuItems';
 import styles from './NavMenu.module.scss';
 import { NavMenuItem } from './NavMenu.types';
 
@@ -34,6 +34,9 @@ function NavMenu() {
       break;
     case Role.UnitAdmin as string:
       menuItems = NavMenuItemsUnitAdmin;
+      break;
+    case Role.Teacher as string:
+      menuItems = NavMenuItemsTeacher;
       break;
     default:
       menuItems = NavMenuItems;
