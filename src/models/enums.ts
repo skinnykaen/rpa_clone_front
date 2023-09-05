@@ -18,3 +18,19 @@ export enum ProjectPageStatus {
     Private = 'Private',
     Banned = 'Banned'
 }
+
+export enum Language {
+    RU = 'ru',
+    EN = 'rn',
+    ZH = 'zh'
+}
+
+export type MessageDescriptor = {
+    id: string,
+    defaultMessage: string,
+    description?: string | object,
+};
+
+export type Messages = {
+    [key: string]: MessageDescriptor
+};

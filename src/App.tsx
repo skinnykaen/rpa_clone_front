@@ -1,7 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { ApolloProvider } from '@apollo/client';
+import { IntlProvider } from 'react-intl';
+import enUS from 'antd/locale/en_US'
+import ruRU from 'antd/locale/ru_RU'
+import zhCN from 'antd/locale/zh_CN'
 
+import RuMessages from '@/intl/ru.json'
+import EngMessages from '@/intl/en.json'
+import ZhMessages from '@/intl/zh.json'
 import PageLayout from '@/modules/PageLayout';
 import LoginPage from '@/pages/Login';
 import LogoutPage from '@/pages/Logout';
@@ -31,118 +38,140 @@ import {
     TEACHERS_PAGE_ROUTE,
     UNIT_ADMINS_PAGE_ROUTE,
 } from '@/consts';
-import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
 import { useAppSelector } from '@/store';
-import { Roles, Themes } from '@/models';
+import { darkThemeConfig, defaultThemeConfig } from '@/themeConfig';
+import { Language, Roles, Themes } from '@/models';
 import { graphqlClient } from '@/graphql/client';
 import ProtectedRoute from '@/hocs/ProtectedRoute';
 
 
 function App() {
     const { theme } = useAppSelector(state => state.themeReducer);
+    const { language } = useAppSelector(state => state.languageReducer);
+
+    let configLocale, intlMessages
+    switch (language) {
+        case Language.RU:
+            configLocale = ruRU;
+            intlMessages = RuMessages;
+            break;
+        case Language.EN:
+            configLocale = enUS;
+            intlMessages = EngMessages;
+            break;
+        case Language.ZH:
+            configLocale = zhCN;
+            intlMessages = ZhMessages;
+    }
+
     return (
         <ApolloProvider client={graphqlClient}>
-            <ConfigProvider theme={(theme === Themes.DARK) ? darkThemeConfig : defaultThemeConfig}>
-                <BrowserRouter>
-                    <PageLayout>
-                        <Routes>
-                            <Route
-                                path={LOGIN_PAGE_ROUTE}
-                                element={<LoginPage />}
-                            />
-                            <Route
-                                path={LOGOUT_PAGE_ROUTE}
-                                element={<LogoutPage />}
-                            />
+            <IntlProvider defaultLocale={Language.EN} locale={language} messages={intlMessages}>
+                <ConfigProvider
+                    theme={(theme === Themes.DARK) ? darkThemeConfig : defaultThemeConfig}
+                    locale={configLocale}
+                >
+                    <BrowserRouter>
+                        <PageLayout>
+                            <Routes>
+                                <Route
+                                    path={LOGIN_PAGE_ROUTE}
+                                    element={<LoginPage />}
+                                />
+                                <Route
+                                    path={LOGOUT_PAGE_ROUTE}
+                                    element={<LogoutPage />}
+                                />
 
-                            <Route
-                                path={PROFILE_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student, Roles.UnitAdmin, Roles.Teacher, Roles.Parent]}>
-                                        <ProfilePage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={PROJECTS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
-                                        <ProjectsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={STUDENTS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
-                                        <StudentsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={APP_SETTINGS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
-                                        <SettingsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={PROJECT_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
-                                        <ProjectPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={CLIENTS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
-                                        <ClientsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={TEACHERS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
-                                        <TeachersPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={UNIT_ADMINS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
-                                        <UnitAdmins />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={ROBBO_UNITS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
-                                        <RobboUnitsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={ROBBO_GROUPS_PAGE_ROUTE}
-                                element={
-                                    <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
-                                        <RobboGroupsPage />
-                                    </ProtectedRoute>
-                                }
-                            />
-                            <Route
-                                path={ACTIVATION_PAGE_ROUTE}
-                                element={<ActivationPage />}
-                            />
-                        </Routes>
-                    </PageLayout>
-                </BrowserRouter>
-            </ConfigProvider>
+                                <Route
+                                    path={PROFILE_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student, Roles.UnitAdmin, Roles.Teacher, Roles.Parent]}>
+                                            <ProfilePage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={PROJECTS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                            <ProjectsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={STUDENTS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
+                                            <StudentsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={APP_SETTINGS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                            <SettingsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={PROJECT_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.Student]}>
+                                            <ProjectPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={CLIENTS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                            <ClientsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={TEACHERS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                            <TeachersPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={UNIT_ADMINS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin]}>
+                                            <UnitAdmins />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={ROBBO_UNITS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                            <RobboUnitsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={ROBBO_GROUPS_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
+                                            <RobboGroupsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={ACTIVATION_PAGE_ROUTE}
+                                    element={<ActivationPage />}
+                                />
+                            </Routes>
+                        </PageLayout>
+                    </BrowserRouter>
+                </ConfigProvider>
+            </IntlProvider>
         </ApolloProvider >
     );
 }

@@ -1,4 +1,4 @@
-import { Divider, Layout, Row } from 'antd';
+import { Divider, Layout, Row, Space } from 'antd';
 
 import styles from './AppSider.module.scss';
 
@@ -10,6 +10,7 @@ import Profile from '@/components/ProfileMenuItem';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { useAppSelector } from '@/store';
 import { Themes } from '@/models';
+import LanguageSelect from '../LanguageSelect';
 
 const { Sider } = Layout;
 
@@ -33,7 +34,11 @@ function AppSider() {
 			<NavMenu />
 			<Divider style={{ margin: '12px 0' }} />
 			<Profile />
-			<ThemeSwitcher style={{ marginLeft: '26px', marginTop: '12px' }} />
+			<Divider style={{ margin: '12px 0' }} />
+			<Space size={'middle'} direction={'vertical'}>
+				<ThemeSwitcher style={{ marginLeft: '1rem'}} />
+				<LanguageSelect />
+			</Space>
 		</Sider>
 	);
 }
