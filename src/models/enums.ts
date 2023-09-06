@@ -21,16 +21,6 @@ export enum ProjectPageStatus {
 
 export enum Language {
     RU = 'ru',
-    EN = 'rn',
+    EN = 'en',
     ZH = 'zh'
 }
-
-export type MessageDescriptor = {
-    id: string,
-    defaultMessage: string,
-    description?: string | object,
-};
-
-export type Messages = {
-    [key: string]: MessageDescriptor
-};

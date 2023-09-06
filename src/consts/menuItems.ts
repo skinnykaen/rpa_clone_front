@@ -9,4 +9,5 @@ export enum MenuItemsKeys {
     UNIT_ADMINS_PAGE_ROUTE = '7',
     ROBBO_UNITS_PAGE_ROUTE = '8',
     ROBBO_GROUPS_PAGE_ROUTE = '9',
+    COURSES_PAGE_ROUTE = '10',
 }

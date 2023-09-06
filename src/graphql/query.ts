@@ -294,3 +294,64 @@ export const GET_STUDENTS_BY_TEACHERS_ID = gql`
         }
     }
 `;
+
+export const GET_COURSES_BY_USER_ID = gql`
+    query {
+        GetCoursesByUser{
+            results{
+                id
+                course_id
+                name
+            }
+            countRows
+        }
+    }
+`;
+
+export const GET_COURSE_BY_ID = gql`
+    query GetCourseById($id: String!) {
+        GetCourseById(id: $id) {
+                id
+                blocks_url
+                effort
+                enrollment_start
+                enrollment_end
+                end
+                name
+                number
+                org
+                short_description
+                start
+                start_display
+                start_type
+                pacing
+                mobile_available
+                hidden
+                invitation_only
+                overview
+                course_id
+                media{
+                    id
+                    banner_image {
+                        id
+                        uri
+                        uri_absolute
+                    }
+                    course_image {
+                        id
+                        uri
+                    }
+                    course_video {
+                        id
+                        uri
+                    }
+                    image {
+                        id
+                        raw
+                        small
+                        large
+                    }
+                }
+        }
+    }
+`;

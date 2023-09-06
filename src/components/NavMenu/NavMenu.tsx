@@ -9,6 +9,7 @@ import { NavMenuItem } from './NavMenu.types';
 import {
   APP_SETTINGS_PAGE_ROUTE,
   CLIENTS_PAGE_ROUTE,
+  COURSES_PAGE_ROUTE,
   MAIN_PAGE_ROUTE,
   PROJECTS_PAGE_ROUTE,
   ROBBO_GROUPS_PAGE_ROUTE,
@@ -92,6 +93,9 @@ function selectActiveKeys(pathname: string): string {
       break;
     case ROBBO_GROUPS_PAGE_ROUTE:
       selectedKeys = MenuItemsKeys.ROBBO_GROUPS_PAGE_ROUTE;
+      break;
+    case COURSES_PAGE_ROUTE:
+      selectedKeys = MenuItemsKeys.COURSES_PAGE_ROUTE;
       break;
     default:
       selectedKeys = '';

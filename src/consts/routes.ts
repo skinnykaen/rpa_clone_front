@@ -12,3 +12,4 @@ export const TEACHERS_PAGE_ROUTE = '/teachers';
 export const UNIT_ADMINS_PAGE_ROUTE = '/unit-admins';
 export const ROBBO_UNITS_PAGE_ROUTE = '/robbo-units';
 export const ROBBO_GROUPS_PAGE_ROUTE = '/robbo-groups';
+export const COURSES_PAGE_ROUTE = '/courses';

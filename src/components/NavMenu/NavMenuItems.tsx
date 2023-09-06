@@ -4,6 +4,7 @@ import {
     SettingOutlined,
     TeamOutlined,
     RobotOutlined,
+    BookOutlined,
 } from '@ant-design/icons';
 
 import { NavMenuItem } from './NavMenu.types';
@@ -11,6 +12,7 @@ import { NavMenuItem } from './NavMenu.types';
 import {
     APP_SETTINGS_PAGE_ROUTE,
     CLIENTS_PAGE_ROUTE,
+    COURSES_PAGE_ROUTE,
     MAIN_PAGE_ROUTE,
     PROJECTS_PAGE_ROUTE,
     ROBBO_GROUPS_PAGE_ROUTE,
@@ -153,6 +155,12 @@ export const NavMenuItemsSuperAdmin: NavMenuItem[] = [
         path: ROBBO_GROUPS_PAGE_ROUTE,
         label: 'Роббо группы',
         icon: <RobotOutlined />,
+    },
+    {
+        key: MenuItemsKeys.COURSES_PAGE_ROUTE,
+        path: COURSES_PAGE_ROUTE,
+        label: 'Курсы',
+        icon: <BookOutlined />,
     },
     {
         key: MenuItemsKeys.APP_SETTINGS_PAGE_ROUTE,

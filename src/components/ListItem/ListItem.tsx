@@ -1,6 +1,6 @@
-import { Modal, Typography } from 'antd';
+import { Button, Modal, Tooltip, Typography } from 'antd';
 import { useState } from 'react';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, CloseOutlined } from '@ant-design/icons';
 
 import styles from './ListItem.module.scss';
 
@@ -26,11 +26,11 @@ function ListItem({
         if (handleClick) {
             handleClick();
         }
-        if (renderDrawer){
+        if (renderDrawer) {
             console.log(isOpenDrawer);
             setOpenDrawer(!isOpenDrawer);
         }
-    }; 
+    };
     const showDeleteConfirm = () => {
         Modal.confirm({
             title: 'Вы точно хотите удалить?',
@@ -46,9 +46,8 @@ function ListItem({
             },
         });
     };
-    console.log(handleDelete);
     return (
-        <li className={styles.list_item}>
+        <div className={styles.list_item}>
             <Typography.Link className={styles.label} onClick={handleOnClick}>
                 {
                     renderLabel()
@@ -56,14 +55,14 @@ function ListItem({
             </Typography.Link >
             {
                 handleDelete &&
-                <button className={styles.delete_button} onClick={showDeleteConfirm}>
-                    ×
-                </button>
+                <Tooltip title='Удалить'>
+                    <Button icon={<CloseOutlined />} onClick={showDeleteConfirm}/>
+                </Tooltip>
             }
             {
                 renderDrawer ? renderDrawer(isOpenDrawer, setOpenDrawer, itemId) : <></>
             }
-        </li>
+        </div>
     );
 }
 

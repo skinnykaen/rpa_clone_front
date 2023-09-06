@@ -23,10 +23,12 @@ import TeachersPage from '@/pages/Teachers';
 import UnitAdmins from '@/pages/UnitAdmins';
 import RobboUnitsPage from '@/pages/RobboUnits';
 import RobboGroupsPage from '@/pages/RobboGroups';
+import CoursesPage from '@/pages/Courses';
 import {
     ACTIVATION_PAGE_ROUTE,
     APP_SETTINGS_PAGE_ROUTE,
     CLIENTS_PAGE_ROUTE,
+    COURSES_PAGE_ROUTE,
     LOGIN_PAGE_ROUTE,
     LOGOUT_PAGE_ROUTE,
     PROFILE_PAGE_ROUTE,
@@ -160,6 +162,14 @@ function App() {
                                     element={
                                         <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin, Roles.Teacher]}>
                                             <RobboGroupsPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path={COURSES_PAGE_ROUTE}
+                                    element={
+                                        <ProtectedRoute allowedRoles={[Roles.SuperAdmin, Roles.UnitAdmin]}>
+                                            <CoursesPage />
                                         </ProtectedRoute>
                                     }
                                 />

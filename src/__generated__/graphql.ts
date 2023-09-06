@@ -18,7 +18,7 @@ export type Scalars = {
 
 export type AbsoluteMediaHttp = {
   __typename?: 'AbsoluteMediaHttp';
-  id: Scalars['ID']['output'];
+  id: Scalars['String']['output'];
   uri: Scalars['String']['output'];
   uri_absolute: Scalars['String']['output'];
 };
@@ -28,7 +28,7 @@ export type CourseApiMediaCollectionHttp = {
   banner_image?: Maybe<AbsoluteMediaHttp>;
   course_image?: Maybe<MediaHttp>;
   course_video?: Maybe<MediaHttp>;
-  id: Scalars['ID']['output'];
+  id: Scalars['String']['output'];
   image?: Maybe<ImageHttp>;
 };
 
@@ -41,7 +41,7 @@ export type CourseHttp = {
   enrollment_end: Scalars['Timestamp']['output'];
   enrollment_start: Scalars['Timestamp']['output'];
   hidden: Scalars['Boolean']['output'];
-  id: Scalars['ID']['output'];
+  id: Scalars['String']['output'];
   invitation_only: Scalars['Boolean']['output'];
   media: CourseApiMediaCollectionHttp;
   mobile_available: Scalars['Boolean']['output'];
@@ -59,12 +59,13 @@ export type CourseHttp = {
 export type CoursesListHttp = {
   __typename?: 'CoursesListHttp';
   countRows: Scalars['Int']['output'];
-  courses: Array<CourseHttp>;
+  pagination: Pagination;
+  results: Array<CourseHttp>;
 };
 
 export type ImageHttp = {
   __typename?: 'ImageHttp';
-  id: Scalars['ID']['output'];
+  id: Scalars['String']['output'];
   large: Scalars['String']['output'];
   raw: Scalars['String']['output'];
   small: Scalars['String']['output'];
@@ -72,7 +73,7 @@ export type ImageHttp = {
 
 export type MediaHttp = {
   __typename?: 'MediaHttp';
-  id: Scalars['ID']['output'];
+  id: Scalars['String']['output'];
   uri: Scalars['String']['output'];
 };
 
@@ -272,6 +273,14 @@ export type NewUserResponse = {
   role: Scalars['Int']['output'];
 };
 
+export type Pagination = {
+  __typename?: 'Pagination';
+  count: Scalars['Int']['output'];
+  next: Scalars['String']['output'];
+  num_pages: Scalars['Int']['output'];
+  previous: Scalars['String']['output'];
+};
+
 export type ProjectPageHttp = {
   __typename?: 'ProjectPageHttp';
   authorId: Scalars['ID']['output'];
@@ -362,7 +371,7 @@ export type QueryGetChildrenByParentArgs = {
 
 
 export type QueryGetCourseByIdArgs = {
-  id: Scalars['ID']['input'];
+  id: Scalars['String']['input'];
 };
 
 
