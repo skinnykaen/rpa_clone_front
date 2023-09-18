@@ -43,7 +43,7 @@ function LanguageSelect() {
                 options={languages}
                 onChange={value => (onLanguageChange(value))}
             />
-            <GlobalOutlined />
+            {/* <GlobalOutlined /> */}
         </Space>
     );
 }

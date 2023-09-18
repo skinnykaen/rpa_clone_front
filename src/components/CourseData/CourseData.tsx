@@ -1,11 +1,13 @@
-
-import { Avatar, Button, Col, Row, Skeleton, Space, Tooltip, Typography } from "antd";
+import { useState } from "react";
+import { Avatar, Button, Col, Modal, Row, Skeleton, Space, Tooltip, Typography } from "antd";
 import { MailOutlined, LineChartOutlined, MoreOutlined, SelectOutlined, LockOutlined } from '@ant-design/icons';
 
-import { CourseHttp } from "@/__generated__/graphql";
+import { CourseHttp, Role } from "@/__generated__/graphql";
 import { CourseOverview } from "@/models";
 import { courseDescriptionParser } from "@/utils";
 import { EDX_TEST_COURSES_ADDRESS } from "@/consts";
+import CourseAccess from "../CourseAccess";
+import { useAppSelector } from "@/store";
 
 interface CourseDataProps {
     loading: boolean;
@@ -13,10 +15,13 @@ interface CourseDataProps {
 }
 
 function CourseData({ loading = true, data }: CourseDataProps) {
+    const [open, setOpen] = useState(false);
+    const userRole = useAppSelector(state => state.authReducer.userRole);
+
     const openCourseButtonHandler = () => {
         window.open(EDX_TEST_COURSES_ADDRESS + data?.course_id + '/about');
     };
-    
+
     const courseOverview: CourseOverview = courseDescriptionParser(data?.overview || "");
     return (
         loading ? <Skeleton avatar paragraph={{ rows: 5 }} /> :
@@ -37,10 +42,10 @@ function CourseData({ loading = true, data }: CourseDataProps) {
                                 <Button icon={<LineChartOutlined />} />
                             </Tooltip>
                             <Tooltip title='Открыть'>
-                                <Button icon={<SelectOutlined />} onClick={openCourseButtonHandler}/>
+                                <Button icon={<SelectOutlined />} onClick={openCourseButtonHandler} />
                             </Tooltip>
                             <Tooltip title='Настроить доступ'>
-                                <Button icon={<LockOutlined />} />
+                                <Button icon={<LockOutlined />} onClick={() => setOpen(true)}/>
                             </Tooltip>
                             <Tooltip title='Дополнительные ресурсы'>
                                 <Button icon={<MoreOutlined />} />
@@ -89,6 +94,16 @@ function CourseData({ loading = true, data }: CourseDataProps) {
                         </ul>
                     </Space>
                 </Row>
+                <Modal
+                    title={'Доступ к курсу'}
+                    centered
+                    open={open}
+                    onOk={() => setOpen(true)}
+                    onCancel={() => setOpen(false)}
+                    width='50%'
+                >
+                    <CourseAccess courseId={data?.course_id || ""} userRole={userRole}/>
+                </Modal>
             </Space>
     );
 }

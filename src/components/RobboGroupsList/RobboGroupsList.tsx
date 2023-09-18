@@ -1,6 +1,6 @@
 import { RobboGroupHttp, RobboUnitHttp } from "@/__generated__/graphql";
 import { WithPaginationProps, withPaginationLocal } from "@/hocs";
-import { List } from "antd";
+import { List, Typography } from "antd";
 import ListItem from "@/components/ListItem";
 
 type RobboGroupListProps = WithPaginationProps & {
@@ -43,7 +43,7 @@ function RobboGroupList({
                 <ListItem
                     index={index}
                     itemId={Number(robboGroup.id)}
-                    renderLabel={() => <>{robboGroup.robboUnit.name + ' ' + robboGroup.name}</>}
+                    renderLabel={() => <Typography.Text>{robboGroup.robboUnit.name + ' ' + robboGroup.name}</Typography.Text>}
                     renderDrawer={(isOpen, setOpen, itemId) => renderDrawer ? renderDrawer(isOpen, setOpen, Number(robboGroup.id)) : <></>}
                     handleDelete={handleDelete ? () => handleDelete(Number(robboGroup.id)) : undefined}
                     handleClick={handleOnClick ? () => handleOnClick(Number(robboGroup.id)): undefined}

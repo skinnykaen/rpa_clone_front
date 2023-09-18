@@ -1,4 +1,4 @@
-import { List } from "antd";
+import { List, Typography } from "antd";
 
 import { CoursesListHttp } from "@/__generated__/graphql";
 import { WithPaginationProps } from "@/hocs";
@@ -38,7 +38,7 @@ function CoursesList({
                 <ListItem
                     index={index}
                     itemId={Number(course.course_id)}
-                    renderLabel={() => (<>{course.name}</>)}
+                    renderLabel={() => (<Typography.Text>{course.name}</Typography.Text>)}
                     renderDrawer={(isOpen, setOpen, itemId) => renderDrawer ? renderDrawer(isOpen, setOpen, course.course_id) : <></>}
                 // handleClick={() => openProjectPage(Number(projectPage.id))}
                 // handleDelete={removal ? () => deleteProjectPage({ variables: { id: projectPage.id } }) : undefined}

@@ -1,5 +1,16 @@
 {
     "profileMenuItem.profile": "Профиль",
     "profileMenuItem.signOut": "Выйти",
-    "profileMenuItem.SignIn": "Войти"
+    "profileMenuItem.signIn": "Войти",
+
+    "navMenu.main": "Мои проекты",
+    "navMenu.projects": "Мои проекты",
+    "navMenu.courses": "Мои курсы",
+    "navMenu.clients": "Клиенты",
+    "navMenu.robbo_units": "Роббо Юниты",
+    "navMenu.robbo_groups": "Роббо Группы",
+    "navMenu.unit_admins": "Юнит админы",
+    "navMenu.teachers": "Педагоги",
+    "navMenu.settings": "Настройки"
+    
 }

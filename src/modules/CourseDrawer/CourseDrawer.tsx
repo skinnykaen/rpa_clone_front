@@ -3,7 +3,7 @@ import CourseData from "@/components/CourseData";
 import { GET_COURSE_BY_ID } from "@/graphql/query";
 import { handlingGraphqlErrors } from "@/utils";
 import { useQuery } from "@apollo/client";
-import { Drawer } from "antd";
+import { Drawer} from "antd";
 
 interface CourseDrawerProps {
     courseId: string;

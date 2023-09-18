@@ -40,9 +40,9 @@ function ProjectPagesList({
             projectPageStatus = ProjectPageStatus.Private;
         }
         return (
-            <>
+            <Typography.Text>
                 {projectPage.title + "  "}<Typography.Text code color='red'>{projectPageStatus}</Typography.Text>
-            </>
+            </Typography.Text>
         );
     };
     const [deleteProjectPage, deleteProjectPageResult] = useMutation<{ DeleteProjectPage: Response }, { id: string }>(

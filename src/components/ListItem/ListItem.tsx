@@ -48,11 +48,11 @@ function ListItem({
     };
     return (
         <div className={styles.list_item}>
-            <Typography.Link className={styles.label} onClick={handleOnClick}>
+            <Typography.Text className={styles.label} onClick={handleOnClick}>
                 {
                     renderLabel()
                 }
-            </Typography.Link >
+            </Typography.Text >
             {
                 handleDelete &&
                 <Tooltip title='Удалить'>

@@ -22,6 +22,8 @@ import {
     UNIT_ADMINS_PAGE_ROUTE,
 } from '@/consts';
 import { MenuItemsKeys } from '@/consts/menuItems';
+import { FormattedMessage } from 'react-intl';
+import { messages } from './NavMenu.messages';
 
 export const NavMenuItems: NavMenuItem[] = [
     {

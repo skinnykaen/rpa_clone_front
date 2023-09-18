@@ -1,4 +1,4 @@
-import { List } from "antd";
+import { List, Typography } from "antd";
 
 import { UserHttp } from "@/__generated__/graphql";
 import ListItem from "@/components/ListItem";
@@ -44,7 +44,7 @@ function UsersListComponent({
                 <ListItem
                     index={index}
                     itemId={Number(user.id)}
-                    renderLabel={() => <>{user.lastname} {user.firstname} {user.middlename}</>}
+                    renderLabel={() => <Typography.Text>{user.lastname} {user.firstname} {user.middlename}</Typography.Text>}
                     renderDrawer={(isOpen, setOpen, itemId) => renderDrawer ? renderDrawer(isOpen, setOpen, Number(user.id)) : <></>}
                     handleDelete={handleDelete ? () => handleDelete(Number(user.id)) : undefined}
                     handleClick={handleOnClick ? () => handleOnClick(Number(user.id)): undefined}
